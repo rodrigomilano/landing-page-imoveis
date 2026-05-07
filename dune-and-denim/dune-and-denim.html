@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARENIS PINHEIROS | Design e Exclusividade</title>
+
+    <!-- Tipografia Dune & Denim -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons para ícones de linha fina -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        :root {
+            --color-bg-deep: #16263b;
+            --color-bg-surface: #223b53;
+            --color-bg-elevated: #2a4763;
+            --color-primary: #d3643b;
+            --color-primary-dim: #a64a29;
+            --color-primary-light: #e08553;
+            --color-accent: #e8a365;
+            --color-text-title: #f2e8de;
+            --color-text-body: #cfd8e3;
+            --color-text-muted: #8ea0b5;
+            --radius-none: 0px;
+            --radius-sm: 2px;
+            --font-display: 'Bodoni Moda', serif;
+            --font-body: 'Inter', sans-serif;
+            --transition-architectural: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            --texture-sand: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.15'/%3E%3C/svg%3E");
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        body {
+            background-color: var(--color-bg-deep);
+            color: var(--color-text-body);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: linear-gradient(135deg, rgb(22, 38, 59) 0%, rgb(16, 28, 43) 100%);
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            width: 100vw;
+            height: 100vh;
+            background-image: var(--texture-sand);
+            mix-blend-mode: multiply;
+            opacity: 0.4;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0px;
+            left: 10%;
+            width: 80%;
+            height: 100%;
+            border-left: 1px solid rgba(255, 255, 255, 0.03);
+            border-right: 1px solid rgba(255, 255, 255, 0.03);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: var(--font-display);
+            color: var(--color-text-title);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: 500;
+        }
+
+        section {
+            padding: 120px 5%;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0px auto;
+        }
+
+        nav {
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            padding: 30px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: linear-gradient(to bottom, var(--color-bg-deep) 0%, transparent 100%);
+            transition: var(--transition-architectural);
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--color-text-title);
+            letter-spacing: 4px;
+        }
+
+        .logo span {
+            color: var(--color-primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            color: var(--color-text-title);
+            text-decoration: none;
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.7;
+            transition: var(--transition-architectural);
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+            color: var(--color-primary-light);
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            position: relative;
+            background: var(--color-bg-deep) url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80') no-repeat center center;
+            background-size: cover;
+            padding: 0 8%;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+            z-index: 5;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-bg-deep) 30%, rgba(22, 38, 59, 0.2) 100%);
+            z-index: 1;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            top: 0px;
+            right: 15%;
+            width: 30%;
+            height: 100%;
+            background: linear-gradient(110deg, transparent 0%, rgba(232, 163, 101, 0.1) 72%, transparent 100%);
+            transform: skewX(-20deg);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 100;
+            max-width: 800px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0s 1 normal forwards running heroFadeIn;
+        }
+
+        @keyframes heroFadeIn {
+            100% {
+                opacity: 1;
+                transform: translateY(0px);
+            }
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--color-primary);
+            color: rgb(255, 255, 255);
+            padding: 8px 16px;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 0.75rem;
+            margin-bottom: 24px;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            line-height: 0.9;
+            margin-bottom: 32px;
+            font-weight: 800;
+        }
+
+        .hero-title em {
+            font-style: normal;
+            color: var(--color-primary-light);
+            display: block;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            max-width: 500px;
+            margin-bottom: 48px;
+            font-weight: 300;
+            border-left: 2px solid var(--color-primary);
+            padding-left: 24px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 22px 48px;
+            background: var(--color-bg-surface);
+            color: var(--color-text-title);
+            text-decoration: none;
+            font-family: var(--font-display);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition-architectural);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: var(--color-text-title);
+            color: var(--color-bg-deep);
+            transform: scale(1.05);
+        }
+
+        .btn-primary {
+            background: linear-gradient(rgba(255, 255, 255, 0.15) 0%, transparent 50%, rgba(0, 0, 0, 0.1) 100%), rgba(211, 100, 59, 0.7);
+            color: var(--color-text-title);
+            border: 1px solid rgb(211, 100, 59);
+            backdrop-filter: blur(5px);
+        }
+
+        .btn-primary:hover {
+            background: var(--color-primary);
+            transform: translateY(-3px);
+            box-shadow: rgba(211, 100, 59, 0.3) 0px 10px 30px;
+            border-color: var(--color-primary-light);
+        }
+
+        .btn-outline {
+            background: linear-gradient(rgba(255, 255, 255, 0.1) 0%, transparent 50%, rgba(0, 0, 0, 0.2) 100%), rgba(34, 59, 83, 0.7);
+            color: var(--color-text-title);
+            border: 1px solid rgb(34, 59, 83);
+            backdrop-filter: blur(5px);
+        }
+
+        .concept {
+            background-color: var(--color-bg-surface);
+            background-image: linear-gradient(160deg, rgba(255, 255, 255, 0.02) 0%, rgba(0, 0, 0, 0.05) 100%);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            clip-path: polygon(0px 5%, 100% 0px, 100% 95%, 0px 100%);
+            margin: -50px 0px;
+            z-index: 5;
+        }
+
+        .concept-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 32px;
+        }
+
+        .concept-text p {
+            font-size: 1.1rem;
+            margin-bottom: 24px;
+            color: var(--color-text-body);
+        }
+
+        .concept-visual {
+            position: relative;
+            height: 600px;
+            background: url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80") center center / cover;
+            border: 10px solid var(--color-bg-deep);
+        }
+
+        .concept-visual::after {
+            content: "";
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--color-primary);
+            z-index: -1;
+        }
+
+        .amenities {
+            position: relative;
+            background: url("https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&w=1920&q=80") center center / cover no-repeat fixed;
+            overflow: hidden;
+        }
+
+        .amenities::before {
+            content: "";
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, var(--color-bg-deep) 0%, rgba(22, 38, 59, 0.85) 50%, var(--color-bg-deep) 100%);
+            z-index: 1;
+        }
+
+        .amenities .container {
+            position: relative;
+            z-index: 10;
+        }
+
+        .amenities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 64px;
+        }
+
+        .amenity-card {
+            background-color: rgba(22, 59, 83, 0.4);
+            backdrop-filter: blur(10px);
+            padding: 60px 40px;
+            transition: var(--transition-architectural);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .amenity-card::after {
+            content: "";
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 30px;
+            height: 30px;
+            border-top: 2px solid var(--color-primary);
+            border-left: 2px solid var(--color-primary);
+            opacity: 0.5;
+            transition: var(--transition-architectural);
+        }
+
+        .amenity-card:hover::after {
+            width: 50px;
+            height: 50px;
+            opacity: 1;
+        }
+
+        .amenity-card::before {
+            content: "";
+            position: absolute;
+            bottom: 0px;
+            right: 0px;
+            width: 10px;
+            height: 10px;
+            background: var(--color-primary);
+            clip-path: polygon(100% 0px, 100% 100%, 0px 100%);
+        }
+
+        .amenity-card:hover {
+            background: rgba(22, 59, 83, 0.7);
+            transform: translateY(-10px);
+            box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 60px;
+            border-color: rgba(211, 100, 59, 0.3);
+        }
+
+        .amenity-icon {
+            font-size: 2.8rem;
+            color: var(--color-primary-light);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            transition: var(--transition-architectural);
+        }
+
+        .amenity-card:hover .amenity-icon {
+            transform: scale(1.1);
+            color: var(--color-accent);
+            filter: drop-shadow(0 0 8px rgba(232, 163, 101, 0.4));
+        }
+
+        .contact {
+            background-position-x: ;
+            background-position-y: ;
+            background-size: ;
+            background-repeat: ;
+            background-attachment: ;
+            background-origin: ;
+            background-clip: ;
+            background-color: ;
+            background-image: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dim) 100%);
+            color: rgb(255, 255, 255);
+        }
+
+        .contact h2 {
+            color: rgb(255, 255, 255);
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 0px auto;
+            background: var(--color-bg-deep);
+            padding: 60px;
+            box-shadow: 40px 40px 0 var(--color-accent);
+        }
+
+        .form-group {
+            margin-bottom: 32px;
+        }
+
+        .form-label {
+            display: block;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            color: var(--color-text-muted);
+        }
+
+        .form-input {
+            width: 100%;
+            background: transparent;
+            border-top: none;
+            border-right: none;
+            border-left: none;
+            border-image: initial;
+            border-bottom: 1px solid var(--color-bg-elevated);
+            color: rgb(255, 255, 255);
+            padding: 12px 0px;
+            font-size: 1.1rem;
+            outline: none;
+            transition: var(--transition-architectural);
+        }
+
+        .form-input:focus {
+            border-bottom-color: var(--color-primary-light);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: var(--transition-architectural);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0px);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <div class="logo">ARENIS<span>.</span></div>
+        <div class="nav-links">
+            <a href="#conceito">Conceito</a>
+            <a href="#oásis">Oásis</a>
+            <a href="#contato">Visita</a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="hero">
+        <div class="hero-content">
+            <div class="badge">Lançamento Exclusivo</div>
+            <h1 class="hero-title">ARENIS<br><span>PINHEIROS</span></h1>
+            <p class="hero-subtitle">Um refúgio de arquitetura brutalista e tons orgânicos no epicentro cultural de São
+                Paulo.</p>
+            <div style="display: flex; gap: 24px;">
+                <a href="#contato" class="btn btn-primary">Agendar Visita</a>
+                <a href="#conceito" class="btn">O Conceito</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Concept -->
+    <section class="concept" id="conceito">
+        <div class="concept-text reveal">
+            <span
+                style="color: var(--color-primary); font-weight: 700; text-transform: uppercase; letter-spacing: 2px;">Arenis</span>
+            <h2>A Matéria-Prima do Luxo.</h2>
+            <p>Inspirado na dualidade entre o céu profundo do deserto e a areia moldada pelo tempo, o Arenis Pinheiros
+                utiliza concreto pigmentado e vidro azulado para criar uma fachada viva.</p>
+            <p>Cada ângulo foi planejado para capturar a luz dourada de São Paulo, transformando o edifício em uma
+                escultura urbana que respira.</p>
+        </div>
+        <div class="concept-visual reveal" style="transition-delay: 0.2s;"></div>
+    </section>
+
+    <!-- Amenities -->
+    <section class="amenities">
+        <div class="container">
+            <div style="text-align: center;" class="reveal">
+                <h2>Oásis Privado</h2>
+                <p style="color: var(--color-text-muted);">Espaços desenhados para o repouso dos sentidos.</p>
+            </div>
+            <div class="amenities-grid">
+                <div class="amenity-card reveal">
+                    <div class="amenity-icon">
+                        <i class="ph-thin ph-sun-horizon"></i>
+                    </div>
+                    <h3>SKY LOUNGE ARENIS</h3>
+                    <p>Vista 360º para o skyline de Pinheiros com ambientação em tons ocre.</p>
+                </div>
+                <div class="amenity-card reveal" style="transition-delay: 0.2s;">
+                    <div class="amenity-icon">
+                        <i class="ph-thin ph-waves"></i>
+                    </div>
+                    <h3>PISCINA DENIM</h3>
+                    <p>Águas profundas revestidas em ardósia azulada para um mergulho meditativo.</p>
+                </div>
+                <div class="amenity-card reveal" style="transition-delay: 0.4s;">
+                    <div class="amenity-icon">
+                        <i class="ph-thin ph-paint-brush-broad"></i>
+                    </div>
+                    <h3>ATELIER DE BARRO</h3>
+                    <p>Espaço criativo focado em materiais táteis e artesanais.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact" id="contato">
+        <div class="container">
+            <div class="reveal">
+                <h2>Inicie sua Jornada</h2>
+                <div class="form-container">
+                    <form>
+                        <div class="form-group">
+                            <label class="form-label">Seu Nome</label>
+                            <input type="text" class="form-input" placeholder="Arquiteto do Futuro">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">E-mail de Contato</label>
+                            <input type="email" class="form-input" placeholder="email@exemplo.com">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Interesse</label>
+                            <select class="form-input" style="background: var(--color-bg-deep); color: #fff;">
+                                <option>Studios Premium</option>
+                                <option>Penthouses Dune</option>
+                                <option>Lofts Denim</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 32px;">Solicitar
+                            Dossier</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer
+        style="padding: 60px 0; text-align: center; background: var(--color-bg-deep); border-top: 1px solid var(--color-bg-surface);">
+        <p style="font-family: var(--font-display); font-weight: 700; color: var(--color-text-title);">&copy; 2026 ARENIS
+            PINHEIROS | Arquiteto dos Pixéis</p>
+    </footer>
+
+    <script>
+        // Scroll Reveal Animation
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+
+        window.addEventListener("scroll", reveal);
+        // Trigger once on load
+        reveal();
+    </script>
+</body>
+
+</html>

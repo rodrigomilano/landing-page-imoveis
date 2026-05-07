@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura Enterprise UI - Corporate Horizon Edition</title>
+
+    <!-- Tipografia corporativa e futurista: 
+         Plus Jakarta Sans para Títulos (Elegante, encorpada)
+         Outfit para Corpo/Dados (Moderna, limpa, geométrica) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ==========================================================================
+           1. DESIGN TOKENS (Variáveis CSS) - Ouro Corporativo e Vidro Fumado
+           ========================================================================== */
+        :root {
+            /* Paleta de Cores: Ouro, Âmbar, Preto e Reflexos Claros */
+            --color-bg-deep: #0a0600;
+            /* Fundo escuro aquecido */
+            --color-bg-glass: rgba(15, 10, 5, 0.6);
+            /* Vidro fumado escuro */
+            --color-bg-glass-light: rgba(255, 204, 0, 0.05);
+            /* Reflexo dourado interior */
+
+            --color-primary: #ffcc00;
+            /* Dourado Corporativo */
+            --color-primary-glow: rgba(255, 204, 0, 0.4);
+            --color-primary-dim: rgba(255, 204, 0, 0.15);
+
+            --color-eco: #ffaa00;
+            /* Tom de transição (Âmbar) */
+            --color-eco-glow: rgba(255, 170, 0, 0.4);
+
+            --color-metal: #ffe680;
+            /* Ouro claro para realces */
+            --color-metal-dark: #332200;
+            /* Sombra profunda dourada */
+
+            --color-text-title: #ffffff;
+            /* Branco puro para contraste */
+            --color-text-body: #e6d9cc;
+            /* Bege suave */
+            --color-text-muted: #998877;
+            /* Dourado acinzentado */
+
+            /* Curvaturas suaves (Substituindo os chanfros sci-fi) */
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-pill: 50px;
+
+            /* Bordas Metálicas e Reflexos (Estilo Apple/Premium Glass) */
+            --border-glass: 1px solid rgba(255, 204, 0, 0.2);
+            --border-glass-top: 1px solid rgba(255, 255, 255, 0.4);
+            /* Reflexo forte no topo */
+
+            /* Efeitos de Vidro e Profundidade */
+            --glass-blur: blur(24px);
+            --shadow-hologram: 0 0 20px var(--color-primary-glow), inset 0 0 15px var(--color-primary-dim);
+            --shadow-glass: 0 20px 40px rgba(0, 0, 0, 0.8), inset 0 2px 20px rgba(255, 204, 0, 0.05);
+
+            /* Tipografia */
+            --font-display: 'Plus Jakarta Sans', sans-serif;
+            --font-body: 'Outfit', sans-serif;
+            --font-mono: 'Outfit', sans-serif;
+
+            /* Espaçamentos */
+            --space-xs: 8px;
+            --space-sm: 16px;
+            --space-md: 24px;
+            --space-lg: 48px;
+            --space-xl: 80px;
+
+            /* Transição suave e luxuosa */
+            --transition-snappy: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --transition-btn: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* ==========================================================================
+           2. BASE, RESET & BACKGROUND (Horizonte Dourado)
+           ========================================================================== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--color-bg-deep);
+            color: var(--color-text-body);
+            font-family: var(--font-body);
+            font-size: 1.1rem;
+            font-weight: 300;
+            line-height: 1.6;
+            overflow-x: hidden;
+
+            /* Horizonte brilhante ao fundo para simular a cidade iluminada */
+            background-image:
+                radial-gradient(ellipse at 50% 100%, rgba(255, 170, 0, 0.15) 0%, transparent 70%),
+                linear-gradient(to bottom, #050300 0%, #140a00 100%);
+            background-attachment: fixed;
+        }
+
+        /* Efeito de feixes de luz no fundo */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background:
+                linear-gradient(90deg, rgba(255, 204, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(rgba(255, 204, 0, 0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: -1;
+            transform: perspective(1000px) rotateX(60deg) translateY(-100px) translateZ(-200px);
+            opacity: 0.5;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: var(--font-display);
+            color: var(--color-text-title);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        a {
+            color: var(--color-primary);
+            text-decoration: none;
+            transition: var(--transition-snappy);
+        }
+
+        a:hover {
+            color: var(--color-metal);
+            text-shadow: 0 0 15px var(--color-primary-glow);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-xl) var(--space-md);
+        }
+
+        /* --------------------------------------------------------------------------
+           MIXIN: PAINEL DE VIDRO (GLASSMORPHISM) - Luxo Arredondado
+           -------------------------------------------------------------------------- */
+        .glass-panel {
+            position: relative;
+            background: linear-gradient(160deg, rgba(30, 20, 10, 0.8) 0%, rgba(5, 3, 0, 0.9) 100%);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: var(--border-glass);
+            border-top: var(--border-glass-top);
+            /* Linha de luz forte no topo */
+            border-radius: var(--radius-lg);
+            /* Cantos suaves e arredondados */
+            box-shadow: var(--shadow-glass);
+            padding: var(--space-lg);
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        /* Removido o ::before e ::after que faziam as molduras sci-fi cortadas */
+        /* Adicionando um brilho interno suave no fundo do painel */
+        .glass-panel::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(to top, rgba(255, 204, 0, 0.03), transparent);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .ds-panel {
+            margin-bottom: var(--space-xl);
+        }
+
+        .ds-section-title {
+            font-size: 1.6rem;
+            margin-bottom: var(--space-md);
+            position: relative;
+            display: inline-block;
+            color: var(--color-metal);
+            text-shadow: 0 0 20px rgba(255, 204, 0, 0.3);
+            font-weight: 500;
+        }
+
+        .ds-section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--color-primary);
+            border-radius: var(--radius-pill);
+            box-shadow: 0 0 10px var(--color-primary-glow);
+        }
+
+        /* ==========================================================================
+           3. HERO SECTION (Vista Corporativa Dourada)
+           ========================================================================== */
+        .hero {
+            padding: var(--space-xl) 5%;
+            margin-bottom: var(--space-lg);
+            position: relative;
+            border-bottom: 1px solid rgba(255, 204, 0, 0.2);
+            background: radial-gradient(ellipse at 50% 0%, rgba(255, 204, 0, 0.1) 0%, transparent 70%);
+            border-radius: var(--radius-lg);
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            line-height: 1.1;
+            color: var(--color-text-title);
+            margin-bottom: var(--space-sm);
+            text-shadow: 0 10px 30px rgba(255, 204, 0, 0.2);
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-title span {
+            color: var(--color-primary);
+            background: linear-gradient(to right, #ffe680, #ffaa00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            font-weight: 300;
+            color: var(--color-text-body);
+            max-width: 650px;
+            margin-bottom: var(--space-lg);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ==========================================================================
+           4. TIPOGRAFIA
+           ========================================================================== */
+        .type-specimen {
+            margin-bottom: var(--space-md);
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .type-specimen label {
+            display: block;
+            color: var(--color-primary);
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .type-h1 {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--color-text-title);
+        }
+
+        .type-h2 {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: var(--color-text-title);
+        }
+
+        .type-body {
+            font-family: var(--font-body);
+            font-size: 1.1rem;
+            color: var(--color-text-body);
+        }
+
+        .type-marker {
+            font-family: var(--font-mono);
+            font-size: 1.1rem;
+            color: var(--color-metal);
+            text-shadow: 0 0 15px var(--color-primary-glow);
+            font-weight: 500;
+        }
+
+        /* ==========================================================================
+           5. PALETA DE CORES (Luxo Corporativo)
+           ========================================================================== */
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: var(--space-md);
+        }
+
+        .color-swatch {
+            height: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-xs);
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--color-text-title);
+            text-align: center;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .bg-deep {
+            background: var(--color-bg-deep);
+            border-color: var(--color-metal-dark);
+        }
+
+        .bg-glass {
+            background: rgba(20, 15, 5, 0.8);
+            backdrop-filter: var(--glass-blur);
+        }
+
+        .bg-primary {
+            background: var(--color-primary);
+            color: #000;
+            box-shadow: var(--shadow-hologram);
+        }
+
+        .bg-metal {
+            background: var(--color-metal);
+            color: #000;
+        }
+
+        .bg-eco {
+            background: var(--color-eco);
+            color: #000;
+            box-shadow: 0 0 15px var(--color-eco-glow);
+        }
+
+        /* ==========================================================================
+           6. BOTÕES E ESTADOS - Pílulas Iluminadas
+           ========================================================================== */
+        .btn-grid {
+            display: flex;
+            gap: var(--space-md);
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .btn {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(0, 0, 0, 0.6) 100%);
+            backdrop-filter: blur(8px);
+            color: var(--color-text-title);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 12px 32px;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            transition: var(--transition-btn);
+            outline: none;
+            border: 1px solid rgba(255, 204, 0, 0.3);
+            border-top: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: var(--radius-pill);
+            /* Formato pílula da imagem de referência */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            background: rgba(255, 204, 0, 0.1);
+            color: #fff;
+            border-color: var(--color-primary);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6), inset 0 0 20px var(--color-primary-dim);
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ffcc00 0%, #ff8800 100%);
+            color: #000;
+            border: none;
+            border-top: 1px solid rgba(255, 255, 255, 0.6);
+            font-weight: 600;
+            box-shadow: 0 10px 25px rgba(255, 170, 0, 0.4);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #ffe680 0%, #ffaa00 100%);
+            color: #000;
+            box-shadow: 0 15px 35px rgba(255, 170, 0, 0.6);
+        }
+
+        .btn-arrow {
+            /* Removido o clip-path de seta, adaptando para corporativo */
+            border-radius: var(--radius-pill);
+            padding-right: 25px;
+        }
+
+        .btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            border-color: rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.5);
+            color: var(--color-text-muted);
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* ==========================================================================
+           7. ELEMENTOS DE INTERAÇÃO
+           ========================================================================== */
+
+        /* 7.1 Abas (Navegação Superior Flutuante) */
+        .tabs-nav {
+            display: inline-flex;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 204, 0, 0.15);
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: var(--radius-pill);
+            padding: 4px;
+            margin-bottom: var(--space-md);
+            backdrop-filter: var(--glass-blur);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--color-text-muted);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition-btn);
+            padding: 10px 24px;
+            border-radius: var(--radius-pill);
+        }
+
+        .tab-btn:hover {
+            color: var(--color-text-title);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .tab-btn.active {
+            color: #000;
+            background: linear-gradient(180deg, #ffe680 0%, #ffaa00 100%);
+            box-shadow: 0 4px 15px rgba(255, 170, 0, 0.4);
+            font-weight: 600;
+        }
+
+        .tab-content {
+            display: none;
+            padding: var(--space-sm) 0;
+            animation: fadeSlideUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeSlideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 7.2 Accordion */
+        .accordion-item {
+            border: 1px solid rgba(255, 204, 0, 0.15);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-md);
+            margin-bottom: 12px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(0, 0, 0, 0.4) 100%);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            width: 100%;
+            text-align: left;
+            background: transparent;
+            border: none;
+            color: var(--color-text-title);
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            padding: 20px 24px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition-snappy);
+        }
+
+        .accordion-header:hover {
+            background: rgba(255, 204, 0, 0.05);
+        }
+
+        .accordion-header span {
+            color: var(--color-primary);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .accordion-header.active {
+            border-bottom: 1px solid rgba(255, 204, 0, 0.1);
+            color: var(--color-metal);
+        }
+
+        .accordion-header.active span {
+            transform: rotate(180deg);
+        }
+
+        .accordion-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            color: var(--color-text-body);
+        }
+
+        .accordion-body p {
+            padding: 20px 24px;
+        }
+
+        /* 7.3 Modal (Hologram Popup Corporativo) */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(5, 2, 0, 0.8);
+            backdrop-filter: blur(12px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition-snappy);
+            z-index: 1000;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-box {
+            width: 90%;
+            max-width: 450px;
+            transform: scale(0.95) translateY(20px);
+            opacity: 0;
+            transition: var(--transition-btn);
+            /* Mesmos estilos de glass-panel */
+            background: linear-gradient(160deg, rgba(30, 20, 10, 0.9) 0%, rgba(5, 3, 0, 0.95) 100%);
+            border: var(--border-glass);
+            border-top: var(--border-glass-top);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9), inset 0 2px 20px rgba(255, 204, 0, 0.05);
+            padding: var(--space-lg);
+        }
+
+        .modal-overlay.active .modal-box {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: transparent;
+            border: none;
+            color: var(--color-text-muted);
+            font-family: var(--font-body);
+            font-weight: 300;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 10;
+            transition: var(--transition-btn);
+        }
+
+        .modal-close:hover {
+            color: var(--color-primary);
+        }
+
+        /* 7.4 Formulário */
+        .form-group {
+            margin-bottom: var(--space-md);
+        }
+
+        .form-label {
+            display: block;
+            font-family: var(--font-display);
+            color: var(--color-text-body);
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .form-input {
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 204, 0, 0.2);
+            border-top: 1px solid rgba(0, 0, 0, 0.8);
+            border-radius: var(--radius-md);
+            color: var(--color-text-title);
+            padding: 16px 20px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            transition: var(--transition-snappy);
+            outline: none;
+            box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .form-input:focus {
+            background-color: rgba(255, 204, 0, 0.05);
+            border-color: var(--color-primary);
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 204, 0, 0.2);
+        }
+
+        /* 7.5 Elementos de Mapa / Inventário (Cards arredondados da referência) */
+        .inventory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+        }
+
+        .inventory-item {
+            aspect-ratio: 16/10;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(0, 0, 0, 0.6) 100%), rgba(20, 15, 10, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 204, 0, 0.2);
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            transition: var(--transition-btn);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-metal);
+            position: relative;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
+            overflow: hidden;
+        }
+
+        .inventory-item:hover {
+            border-color: var(--color-primary);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), inset 0 0 30px rgba(255, 204, 0, 0.1);
+            transform: translateY(-4px);
+            color: var(--color-text-title);
+        }
+
+        .inventory-item span {
+            font-family: var(--font-display);
+            font-weight: 500;
+            font-size: 1.1rem;
+            margin-top: 12px;
+            z-index: 2;
+        }
+
+        /* Ícone interno das cartas */
+        .inventory-item .holo-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 204, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: var(--transition-btn);
+            z-index: 2;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .inventory-item:hover .holo-icon {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+            background: rgba(255, 204, 0, 0.1);
+            box-shadow: 0 0 15px var(--color-primary-glow);
+        }
+
+        /* 7.7 Badges / Tags (Corporate Status) */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(255, 204, 0, 0.1);
+            color: var(--color-primary);
+            font-family: var(--font-body);
+            font-weight: 500;
+            font-size: 0.85rem;
+            padding: 6px 16px;
+            border: 1px solid rgba(255, 204, 0, 0.3);
+            border-radius: var(--radius-pill);
+            letter-spacing: 0.5px;
+        }
+
+        .badge.eco {
+            background: rgba(255, 170, 0, 0.1);
+            color: var(--color-eco);
+            border-color: rgba(255, 170, 0, 0.3);
+        }
+
+        .badge::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: currentColor;
+            margin-right: 8px;
+            border-radius: 50%;
+            box-shadow: 0 0 8px currentColor;
+        }
+
+        /* ==========================================================================
+           8. DECORAÇÕES E LINHAS
+           ========================================================================== */
+        .line-thick {
+            border-top: 1px solid rgba(255, 204, 0, 0.4);
+            width: 100%;
+            position: relative;
+            box-shadow: 0 2px 10px rgba(255, 204, 0, 0.2);
+        }
+
+        .line-dashed {
+            border-top: 1px dashed rgba(255, 255, 255, 0.2);
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 1. Hero Section -->
+    <header class="hero glass-panel" style="margin: var(--space-lg) auto; max-width: 1200px;">
+        <h1 class="hero-title">Aura <span>Enterprise</span></h1>
+        <p class="hero-subtitle">Soluções Futuristas para o Seu Negócio. Um ecossistema de gestão corporativa banhado a
+            luz, reflexos dourados e transparência absoluta.</p>
+        <div style="display:flex; gap:15px; margin-top: 20px;">
+            <button class="btn btn-primary"
+                onclick="document.getElementById('docs').scrollIntoView({behavior:'smooth'})">Saiba Mais</button>
+            <span class="badge eco" style="align-self: center;">Sistemas Online</span>
+        </div>
+    </header>
+
+    <div class="container" id="docs">
+
+        <!-- Documentação Intro -->
+        <div class="ds-panel glass-panel">
+            <h2 class="ds-section-title">00. Visão Executiva</h2>
+            <p>Este sistema visual eleva as interfaces corporativas a um novo patamar de luxo digital. Utilizando <span
+                    class="type-marker">Glassmorphism Avançado</span>, cantos perfeitamente arredondados e bordas que
+                refratam luz dourada. A estrutura original foi preservada, mas a sua pele é agora feita de prestígio.
+            </p>
+        </div>
+
+        <!-- 2. Tipografia -->
+        <section class="ds-panel glass-panel">
+            <h2 class="ds-section-title">01. Dados Tipográficos</h2>
+            <div class="type-specimen">
+                <label>Display / Plus Jakarta Sans - Bold</label>
+                <div class="type-h1">Estratégia Global</div>
+            </div>
+            <div class="type-specimen">
+                <label>Display / Plus Jakarta Sans - Medium</label>
+                <div class="type-h2">Menu de Soluções</div>
+            </div>
+            <div class="type-specimen">
+                <label>Interface / Outfit - Light</label>
+                <div class="type-body">A tipografia Outfit confere um aspeto limpo, legível e excecionalmente moderno
+                    para painéis de leitura densa e dashboards financeiros.</div>
+            </div>
+        </section>
+
+        <!-- 3. Paleta de Cores -->
+        <section class="ds-panel glass-panel">
+            <h2 class="ds-section-title">02. Espectro Corporativo</h2>
+            <div class="color-grid">
+                <div class="color-swatch bg-deep">Dark Horizon<br>#0A0600</div>
+                <div class="color-swatch bg-glass">Smoked Glass<br>RGBA</div>
+                <div class="color-swatch bg-primary">Corporate Gold<br>#FFCC00</div>
+                <div class="color-swatch bg-metal">Light Amber<br>#FFE680</div>
+                <div class="color-swatch bg-eco">Warm Accent<br>#FFAA00</div>
+            </div>
+        </section>
+
+        <!-- 4. Botões e Estados -->
+        <section class="ds-panel glass-panel">
+            <h2 class="ds-section-title">03. Ações Corporativas</h2>
+            <div class="btn-grid">
+                <button class="btn">Mais Detalhes</button>
+                <button class="btn btn-primary">Começar Agora</button>
+                <button class="btn btn-arrow">Próximo Passo</button>
+                <button class="btn" disabled>Acesso Restrito</button>
+            </div>
+        </section>
+
+        <!-- 5. Elementos de Interação -->
+        <section class="ds-panel glass-panel">
+            <h2 class="ds-section-title">04. Hub de Soluções</h2>
+
+            <!-- Tags & Listas -->
+            <div style="margin-bottom: var(--space-lg); display: flex; gap: 20px; flex-wrap: wrap;">
+                <span class="badge">Performance High-End</span>
+                <span class="badge" style="filter: hue-rotate(15deg);">Analytics</span>
+                <span class="badge eco">Parceria Global</span>
+            </div>
+
+            <!-- Abas (Header NavBar) -->
+            <div style="margin-bottom: var(--space-lg);">
+                <div class="tabs-nav">
+                    <button class="tab-btn active" data-target="tab1">CONSULTORIA</button>
+                    <button class="tab-btn" data-target="tab2">TECNOLOGIA</button>
+                    <button class="tab-btn" data-target="tab3">DESENVOLVIMENTO</button>
+                    <button class="tab-btn" data-target="tab4">SOBRE</button>
+                </div>
+                <div class="tab-content active" id="tab1">
+                    <h3 class="type-h2" style="font-size: 1.5rem; margin-bottom: 10px;">Aconselhamento Estratégico</h3>
+                    <p>Orientamos o seu negócio pelas vias mais complexas do mercado financeiro e corporativo global,
+                        iluminando oportunidades ocultas.</p>
+                </div>
+                <div class="tab-content" id="tab2">
+                    <p>Infraestruturas em nuvem otimizadas e algoritmos de processamento de dados ultrarrápidos para o
+                        amanhã.</p>
+                </div>
+                <div class="tab-content" id="tab3">
+                    <p>Criamos as novas versões e arquiteturas dos seus softwares corporativos, sem interrupções de
+                        serviço.</p>
+                </div>
+                <div class="tab-content" id="tab4">
+                    <p>Sede central no Distrito Financeiro de Nova Esperança. Conectando mentes e tecnologia desde o ano
+                        2042.</p>
+                </div>
+            </div>
+
+            <!-- Accordion -->
+            <div style="margin-bottom: var(--space-lg);">
+                <div class="accordion-item">
+                    <button class="accordion-header">Relatório Trimestral <span>▼</span></button>
+                    <div class="accordion-body">
+                        <p>A rentabilidade dos setores integrados aumentou exponencialmente. Verifique o dashboard para
+                            gráficos detalhados. <br><br><span class="type-marker"
+                                style="color:var(--color-primary);">CRESCIMENTO DE 43.8%</span></p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header">Agendar Reunião Executiva <span>▼</span></button>
+                    <div class="accordion-body">
+                        <p>O calendário dos nossos arquitetos de soluções está disponível. Pretende agendar uma consulta
+                            virtual?</p>
+                        <button class="btn btn-primary" style="margin-top: 15px;" onclick="openModal()">Abrir
+                            Calendário</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formulário -->
+            <div style="margin-bottom: var(--space-lg); max-width: 400px;">
+                <div class="form-group">
+                    <label class="form-label">ID Corporativo</label>
+                    <input type="text" class="form-input" placeholder="Ex: EMP-7442">
+                </div>
+            </div>
+
+            <!-- Inventário / Galeria (Grid) -->
+            <div>
+                <h3 class="ds-section-title" style="font-size: 1.2rem;">_Módulos de Gestão</h3>
+                <div class="inventory-grid">
+                    <div class="inventory-item">
+                        <div class="holo-icon">💼</div>
+                        <span>CONSULTORIA</span>
+                    </div>
+                    <div class="inventory-item">
+                        <div class="holo-icon">📈</div>
+                        <span>ANÁLISE</span>
+                    </div>
+                    <div class="inventory-item">
+                        <div class="holo-icon" style="color:var(--color-eco); border-color:rgba(255, 170, 0, 0.4);">🌐
+                        </div>
+                        <span style="color:var(--color-text-title);">EXPANSÃO</span>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- 6. Texturas e Padrões -->
+        <section class="ds-panel glass-panel">
+            <h2 class="ds-section-title">05. Elementos Estruturais</h2>
+            <div style="display:flex; flex-direction:column; gap:30px; margin-top:20px;">
+                <div>
+                    <label class="form-label">Linha Guia Dourada (Destaque)</label>
+                    <div class="line-thick"></div>
+                </div>
+                <div>
+                    <label class="form-label">Separação de Dados (Secundária)</label>
+                    <div class="line-dashed"></div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Estrutura do Modal Corporativo -->
+    <div class="modal-overlay" id="myModal">
+        <div class="glass-panel modal-box">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <h3 class="type-h2" style="margin-bottom: 15px; color: var(--color-primary); font-size:1.8rem;">Acesso
+                Seguro</h3>
+            <p style="font-size: 1.1rem; font-weight: 300;">Por favor, confirme as suas credenciais para aceder ao
+                portal executivo. A ligação está criptografada através da nossa rede privada.</p>
+            <div style="margin-top: 30px; display:flex; gap:10px;">
+                <button class="btn btn-primary" onclick="closeModal()">Autenticar</button>
+                <button class="btn" onclick="closeModal()">Sair</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript para Interações -->
+    <script>
+        // 1. TABS
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetId = btn.dataset.target;
+                const targetElement = document.getElementById(targetId);
+
+                if (targetElement) {
+                    // Remover active de todos
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+
+                    // Adicionar classe ativa
+                    btn.classList.add('active');
+                    targetElement.classList.add('active');
+                }
+            });
+        });
+
+        // 2. ACCORDION
+        const accHeaders = document.querySelectorAll('.accordion-header');
+        accHeaders.forEach(header => {
+            header.addEventListener('click', () => {
+                header.classList.toggle('active');
+                const body = header.nextElementSibling;
+
+                if (body) {
+                    if (header.classList.contains('active')) {
+                        body.style.maxHeight = body.scrollHeight + "px";
+                    } else {
+                        body.style.maxHeight = 0;
+                    }
+                }
+            });
+        });
+
+        // 3. MODAL
+        const modal = document.getElementById('myModal');
+        function openModal() {
+            if (modal) modal.classList.add('active');
+        }
+        function closeModal() {
+            if (modal) modal.classList.remove('active');
+        }
+
+        if (modal) {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal();
+            });
+        }
+    </script>
+</body>
+
+</html>
