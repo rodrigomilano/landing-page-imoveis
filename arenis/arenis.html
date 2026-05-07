@@ -9,8 +9,10 @@
     <!-- Tipografia Dune & Denim -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&display=swap"
+        rel="stylesheet">
+
     <!-- Phosphor Icons para ícones de linha fina -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
@@ -584,8 +586,20 @@
 
         .galeria-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 16px;
+        }
+
+        @media (max-width: 992px) {
+            .galeria-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .galeria-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         .galeria-item {
@@ -653,8 +667,8 @@
         .lightbox-content {
             max-width: 85%;
             max-height: 85%;
-            box-shadow: 0 40px 100px rgba(0,0,0,0.5);
-            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             transform: scale(0.9);
             transition: var(--transition-architectural);
         }
@@ -789,21 +803,26 @@
     <section id="section-tipos">
         <div class="container">
             <div style="text-align: left; margin-bottom: 80px;" class="reveal">
-                <span style="color: var(--color-primary); font-weight: 700; text-transform: uppercase; letter-spacing: 2px;">Tipologias</span>
+                <span
+                    style="color: var(--color-primary); font-weight: 700; text-transform: uppercase; letter-spacing: 2px;">Tipologias</span>
                 <h2 style="margin-top: 10px;">Dimensões do Bem-Viver</h2>
             </div>
             <div class="tipos-grid">
                 <div class="tipo-item reveal">
                     <h3>Arenis Essenza — 128 m²</h3>
-                    <p>“A expressão pura do equilíbrio. Planta inteligente, ambientes amplos e integração fluida entre living, cozinha e varanda. Ideal para quem busca conforto contemporâneo sem excessos.”</p>
+                    <p>“A expressão pura do equilíbrio. Planta inteligente, ambientes amplos e integração fluida entre
+                        living, cozinha e varanda. Ideal para quem busca conforto contemporâneo sem excessos.”</p>
                 </div>
                 <div class="tipo-item reveal" style="transition-delay: 0.2s;">
                     <h3>Arenis Magnitude — 168 m²</h3>
-                    <p>“Para quem deseja amplitude como assinatura. Living expandido, suíte master generosa e espaços que valorizam a convivência. Um apartamento que se impõe pela presença e pela elegância.”</p>
+                    <p>“Para quem deseja amplitude como assinatura. Living expandido, suíte master generosa e espaços
+                        que valorizam a convivência. Um apartamento que se impõe pela presença e pela elegância.”</p>
                 </div>
                 <div class="tipo-item reveal" style="transition-delay: 0.4s;">
                     <h3>Arenis Altus Duplex — 245 m²</h3>
-                    <p>“A cobertura que redefine o alto padrão. Dois pavimentos conectados por uma escada escultural, terraço panorâmico e áreas sociais que se abrem para a vista da cidade. Um refúgio vertical para viver o extraordinário.”</p>
+                    <p>“A cobertura que redefine o alto padrão. Dois pavimentos conectados por uma escada escultural,
+                        terraço panorâmico e áreas sociais que se abrem para a vista da cidade. Um refúgio vertical para
+                        viver o extraordinário.”</p>
                 </div>
             </div>
         </div>
@@ -846,21 +865,25 @@
                 <h2 style="margin-bottom: 16px;">Galeria de Fotos</h2>
                 <p style="color: var(--color-text-muted);">A estética Arenis em cada detalhe.</p>
             </div>
-            
+
             <div class="galeria-group reveal">
                 <h3>Apartamentos</h3>
                 <div class="galeria-grid">
                     <div class="galeria-item">
-                        <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80" alt="Interior Apartamento 1">
+                        <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80"
+                            alt="Interior Apartamento 1">
                     </div>
                     <div class="galeria-item">
-                        <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=800&q=80" alt="Interior Apartamento 2">
+                        <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=800&q=80"
+                            alt="Interior Apartamento 2">
                     </div>
                     <div class="galeria-item">
-                        <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80" alt="Interior Apartamento 3">
+                        <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80"
+                            alt="Interior Apartamento 3">
                     </div>
                     <div class="galeria-item">
-                        <img src="https://images.unsplash.com/photo-1600210491892-03d54c0aaf87?auto=format&fit=crop&w=800&q=80" alt="Interior Apartamento 4">
+                        <img src="https://images.unsplash.com/photo-1600210491892-03d54c0aaf87?auto=format&fit=crop&w=800&q=80"
+                            alt="Interior Apartamento 4">
                     </div>
                     <div class="galeria-item">
                         <img src="assets/apartamento_1.png" alt="Interior Apartamento 5">
@@ -875,16 +898,23 @@
                 <h3>Áreas Comuns</h3>
                 <div class="galeria-grid">
                     <div class="galeria-item">
-                        <img src="https://images.unsplash.com/photo-1582719478250-c89cae4df85b?auto=format&fit=crop&w=800&q=80" alt="Área Comum 1">
+                        <img src="assets/area_comum_1.png" alt="Área Comum 1">
                     </div>
                     <div class="galeria-item">
-                        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80" alt="Área Comum 2">
+                        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80"
+                            alt="Área Comum 2">
                     </div>
                     <div class="galeria-item">
-                        <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80" alt="Área Comum 3">
+                        <img src="assets/area_comum_3.png" alt="Área Comum 3">
                     </div>
                     <div class="galeria-item">
-                        <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=800&q=80" alt="Área Comum 4">
+                        <img src="assets/area_comum_4.png" alt="Área Comum 4">
+                    </div>
+                    <div class="galeria-item">
+                        <img src="assets/area_comum_5.png" alt="Área Comum 5">
+                    </div>
+                    <div class="galeria-item">
+                        <img src="assets/area_comum_6.png" alt="Área Comum 6">
                     </div>
                 </div>
             </div>
@@ -924,7 +954,8 @@
 
     <footer
         style="padding: 60px 0; text-align: center; background: var(--color-bg-deep); border-top: 1px solid var(--color-bg-surface);">
-        <p style="font-family: var(--font-display); font-weight: 700; color: var(--color-text-title);">&copy; 2026 ARENIS
+        <p style="font-family: var(--font-display); font-weight: 700; color: var(--color-text-title);">&copy; 2026
+            ARENIS
             PINHEIROS | Arquiteto dos Pixéis</p>
     </footer>
 
@@ -959,7 +990,7 @@
         const lightboxImg = lightbox.querySelector('img');
         const nextBtn = document.getElementById('next-btn');
         const prevBtn = document.getElementById('prev-btn');
-        
+
         let currentGroup = [];
         let currentIndex = 0;
 
@@ -974,7 +1005,7 @@
         const openLightbox = (src, group) => {
             currentGroup = group;
             currentIndex = currentGroup.indexOf(src);
-            
+
             lightboxImg.src = src;
             lightbox.style.display = 'flex';
             setTimeout(() => {
