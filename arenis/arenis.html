@@ -608,6 +608,46 @@
             overflow: hidden;
             position: relative;
             cursor: pointer;
+            transition: var(--transition-architectural);
+            display: block; /* Garante que ocupe a largura total e não centralize */
+        }
+
+        /* Linha lateral elegante na galeria */
+        .galeria-item::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0 !important;
+            width: 1px;
+            height: 100%;
+            background: rgba(201, 141, 82, 0.2);
+            transition: var(--transition-architectural);
+            z-index: 3;
+        }
+
+        .galeria-item:hover::before {
+            background: var(--color-primary);
+            box-shadow: 0 0 15px var(--color-primary);
+            width: 2px;
+        }
+
+        /* Brilho suave no hover */
+        .galeria-item::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 40%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(201, 141, 82, 0.1) 0%, transparent 100%);
+            opacity: 0;
+            transition: var(--transition-architectural);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .galeria-item:hover::after {
+            opacity: 1;
         }
 
         .galeria-item img {
@@ -722,6 +762,51 @@
 
         .planta-card {
             cursor: pointer;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            section {
+                padding: 60px 5%;
+            }
+
+            .concept {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                margin: 0;
+                clip-path: none;
+            }
+
+            .concept-visual {
+                height: 400px;
+            }
+
+            .concept-text h2 {
+                font-size: 2rem;
+            }
+
+            .hero-title {
+                font-size: 3.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+                padding-left: 15px;
+            }
+
+            .hero {
+                justify-content: center;
+                text-align: center;
+                clip-path: none;
+            }
+
+            .hero-subtitle {
+                margin: 0 auto 48px auto;
+            }
+
+            .nav-links {
+                display: none; /* Esconde menu simples no mobile para foco no CTA */
+            }
         }
     </style>
 </head>
