@@ -54,50 +54,112 @@
             text-transform: uppercase;
         }
 
-        nav {
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            width: 100%;
+            max-width: 900px;
+            padding: 1rem;
+        }
+
+        .project-card {
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
-            width: 100%;
-            max-width: 400px;
-        }
-
-        a {
-            display: block;
+            justify-content: flex-end;
             text-decoration: none;
             color: var(--color-text);
-            font-weight: 800;
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            padding: 1.5rem;
+            height: 350px;
             border: 1px solid rgba(140, 163, 188, 0.15);
-            text-align: center;
-            transition: all 0.3s ease;
             position: relative;
-            background: rgba(24, 35, 48, 0.3);
+            overflow: hidden;
+            background-image: var(--bg-image);
+            background-size: cover;
+            background-position: top left;
+            background-clip: padding-box; /* Impede que a imagem sangre por baixo da borda */
+            transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            background-color: #182330; /* Cor de fundo escura/azulada */
         }
 
-        a:hover {
-            border-color: var(--color-accent);
+        /* Overlay com opacidade total aumentada */
+        .project-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(10, 17, 24, 0.4) 0%, rgba(10, 17, 24, 0.98) 100%);
+            z-index: 1;
+            transition: opacity 0.6s ease;
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 2;
+            padding: 2rem;
+            transform: translateY(10px);
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .project-card h2 {
+            font-size: 1.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+            color: var(--color-text);
+        }
+
+        .project-card span {
+            font-size: 0.8rem;
             color: var(--color-accent);
-            transform: translateY(-2px);
-            background: rgba(196, 178, 140, 0.05);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        a::before {
+        .project-card span::after {
+            content: '→';
+            transition: transform 0.3s ease;
+        }
+
+        /* Efeitos de Hover */
+        .project-card:hover {
+            transform: scale(1.03);
+            border-color: var(--color-accent);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .project-card:hover::after {
+            background: linear-gradient(to bottom, rgba(10, 17, 24, 0.3) 0%, rgba(10, 17, 24, 1) 100%);
+        }
+
+        .project-card:hover .card-content {
+            transform: translateY(0);
+        }
+
+        .project-card:hover span::after {
+            transform: translateX(5px);
+        }
+
+        /* Borda superior que acende no hover */
+        .project-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 0;
-            height: 2px;
+            height: 3px;
             background: var(--color-accent);
-            transition: width 0.3s ease;
+            transition: width 0.6s ease;
+            z-index: 3;
         }
 
-        a:hover::before {
+        .project-card:hover::before {
             width: 100%;
         }
 
@@ -108,6 +170,16 @@
             letter-spacing: 0.1em;
             text-transform: uppercase;
         }
+
+        @media (max-width: 768px) {
+            .cards-container {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+            }
+            .project-card {
+                height: 300px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -117,10 +189,20 @@
         <p>Landing Pages Imóveis</p>
     </header>
 
-    <nav>
-        <a href="arenis/arenis.html">Arenis</a>
-        <a href="vertice/vertice.html">Vértice</a>
-    </nav>
+    <div class="cards-container">
+        <a href="arenis/arenis.html" class="project-card" style="--bg-image: url('arenis-screenshot.png');">
+            <div class="card-content">
+                <h2>Arenis</h2>
+                <span>Acessar Projeto</span>
+            </div>
+        </a>
+        <a href="vertice/vertice.html" class="project-card" style="--bg-image: url('vertice-screenshot.png');">
+            <div class="card-content">
+                <h2>Vértice</h2>
+                <span>Acessar Projeto</span>
+            </div>
+        </a>
+    </div>
 
     <footer>
         &copy; 2026. Todos os direitos reservados.
