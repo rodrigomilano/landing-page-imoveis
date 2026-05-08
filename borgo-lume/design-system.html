@@ -1,0 +1,1407 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borgo Lume UI - Nature & Retreat Architecture</title>
+
+    <!-- Tipografia Orgânica e Rústica: 
+         Great Vibes para a alma lúdica e cursiva (Logo/Destaques)
+         Playfair Display para Títulos (Elegância rústica)
+         Montserrat para Corpo/Dados (Leitura limpa) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ==========================================================================
+           1. DESIGN TOKENS (Variáveis CSS) - Verde Floresta e Argila
+           ========================================================================== */
+        :root {
+            /* Paleta de Cores: Verde Profundo, Pergaminho Claro e Terracota */
+            --color-bg-deep: #16241a;
+            /* Verde Floresta Escuro (Fundo principal) */
+            --color-bg-surface: #eae5d9;
+            /* Bege/Areia (Painéis de conteúdo) */
+            --color-bg-elevated: #f5f2eb;
+            /* Bege muito claro (Elevações) */
+
+            --color-primary: #ba5422;
+            /* Terracota / Argila Queimada */
+            --color-primary-dim: #8a3a14;
+            /* Terracota Escuro */
+            --color-primary-light: #d67443;
+            /* Terracota Suave */
+
+            --color-accent: #2d4531;
+            /* Verde Musgo/Sálvia */
+            --color-accent-glow: rgba(45, 69, 49, 0.2);
+
+            --color-metal: #8a857b;
+            /* Cinza Quente / Taupe */
+            --color-metal-dark: #2a2e2b;
+            /* Sombra orgânica */
+            --color-metal-light: #d1ccbf;
+            /* Linhas e bordas no bege */
+
+            --color-text-title: #1a261c;
+            /* Verde quase preto (Títulos no painel) */
+            --color-text-body: #4a4f4b;
+            /* Cinza esverdeado escuro (Leitura) */
+            --color-text-muted: #7d827e;
+            /* Texto secundário */
+
+            --color-text-inverse: #f5f2eb;
+            /* Texto claro para fundos escuros */
+
+            /* Curvaturas: Orgânicas, mas estruturadas */
+            --radius-sm: 2px;
+            --radius-md: 4px;
+            --radius-lg: 6px;
+            --radius-pill: 50px;
+
+            /* Bordas e texturas */
+            --border-panel: 1px solid rgba(0, 0, 0, 0.05);
+            --border-highlight: 1px solid rgba(186, 84, 34, 0.3);
+
+            /* Efeitos de Profundidade (Sombras suaves, terrosas) */
+            --shadow-subtle: 0 10px 30px rgba(22, 36, 26, 0.15);
+            --shadow-heavy: 0 20px 40px rgba(22, 36, 26, 0.4), 0 5px 15px rgba(22, 36, 26, 0.2);
+
+            /* Tipografia */
+            --font-display: 'Playfair Display', serif;
+            --font-script: 'Great Vibes', cursive;
+            --font-body: 'Montserrat', sans-serif;
+
+            /* Espaçamentos */
+            --space-xs: 8px;
+            --space-sm: 16px;
+            --space-md: 24px;
+            --space-lg: 48px;
+            --space-xl: 80px;
+
+            /* Transições respiráveis e calmas */
+            --transition-snappy: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --transition-btn: all 0.4s ease-out;
+
+            /* Textura Global: Papel de aquarela / Gramado rústico */
+            --texture-organic: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+        }
+
+        /* ==========================================================================
+           2. BASE, RESET & BACKGROUND (A Essência Rústica)
+           ========================================================================== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--color-bg-deep);
+            color: var(--color-text-inverse);
+            /* Cor base inverteu porque o fundo é verde escuro */
+            font-family: var(--font-body);
+            font-size: 1.05rem;
+            font-weight: 400;
+            line-height: 1.7;
+            overflow-x: hidden;
+
+            background-image: linear-gradient(to bottom, #1a2e20 0%, #111a13 100%);
+            background-attachment: fixed;
+        }
+
+        /* Ruído texturizado para simular materialidade natural */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: var(--texture-organic);
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: multiply;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: var(--font-display);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        a {
+            color: var(--color-primary-light);
+            text-decoration: none;
+            transition: var(--transition-snappy);
+        }
+
+        a:hover {
+            color: var(--color-text-inverse);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-xl) var(--space-md);
+        }
+
+        /* --------------------------------------------------------------------------
+           MIXIN: PAINEL DE PERGAMINHO (Substitui o Matte Negro)
+           -------------------------------------------------------------------------- */
+        .glass-panel {
+            position: relative;
+            background-color: var(--color-bg-surface);
+            color: var(--color-text-body);
+            /* Dentro do painel o texto é escuro */
+            border: var(--border-panel);
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-heavy);
+            padding: var(--space-lg);
+            z-index: 1;
+            transition: var(--transition-snappy);
+            background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, transparent 100%);
+        }
+
+        /* Ajuste específico de títulos dentro do painel claro */
+        .glass-panel h2,
+        .glass-panel h3,
+        .glass-panel .ds-section-title {
+            color: var(--color-text-title);
+        }
+
+        .ds-panel {
+            margin-bottom: var(--space-xl);
+        }
+
+        .ds-section-title {
+            font-size: 2.8rem;
+            margin-bottom: var(--space-md);
+            position: relative;
+            display: inline-block;
+            font-family: var(--font-script);
+            font-weight: 400;
+            color: var(--color-text-title);
+        }
+
+        .ds-section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background: var(--color-primary);
+        }
+
+        /* ==========================================================================
+           3. HERO SECTION (A Casa de Campo)
+           ========================================================================== */
+        .hero {
+            padding: var(--space-xl) 5%;
+            margin-bottom: var(--space-lg);
+            position: relative;
+            background-color: var(--color-bg-deep);
+            /* Imagem de campo vibrante e iluminada pelo sol */
+            background-image:
+                linear-gradient(to top, #111a13 0%, transparent 40%),
+                url('https://images.unsplash.com/photo-1510798831971-661eb04b3739?auto=format&fit=crop&w=2000&q=80');
+            background-size: cover;
+            background-position: center 60%;
+            border-radius: var(--radius-md);
+            border: none;
+            box-shadow: var(--shadow-heavy);
+            padding-top: 180px;
+            padding-bottom: 150px;
+            overflow: hidden;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hero-title {
+            font-family: var(--font-script);
+            font-size: clamp(4.5rem, 9vw, 7rem);
+            line-height: 1;
+            color: #ffffff;
+            margin-bottom: var(--space-sm);
+            position: relative;
+            z-index: 1;
+            font-weight: 400;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+            letter-spacing: 2px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            font-weight: 400;
+            color: #f5f2eb;
+            max-width: 700px;
+            margin-bottom: var(--space-lg);
+            position: relative;
+            z-index: 1;
+            font-family: var(--font-display);
+            font-style: italic;
+            line-height: 1.6;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+        }
+
+        /* ==========================================================================
+           4. TIPOGRAFIA
+           ========================================================================== */
+        .type-specimen {
+            margin-bottom: var(--space-md);
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--color-metal-light);
+        }
+
+        .type-specimen label {
+            display: block;
+            color: var(--color-primary);
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .type-h1 {
+            font-family: var(--font-script);
+            font-size: 4rem;
+            font-weight: 400;
+            color: var(--color-text-title);
+        }
+
+        .type-h2 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 500;
+            color: var(--color-text-title);
+        }
+
+        .type-body {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            color: var(--color-text-body);
+            font-weight: 400;
+        }
+
+        .type-marker {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            color: var(--color-accent);
+            font-weight: 500;
+            font-style: italic;
+        }
+
+        /* ==========================================================================
+           5. PALETA DE CORES (Florestal, Pergaminho e Argila)
+           ========================================================================== */
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: var(--space-md);
+        }
+
+        .color-swatch {
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-xs);
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--color-text-inverse);
+            text-align: center;
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .bg-deep {
+            background: var(--color-bg-deep);
+        }
+
+        .bg-glass {
+            background: var(--color-bg-surface);
+            color: var(--color-text-title);
+        }
+
+        .bg-primary {
+            background: linear-gradient(135deg, var(--color-primary-light), var(--color-primary-dim));
+            color: #fff;
+            border: none;
+        }
+
+        .bg-metal {
+            background: var(--color-accent);
+            color: #fff;
+        }
+
+        .bg-eco {
+            background: #687063;
+            color: #fff;
+        }
+
+        /* Verde musgo suave */
+
+        /* ==========================================================================
+           6. BOTÕES E ESTADOS - Madeira e Argila
+           ========================================================================== */
+        .btn-grid {
+            display: flex;
+            gap: var(--space-md);
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .btn {
+            background-color: transparent;
+            color: var(--color-accent);
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            font-weight: 600;
+            padding: 14px 32px;
+            cursor: pointer;
+            transition: var(--transition-btn);
+            outline: none;
+            border: 1px solid var(--color-accent);
+            border-radius: var(--radius-sm);
+            letter-spacing: 0.5px;
+        }
+
+        .btn:hover {
+            background-color: var(--color-accent);
+            color: var(--color-text-inverse);
+        }
+
+        .btn-primary,
+        .btn-hero {
+            /* Botão Terracota denso, clássico da imagem */
+            background: linear-gradient(to bottom, #d67443, #a34114);
+            color: #ffffff;
+            border: 1px solid #752907;
+            font-weight: 600;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 4px 10px rgba(186, 84, 34, 0.4);
+        }
+
+        .btn-primary:hover,
+        .btn-hero:hover {
+            background: linear-gradient(to bottom, #e0885c, #ba5422);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 6px 15px rgba(186, 84, 34, 0.5);
+            transform: translateY(-2px);
+            color: #fff;
+            border-color: #8c3e17;
+        }
+
+        .btn-arrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background-color: transparent;
+            border: none;
+            border-bottom: 1px solid var(--color-primary);
+            border-radius: 0;
+            padding: 8px 0;
+            color: var(--color-primary);
+            box-shadow: none;
+        }
+
+        .btn-arrow::after {
+            content: '→';
+            font-size: 1.2rem;
+            transition: var(--transition-snappy);
+            font-weight: 300;
+        }
+
+        .btn-arrow:hover {
+            background-color: transparent;
+            color: var(--color-primary-dim);
+            border-color: var(--color-primary-dim);
+        }
+
+        .btn-arrow:hover::after {
+            transform: translateX(6px);
+        }
+
+        .btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            background: var(--color-metal-light);
+            color: var(--color-text-body);
+            border-color: transparent;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* ==========================================================================
+           7. ELEMENTOS DE INTERAÇÃO
+           ========================================================================== */
+
+        /* 7.1 Abas (Linhas naturais e calmas) */
+        .tabs-nav {
+            display: inline-flex;
+            background-color: transparent;
+            border-bottom: 1px solid var(--color-metal-light);
+            margin-bottom: var(--space-md);
+            width: 100%;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--color-text-muted);
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition-btn);
+            padding: 16px 32px;
+            border-radius: 0;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -1px;
+            letter-spacing: 0.5px;
+        }
+
+        .tab-btn:hover {
+            color: var(--color-accent);
+        }
+
+        .tab-btn.active {
+            color: var(--color-primary);
+            border-bottom-color: var(--color-primary);
+            background: transparent;
+        }
+
+        .tab-content {
+            display: none;
+            padding: var(--space-md) 0;
+            animation: fadeSlideUp 0.6s ease-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeSlideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 7.2 Accordion (Elegância rústica) */
+        .accordion-item {
+            border-bottom: 1px solid var(--color-metal-light);
+            background-color: transparent;
+            overflow: hidden;
+            transition: var(--transition-snappy);
+        }
+
+        .accordion-header {
+            width: 100%;
+            text-align: left;
+            background: transparent;
+            border: none;
+            color: var(--color-text-title);
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            font-weight: 500;
+            padding: 24px 0;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition-snappy);
+        }
+
+        .accordion-header:hover {
+            color: var(--color-primary);
+        }
+
+        .accordion-header span {
+            color: var(--color-accent);
+            transition: transform 0.4s ease-out;
+            font-family: var(--font-body);
+            font-weight: 300;
+        }
+
+        .accordion-header.active {
+            color: var(--color-primary);
+        }
+
+        .accordion-header.active span {
+            transform: rotate(180deg);
+        }
+
+        .accordion-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            color: var(--color-text-body);
+        }
+
+        .accordion-body p {
+            padding: 0 0 32px 0;
+            font-weight: 400;
+            line-height: 1.8;
+        }
+
+        /* 7.3 Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(22, 36, 26, 0.85);
+            backdrop-filter: blur(4px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition-snappy);
+            z-index: 1000;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-box {
+            width: 90%;
+            max-width: 500px;
+            transform: scale(0.98) translateY(20px);
+            opacity: 0;
+            transition: var(--transition-btn);
+            background-color: var(--color-bg-surface);
+            border: 1px solid var(--color-metal-light);
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-heavy);
+            padding: var(--space-xl);
+            background-image: linear-gradient(135deg, #f7f5ef 0%, transparent 100%);
+            color: var(--color-text-body);
+        }
+
+        .modal-overlay.active .modal-box {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            background: transparent;
+            border: none;
+            color: var(--color-text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 10;
+            transition: var(--transition-snappy);
+            font-family: var(--font-body);
+        }
+
+        .modal-close:hover {
+            color: var(--color-primary);
+            transform: rotate(90deg);
+        }
+
+        /* 7.4 Formulário */
+        .form-group {
+            margin-bottom: var(--space-md);
+        }
+
+        .form-label {
+            display: block;
+            font-family: var(--font-body);
+            font-weight: 600;
+            color: var(--color-text-title);
+            margin-bottom: 10px;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .form-input,
+        .form-select {
+            width: 100%;
+            background-color: #fdfbf7;
+            border: 1px solid var(--color-metal-light);
+            border-radius: var(--radius-sm);
+            color: var(--color-text-title);
+            padding: 16px 20px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 400;
+            transition: var(--transition-snappy);
+            outline: none;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
+        }
+
+        .form-input:focus,
+        .form-select:focus {
+            border-color: var(--color-accent);
+            background-color: #ffffff;
+            box-shadow: 0 0 0 1px var(--color-accent);
+        }
+
+        .form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%232d4531' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 16px;
+            padding-right: 40px;
+            cursor: pointer;
+        }
+
+        .form-check-group {
+            display: flex;
+            gap: var(--space-md);
+            margin-top: var(--space-xs);
+        }
+
+        .form-check {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            color: var(--color-text-body);
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            font-weight: 400;
+            user-select: none;
+        }
+
+        .form-check input {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--color-metal-light);
+            background-color: #fdfbf7;
+            transition: var(--transition-snappy);
+            display: grid;
+            place-content: center;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .form-check input[type="radio"] {
+            border-radius: 50%;
+        }
+
+        .form-check input[type="checkbox"] {
+            border-radius: 2px;
+        }
+
+        .form-check input:focus {
+            border-color: var(--color-primary);
+        }
+
+        .form-check input:checked {
+            border-color: var(--color-primary);
+            background-color: var(--color-primary);
+        }
+
+        .form-check input::before {
+            content: "";
+            transform: scale(0);
+            transition: var(--transition-snappy);
+        }
+
+        .form-check input[type="radio"]::before {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #ffffff;
+        }
+
+        .form-check input[type="checkbox"]::before {
+            width: 12px;
+            height: 12px;
+            background-color: #ffffff;
+            clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+        }
+
+        .form-check input:checked::before {
+            transform: scale(1);
+        }
+
+        /* 7.5 Elementos de Mapa / Inventário (Cards de Natureza Borgo Lume) */
+        .inventory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+
+        .inventory-item {
+            background-size: cover;
+            background-position: center top;
+            /* Mostra o topo da imagem, que agora ocupa a metade superior */
+            border-radius: var(--radius-sm);
+            padding: 40px 32px;
+            min-height: 480px;
+            /* Mais alto para acomodar confortavelmente a foto e a base de madeira */
+            cursor: pointer;
+            transition: var(--transition-btn);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            color: var(--color-text-inverse);
+            position: relative;
+            box-shadow: var(--shadow-heavy);
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            background-color: var(--color-bg-deep);
+        }
+
+        /* Imagens rústicas de campo para os cartões */
+        .inventory-item:nth-child(1) {
+            background-image: url('https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=800&q=80');
+        }
+
+        .inventory-item:nth-child(2) {
+            background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80');
+        }
+
+        .inventory-item:nth-child(3) {
+            background-image: url('https://images.unsplash.com/photo-1542314831-c53cd4185120?auto=format&fit=crop&w=800&q=80');
+        }
+
+        /* A Mágica: Base de Madeira Sólida */
+        .inventory-item::before,
+        .inventory-item:nth-child(odd)::before,
+        .inventory-item:nth-child(even)::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            /* Ocupa exatamente a metade inferior */
+            background-color: #4a210d;
+            /* Base Mogno/Carvalho escuro */
+
+            /* Textura de veios de madeira esticando o ruído e adicionando gradientes lineares */
+            background-image:
+                var(--texture-organic),
+                repeating-linear-gradient(to right, rgba(0, 0, 0, 0.05) 0px, rgba(0, 0, 0, 0.05) 1px, transparent 1px, transparent 4px),
+                repeating-linear-gradient(to right, rgba(255, 255, 255, 0.02) 0px, rgba(255, 255, 255, 0.02) 1px, transparent 1px, transparent 3px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 0%, rgba(0, 0, 0, 0.7) 100%);
+
+            /* O 800% vertical no ruído cria os veios orgânicos da madeira! */
+            background-size: 100% 800%, 100% 100%, 100% 100%, 100% 100%;
+
+            z-index: 1;
+            transition: var(--transition-snappy);
+            border-top: 2px solid rgba(0, 0, 0, 0.5);
+            /* Corte ríspido que separa a foto da madeira */
+            box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.08);
+            /* Luz no topo da tábua de madeira */
+        }
+
+        .inventory-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .inventory-item:nth-child(odd):hover::before,
+        .inventory-item:nth-child(even):hover::before {
+            height: 52%;
+            /* A madeira "cresce" ligeiramente no hover para uma dinâmica táctil */
+            background-color: #542711;
+        }
+
+        /* Textos elevados sobre a madeira */
+        .inventory-item span,
+        .inventory-item p,
+        .inventory-item .card-btn {
+            position: relative;
+            z-index: 2;
+        }
+
+        .inventory-item span {
+            font-family: var(--font-display);
+            font-weight: 500;
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+            color: #fdfbf7;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .inventory-item p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: rgba(245, 242, 235, 0.85);
+            font-weight: 400;
+            margin-bottom: 24px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Botão interno do card (Unificado em terracota como na referência) */
+        .inventory-item .card-btn,
+        .inventory-item:nth-child(even) .card-btn {
+            align-self: flex-start;
+            background: linear-gradient(to bottom, #d67443, #a34114);
+            border: 1px solid #752907;
+            color: #fff;
+            padding: 10px 24px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            transition: var(--transition-snappy);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .inventory-item:hover .card-btn {
+            filter: brightness(1.1);
+            transform: translateY(-2px);
+        }
+
+        /* 7.6 Carrossel de Imagens Rústico */
+        .carousel-wrapper {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: var(--radius-sm);
+            background-color: var(--color-bg-surface);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+            width: 100%;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            display: block;
+            filter: brightness(0.95) contrast(1.05) sepia(0.1);
+        }
+
+        .carousel-controls {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 12px;
+            z-index: 10;
+        }
+
+        .carousel-btn {
+            background-color: rgba(234, 229, 217, 0.9);
+            color: var(--color-text-title);
+            border: 1px solid var(--color-metal-light);
+            width: 48px;
+            height: 48px;
+            font-family: var(--font-body);
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: var(--transition-btn);
+            border-radius: var(--radius-sm);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .carousel-btn:hover {
+            background-color: var(--color-primary);
+            color: #ffffff;
+            border-color: var(--color-primary-dim);
+        }
+
+        /* 7.7 Galeria em Ladrilho (Masonry) - Respiração Orgânica */
+        .masonry-gallery {
+            column-count: 3;
+            column-gap: 24px;
+        }
+
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 24px;
+            position: relative;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow-subtle);
+            cursor: pointer;
+            background-color: var(--color-bg-deep);
+            transition: transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.8s ease;
+        }
+
+        .masonry-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 2s cubic-bezier(0.25, 0.8, 0.25, 1);
+            filter: sepia(0.15) contrast(1.05);
+        }
+
+        /* Sombra base suave */
+        .masonry-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(22, 36, 26, 0.6) 0%, transparent 40%);
+            opacity: 0.5;
+            transition: var(--transition-snappy);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .masonry-item:hover {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 10px 20px rgba(186, 84, 34, 0.15);
+            transform: translateY(-4px);
+        }
+
+        .masonry-item:hover img {
+            transform: scale(1.05);
+            /* Zoom natural e muito lento */
+            filter: sepia(0) contrast(1.1);
+        }
+
+        .masonry-item:hover::after {
+            opacity: 1;
+            background: linear-gradient(to top, rgba(22, 36, 26, 0.3) 0%, transparent 20%);
+        }
+
+        /* Responsividade para a galeria */
+        @media (max-width: 900px) {
+            .masonry-gallery {
+                column-count: 2;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .masonry-gallery {
+                column-count: 1;
+            }
+        }
+
+        /* 7.8 Badges / Tags */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            background: transparent;
+            color: var(--color-text-body);
+            font-family: var(--font-body);
+            font-weight: 500;
+            font-size: 0.8rem;
+            padding: 6px 16px;
+            border: 1px solid var(--color-metal-light);
+            border-radius: var(--radius-pill);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .badge.eco {
+            background: rgba(45, 69, 49, 0.1);
+            border-color: var(--color-accent);
+            color: var(--color-accent);
+        }
+
+        /* ==========================================================================
+           8. DECORAÇÕES E LINHAS
+           ========================================================================== */
+        .line-thick {
+            border-top: 1px solid var(--color-primary);
+            width: 100%;
+            opacity: 0.6;
+        }
+
+        .line-dashed {
+            border-top: 1px dashed var(--color-metal-light);
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 1. Hero Section -->
+    <header class="hero" style="margin: var(--space-lg) auto; max-width: 1200px;">
+        <h1 class="hero-title">Borgo Lume</h1>
+        <p class="hero-subtitle">Refúgio Contemporâneo a 1 Hora de São Paulo. Onde a arquitetura abraça o orvalho e a
+            serenidade do campo.</p>
+        <div style="display:flex; gap:15px; margin-top: 24px;">
+            <button class="btn btn-hero"
+                onclick="document.getElementById('docs').scrollIntoView({behavior:'smooth'})">Agendar Visita
+                Guiada</button>
+        </div>
+    </header>
+
+    <div class="container" id="docs">
+
+        <!-- Documentação Intro -->
+        <div class="ds-panel glass-panel">
+            <h2 class="ds-section-title">Sobre o Condomínio</h2>
+            <p>O <strong>Borgo Lume UI</strong> é um respiro lúdico e luxuoso. As texturas rústicas de pergaminho
+                encontram-se com o verde profundo das matas e o terracota das olarias tradicionais. Aqui, o design não
+                grita por atenção; ele acolhe, acalma e convida a viver a exclusividade e a serenidade a uma hora da
+                metrópole.</p>
+        </div>
+
+        <!-- 2. Tipografia -->
+        <section class="ds-panel glass-panel">
+            <h2 class="ds-section-title">01. Alma Tipográfica</h2>
+            <div class="type-specimen">
+                <label>Display / Great Vibes - Regular</label>
+                <div class="type-h1">Espírito Livre</div>
+            </div>
+            <div class="type-specimen">
+                <label>Display / Playfair Display - Regular</label>
+                <div class="type-h2">Elegância Rústica</div>
+            </div>
+            <div class="type-specimen">
+                <label>Interface / Montserrat - Regular</label>
+                <div class="type-body">A clareza da Montserrat assegura que a leitura seja sempre limpa e respirável,
+                    equilibrando a expressividade orgânica dos títulos principais.</div>
+            </div>
+        </section>
+
+        <!-- 3. Paleta de Cores -->
+        <section class="ds-panel glass-panel">
+            <h2 class="ds-section-title">02. Tons da Terra</h2>
+            <div class="color-grid">
+                <div class="color-swatch bg-deep">Forest Green<br>#16241A</div>
+                <div class="color-swatch bg-glass">Parchment Sand<br>#EAE5D9</div>
+                <div class="color-swatch bg-metal">Sage Leaf<br>#2D4531</div>
+                <div class="color-swatch bg-primary">Burnt Clay<br>#BA5422</div>
+                <div class="color-swatch bg-eco">Aged Wood<br>#687063</div>
+            </div>
+        </section>
+
+        <!-- 4. Botões e Estados -->
+        <section class="ds-panel glass-panel">
+            <h2 class="ds-section-title">03. Caminhos Guiados</h2>
+            <div class="btn-grid">
+                <button class="btn">Conhecer Mais</button>
+                <button class="btn btn-primary">Saiba mais</button>
+                <button class="btn btn-arrow">Passear</button>
+                <button class="btn" disabled>Esgotado</button>
+            </div>
+        </section>
+
+        <!-- 5. Elementos de Interação -->
+        <section class="ds-panel glass-panel">
+            <h2 class="ds-section-title">04. Espaços Estruturais</h2>
+
+            <!-- Tags & Listas -->
+            <div style="margin-bottom: var(--space-lg); display: flex; gap: 15px; flex-wrap: wrap;">
+                <span class="badge">Sustentabilidade Natural</span>
+                <span class="badge eco">Lazer & Comodidades</span>
+            </div>
+
+            <!-- Abas (Header NavBar) -->
+            <div style="margin-bottom: var(--space-lg);">
+                <div class="tabs-nav">
+                    <button class="tab-btn active" data-target="tab1">Residências</button>
+                    <button class="tab-btn" data-target="tab2">Natureza</button>
+                    <button class="tab-btn" data-target="tab3">Lazer</button>
+                    <button class="tab-btn" data-target="tab4">Contato</button>
+                </div>
+                <div class="tab-content active" id="tab1">
+                    <h3 class="type-h2" style="font-size: 1.8rem; margin-bottom: 15px;">Privacidade & Espaço</h3>
+                    <p>Um contorno único na paisagem, unindo arquitetura arrojada e o charme do campo. Grandes vãos
+                        envidraçados que deixam a luz matinal entrar sem pedir licença.</p>
+                </div>
+                <div class="tab-content" id="tab2">
+                    <p>Acorde com o canto dos pássaros e a brisa fresca. Mais de 60% da área é dedicada à preservação
+                        ambiental intocada.</p>
+                </div>
+                <div class="tab-content" id="tab3">
+                    <p>Piscinas aquecidas de borda infinita, trilhas equestres e um clube desenhado para acolher as suas
+                        melhores memórias em família.</p>
+                </div>
+                <div class="tab-content" id="tab4">
+                    <p>Estamos a 60 minutos de São Paulo, com acesso fácil pelas rodovias principais. Fale com os nossos
+                        guias rurais.</p>
+                </div>
+            </div>
+
+            <!-- Accordion -->
+            <div style="margin-bottom: var(--space-lg);">
+                <div class="accordion-item">
+                    <button class="accordion-header">Infraestrutura de Alto Padrão <span>▼</span></button>
+                    <div class="accordion-body">
+                        <p>Ruas pavimentadas com blocos permeáveis, fiação subterrânea para não manchar o horizonte e
+                            segurança discreta, 24 horas por dia.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header">Agendar Visita Guiada <span>▼</span></button>
+                    <div class="accordion-body">
+                        <p>A brisa fresca não pode ser descrita, tem de ser sentida. Selecione uma data e prepare-se
+                            para se deslumbrar com o Borgo Lume.</p>
+                        <button class="btn btn-primary" style="margin-top: 20px;" onclick="openModal()">Contactar
+                            Guia</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formulário -->
+            <div style="margin-bottom: var(--space-lg); max-width: 450px;">
+                <div class="form-group">
+                    <label class="form-label">Endereço de E-mail</label>
+                    <input type="email" class="form-input" placeholder="seu.nome@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Interesse no Retiro</label>
+                    <select class="form-select">
+                        <option value="" disabled selected>O que mais procura?</option>
+                        <option value="1">Lotes Prontos a Construir</option>
+                        <option value="2">Casas de Campo Chave na Mão</option>
+                        <option value="3">Investimento a Longo Prazo</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Quando pretende visitar?</label>
+                    <div class="form-check-group">
+                        <label class="form-check">
+                            <input type="radio" name="visita" value="fds" checked>
+                            <span>Fim de Semana</span>
+                        </label>
+                        <label class="form-check">
+                            <input type="radio" name="visita" value="semana">
+                            <span>Dia Útil</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-top: 32px;">
+                    <label class="form-check">
+                        <input type="checkbox" name="termos">
+                        <span>Aceito receber o manifesto rústico e detalhes de reserva.</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Inventário / Galeria (Cards Fotográficos Borgo Lume) -->
+            <div style="margin-bottom: var(--space-xl);">
+                <h3 class="ds-section-title" style="font-size: 2.2rem; border-bottom: none;">_Vivência na Fazenda</h3>
+                <div class="inventory-grid">
+                    <div class="inventory-item">
+                        <span>Residências Exclusivas</span>
+                        <p>Um contorno único na paisagem, unindo a arquitetura ao charme do campo.</p>
+                        <button class="card-btn">Saiba mais</button>
+                    </div>
+                    <div class="inventory-item">
+                        <span>Cercado pela Natureza</span>
+                        <p>Respire ar puro e viva com a exclusividade e a serenidade a 1 hora de São Paulo.</p>
+                        <button class="card-btn">Saiba mais</button>
+                    </div>
+                    <div class="inventory-item">
+                        <span>Lazer & Comodidades</span>
+                        <p>Um clube completo integrado no cenário natural para o seu bem-estar absoluto.</p>
+                        <button class="card-btn">Saiba mais</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Carrossel de Imagens -->
+            <div style="margin-bottom: var(--space-lg);">
+                <h3 class="ds-section-title" style="font-size: 2.2rem; border-bottom: none;">_Cenários do Retiro</h3>
+                <div class="carousel-wrapper">
+                    <div class="carousel-track" id="carouselTrack">
+                        <!-- Imagem 1 -->
+                        <div class="carousel-slide">
+                            <img src="https://images.unsplash.com/photo-1510798831971-661eb04b3739?auto=format&fit=crop&w=1200&q=80"
+                                alt="Casa de Campo Moderna">
+                        </div>
+                        <!-- Imagem 2 -->
+                        <div class="carousel-slide">
+                            <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80"
+                                alt="Paisagem de Montanha">
+                        </div>
+                        <!-- Imagem 3 -->
+                        <div class="carousel-slide">
+                            <img src="https://images.unsplash.com/photo-1542314831-c53cd4185120?auto=format&fit=crop&w=1200&q=80"
+                                alt="Alpendre com Luz Quente">
+                        </div>
+                    </div>
+                    <div class="carousel-controls">
+                        <button class="carousel-btn" onclick="moveCarousel(-1)">&#8592;</button>
+                        <button class="carousel-btn" onclick="moveCarousel(1)">&#8594;</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Galeria em Ladrilho (Masonry) -->
+            <div style="margin-bottom: var(--space-lg);">
+                <h3 class="ds-section-title" style="font-size: 2.2rem; border-bottom: none;">_Retalhos da Terra</h3>
+                <div class="masonry-gallery">
+                    <div class="masonry-item">
+                        <img src="https://images.unsplash.com/photo-1505843513577-22bb7d21e455?auto=format&fit=crop&w=600&q=80"
+                            alt="Sala Rústica">
+                    </div>
+                    <div class="masonry-item">
+                        <img src="https://images.unsplash.com/photo-1449844908441-8829872d2607?auto=format&fit=crop&w=600&h=800&q=80"
+                            alt="Cabana na Árvore">
+                    </div>
+                    <div class="masonry-item">
+                        <img src="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?auto=format&fit=crop&w=600&h=900&q=80"
+                            alt="Piscina Natural">
+                    </div>
+                    <div class="masonry-item">
+                        <img src="https://images.unsplash.com/photo-1472224371017-08207f84aaae?auto=format&fit=crop&w=600&h=700&q=80"
+                            alt="Caminho de Pedra">
+                    </div>
+                    <div class="masonry-item">
+                        <img src="https://images.unsplash.com/photo-1464146072230-91cabc968266?auto=format&fit=crop&w=600&q=80"
+                            alt="Floresta Ensombreada">
+                    </div>
+                    <div class="masonry-item">
+                        <img src="https://images.unsplash.com/photo-1510798831971-661eb04b3739?auto=format&fit=crop&w=600&h=500&q=80"
+                            alt="Detalhe de Madeira">
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- 6. Texturas e Padrões -->
+        <section class="ds-panel glass-panel">
+            <h2 class="ds-section-title" style="font-size: 2.2rem;">05. Elementos de Base</h2>
+            <div style="display:flex; flex-direction:column; gap:30px; margin-top:20px;">
+                <div>
+                    <label class="form-label">Traço Argila (Sólido)</label>
+                    <div class="line-thick"></div>
+                </div>
+                <div>
+                    <label class="form-label">Traço Rústico (Sutil)</label>
+                    <div class="line-dashed"></div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="myModal">
+        <div class="glass-panel modal-box">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <h3 class="type-h2" style="margin-bottom: 15px; color: var(--color-primary); font-size:1.8rem;">Visita
+                Agendada</h3>
+            <p style="font-size: 1.05rem; color: var(--color-text-body); font-weight:400;">O cheiro do orvalho espera
+                por si. Um dos nossos guias da fazenda confirmará os detalhes do seu percurso em breve.</p>
+            <div style="margin-top: 35px; display:flex; gap:15px;">
+                <button class="btn btn-primary" onclick="closeModal()">Entendido</button>
+                <button class="btn" onclick="closeModal()">Sair</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript para Interações -->
+    <script>
+        // 1. TABS
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetId = btn.dataset.target;
+                const targetElement = document.getElementById(targetId);
+
+                if (targetElement) {
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+
+                    btn.classList.add('active');
+                    targetElement.classList.add('active');
+                }
+            });
+        });
+
+        // 2. ACCORDION
+        const accHeaders = document.querySelectorAll('.accordion-header');
+        accHeaders.forEach(header => {
+            header.addEventListener('click', () => {
+                header.classList.toggle('active');
+                const body = header.nextElementSibling;
+
+                if (body) {
+                    if (header.classList.contains('active')) {
+                        body.style.maxHeight = body.scrollHeight + "px";
+                    } else {
+                        body.style.maxHeight = 0;
+                    }
+                }
+            });
+        });
+
+        // 3. MODAL
+        const modal = document.getElementById('myModal');
+        function openModal() {
+            if (modal) modal.classList.add('active');
+        }
+        function closeModal() {
+            if (modal) modal.classList.remove('active');
+        }
+
+        if (modal) {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal();
+            });
+        }
+
+        // 4. CARROSSEL DE IMAGENS
+        let currentCarouselIndex = 0;
+        const carouselTrack = document.getElementById('carouselTrack');
+        const carouselSlides = document.querySelectorAll('.carousel-slide');
+
+        function moveCarousel(direction) {
+            if (!carouselTrack || carouselSlides.length === 0) return;
+
+            currentCarouselIndex += direction;
+
+            // Lógica para loop
+            if (currentCarouselIndex < 0) {
+                currentCarouselIndex = carouselSlides.length - 1;
+            } else if (currentCarouselIndex >= carouselSlides.length) {
+                currentCarouselIndex = 0;
+            }
+
+            carouselTrack.style.transform = `translateX(-${currentCarouselIndex * 100}%)`;
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borgo Lume - Refúgio Contemporâneo</title>
+
+    <!-- Tipografia -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        /* ==========================================================================
+           1. DESIGN TOKENS (Baseados no Design System)
+           ========================================================================== */
+        :root {
+            --color-bg-deep: #16241a;
+            --color-bg-surface: #eae5d9;
+            --color-bg-elevated: #f5f2eb;
+
+            --color-primary: #ba5422;
+            --color-primary-dim: #8a3a14;
+            --color-primary-light: #d67443;
+
+            --color-accent: #2d4531;
+            --color-accent-glow: rgba(45, 69, 49, 0.2);
+
+            --color-metal: #8a857b;
+            --color-metal-dark: #2a2e2b;
+            --color-metal-light: #d1ccbf;
+
+            --color-text-title: #1a261c;
+            --color-text-body: #4a4f4b;
+            --color-text-muted: #7d827e;
+            --color-text-inverse: #f5f2eb;
+
+            --radius-sm: 2px;
+            --radius-md: 4px;
+            --radius-lg: 6px;
+
+            --shadow-subtle: 0 10px 30px rgba(22, 36, 26, 0.15);
+            --shadow-heavy: 0 20px 40px rgba(22, 36, 26, 0.4), 0 5px 15px rgba(22, 36, 26, 0.2);
+
+            --font-display: 'Playfair Display', serif;
+            --font-script: 'Great Vibes', cursive;
+            --font-body: 'Montserrat', sans-serif;
+
+            --space-xs: 8px;
+            --space-sm: 16px;
+            --space-md: 24px;
+            --space-lg: 48px;
+            --space-xl: 80px;
+
+            --transition-snappy: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --transition-btn: all 0.4s ease-out;
+
+            --texture-organic: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+        }
+
+        /* ==========================================================================
+           2. BASE & RESET
+           ========================================================================== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--color-bg-deep);
+            color: var(--color-text-inverse);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.7;
+            overflow-x: hidden;
+            background-image: linear-gradient(to bottom, #1a2e20 0%, #111a13 100%);
+            background-attachment: fixed;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: var(--texture-organic);
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: multiply;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-display);
+            font-weight: 500;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            transition: var(--transition-snappy);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-md);
+        }
+
+        /* ==========================================================================
+           3. COMPONENTES REUTILIZÁVEIS
+           ========================================================================== */
+        .btn {
+            display: inline-block;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            font-weight: 600;
+            padding: 14px 32px;
+            cursor: pointer;
+            transition: var(--transition-btn);
+            outline: none;
+            border: 1px solid var(--color-accent);
+            border-radius: var(--radius-sm);
+            letter-spacing: 0.5px;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(to bottom, #d67443, #a34114);
+            color: #ffffff;
+            border: 1px solid #752907;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 4px 10px rgba(186, 84, 34, 0.4);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(to bottom, #e0885c, #ba5422);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 6px 15px rgba(186, 84, 34, 0.5);
+            transform: translateY(-2px);
+        }
+
+        h2 {
+            font-family: var(--font-script);
+            font-size: 3.5rem;
+            font-weight: 400;
+        }
+
+        .section-title {
+            font-family: var(--font-script);
+            font-size: 3.5rem;
+            color: var(--color-bg-surface);
+            margin-bottom: var(--space-sm);
+            font-weight: 400;
+        }
+
+        .section-subtitle {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--color-primary-light);
+            margin-bottom: var(--space-lg);
+        }
+
+        /* ==========================================================================
+           4. HEADER & NAV
+           ========================================================================== */
+        header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            padding: var(--space-md) 0;
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-script);
+            font-size: 2.5rem;
+            color: #ffffff;
+            font-weight: 400;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--space-md);
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+        }
+
+        /* ==========================================================================
+           5. HERO SECTION
+           ========================================================================== */
+        .hero {
+            height: 100vh;
+            min-height: 700px;
+            background-image: 
+                linear-gradient(to bottom, rgba(22, 36, 26, 0.5) 0%, rgba(22, 36, 26, 0.2) 50%, rgba(22, 36, 26, 0.8) 100%),
+                url('./assets/hero_borgo_lume_1778234838816.png');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            padding-bottom: 150px;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            padding: 0 var(--space-md);
+            margin-bottom: var(--space-lg);
+        }
+
+        .hero-text {
+            font-family: var(--font-display);
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            color: #ffffff;
+            margin-bottom: var(--space-md);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+            font-weight: 400;
+        }
+
+        /* Container para os cards sobrepostos */
+        .hero-cards {
+            position: absolute;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 1200px;
+            padding: 0 var(--space-md);
+            z-index: 10;
+        }
+
+        /* ==========================================================================
+           6. SEÇÃO: O CONCEITO (Cards)
+           ========================================================================== */
+        .section-conceito {
+            padding: var(--space-xl) 0;
+            background-color: var(--color-bg-deep);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-lg);
+            margin-top: var(--space-lg);
+        }
+
+        .card {
+            background-color: #1a261c;
+            color: var(--color-text-inverse);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            box-shadow: var(--shadow-heavy);
+            transition: var(--transition-snappy);
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .card-content {
+            padding: var(--space-md);
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            background: linear-gradient(to bottom, rgba(26, 38, 28, 0.8), rgba(13, 20, 15, 0.9));
+        }
+
+        .card-wood {
+            background-image: url('./assets/wood_texture.png');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .card-wood::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(26, 38, 28, 0.3), rgba(13, 20, 15, 0.6));
+            z-index: 1;
+        }
+
+        .card-wood * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .card-grass {
+            background-color: #1a2c1e;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-grass::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: var(--texture-organic);
+            opacity: 0.15;
+            mix-blend-mode: overlay;
+            z-index: 1;
+        }
+
+        .card-grass::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(26, 38, 28, 0.4), rgba(13, 20, 15, 0.7));
+            z-index: 1;
+        }
+
+        .card-grass * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .card-title {
+            font-family: var(--font-script);
+            font-size: 2.2rem;
+            color: #ffffff !important;
+            font-weight: 400;
+            margin-bottom: var(--space-xs);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-text {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: var(--space-md);
+            line-height: 1.5;
+        }
+
+        .card-btn {
+            margin-top: auto;
+            align-self: flex-start;
+            padding: 10px 24px;
+            font-size: 0.85rem;
+        }
+
+        .card-content {
+            padding: var(--space-md);
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--color-text-title);
+            margin-bottom: var(--space-xs);
+        }
+
+        .card-text {
+            font-size: 0.95rem;
+            margin-bottom: var(--space-md);
+            line-height: 1.6;
+        }
+
+        .card-link {
+            margin-top: auto;
+            color: var(--color-primary);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-link::after {
+            content: '→';
+            transition: var(--transition-snappy);
+        }
+
+        .card-link:hover::after {
+            transform: translateX(5px);
+        }
+
+        /* ==========================================================================
+           7. SEÇÃO: GALERIA (Abuse de Imagens)
+           ========================================================================== */
+        .section-galeria {
+            padding: var(--space-xl) 0;
+            background-color: #111a13;
+        }
+
+        .galeria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-md);
+            grid-auto-flow: dense;
+        }
+
+        .galeria-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--radius-sm);
+            height: 300px;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .galeria-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-snappy);
+        }
+
+        .galeria-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .galeria-item.wide {
+            grid-column: span 2;
+        }
+
+        .galeria-item.tall {
+            grid-row: span 2;
+            height: 624px;
+        }
+
+        /* ==========================================================================
+           8. SEÇÃO: SOBRE (Layout Assimétrico)
+           ========================================================================== */
+        .section-sobre {
+            padding: var(--space-xl) 0;
+            background-color: var(--color-bg-surface);
+            color: var(--color-text-body);
+        }
+
+        .sobre-wrapper {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: var(--space-xl);
+            align-items: center;
+        }
+
+        .sobre-text h2 {
+            color: var(--color-text-title);
+            font-size: 2.5rem;
+            margin-bottom: var(--space-md);
+        }
+
+        .sobre-text p {
+            margin-bottom: var(--space-md);
+            line-height: 1.8;
+        }
+
+        .sobre-image {
+            position: relative;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .sobre-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 10px solid rgba(255, 255, 255, 0.2);
+            pointer-events: none;
+        }
+
+        /* ==========================================================================
+           9. FOOTER
+           ========================================================================== */
+        footer {
+            background-color: #0d140f;
+            padding: var(--space-lg) 0;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+        }
+
+        .footer-logo {
+            font-family: var(--font-script);
+            font-size: 2rem;
+            color: #ffffff;
+            margin-bottom: var(--space-sm);
+        }
+
+        /* ==========================================================================
+           10. RESPONSIVIDADE
+           ========================================================================== */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none; /* Simplificação para o exemplo */
+            }
+            .sobre-wrapper {
+                grid-template-columns: 1fr;
+            }
+            .galeria-item.wide, .galeria-item.tall {
+                grid-column: span 1;
+                grid-row: span 1;
+                height: 300px;
+            }
+        }
+
+        /* ==========================================================================
+           11. SEÇÃO: INFRAESTRUTURA
+           ========================================================================== */
+        .section-infra {
+            background-color: #1a2c1e;
+            color: #ffffff;
+            padding: var(--space-md) 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-infra::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: var(--texture-organic);
+            opacity: 0.15;
+            mix-blend-mode: overlay;
+            z-index: 1;
+        }
+
+        .infra-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            flex-wrap: wrap;
+            gap: var(--space-md);
+        }
+
+        .infra-title h2 {
+            font-family: var(--font-display) !important;
+            font-size: 2.2rem;
+            font-style: italic;
+            font-weight: 400;
+            color: #ffffff;
+            margin: 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: var(--space-xs);
+        }
+
+        .infra-items {
+            display: flex;
+            gap: var(--space-lg);
+            align-items: center;
+        }
+
+        .infra-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .infra-icon {
+            font-size: 1.5rem;
+            color: var(--color-primary-light);
+        }
+
+        .infra-text h3 {
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .infra-text p {
+            font-family: var(--font-body);
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="container nav-wrapper">
+            <div class="logo">Borgo Lume</div>
+            <ul class="nav-links">
+                <li><a href="#residencias">Residências</a></li>
+                <li><a href="#natureza">Natureza</a></li>
+                <li><a href="#lazer">Lazer</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2 class="hero-text">- Refúgio Contemporâneo a 1 Hora de São Paulo</h2>
+            <a href="#contato" class="btn btn-primary">Agendar Visita Guiada</a>
+        </div>
+
+        <!-- Overlapping Cards -->
+        <div class="hero-cards">
+            <div class="cards-grid">
+                <!-- Card 1 -->
+                <div class="card">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=800&q=80');"></div>
+                    <div class="card-content card-wood">
+                        <h3 class="card-title">Residências Exclusivas</h3>
+                        <p class="card-text">Projetos que respeitam a topografia e trazem a natureza para dentro de casa.</p>
+                        <a href="#" class="btn btn-primary card-btn">Saiba mais</a>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="card">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80');"></div>
+                    <div class="card-content card-grass">
+                        <h3 class="card-title">Cercado pela Natureza</h3>
+                        <p class="card-text">Mais de 100.000m² de área verde preservada, trilhas e águas cristalinas.</p>
+                        <a href="#" class="btn btn-primary card-btn" style="background: linear-gradient(to bottom, #2d4531, #1a261c); border-color: #111a13;">Saiba mais</a>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="card">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1542314831-c53cd4185120?auto=format&fit=crop&w=800&q=80');"></div>
+                    <div class="card-content card-wood">
+                        <h3 class="card-title">Lazer & Comodidades</h3>
+                        <p class="card-text">Spa, quadras de tênis, horta orgânica e um clube exclusivo para membros.</p>
+                        <a href="#" class="btn btn-primary card-btn">Saiba mais</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOBRE -->
+    <section id="sobre" class="section-sobre" style="padding-top: 150px;">
+        <div class="container sobre-wrapper">
+            <div class="sobre-text">
+                <h2>Um refúgio para a alma, a poucos passos da cidade.</h2>
+                <p>O Borgo Lume foi concebido para quem busca desconectar do caos urbano sem abrir mão do conforto e da sofisticação. Localizado a apenas 1 hora de São Paulo, o condomínio oferece uma experiência única de moradia e lazer.</p>
+                <p>Nossa arquitetura utiliza materiais nobres como madeira de reflorestamento, pedra local e vidro, criando uma transição suave entre o espaço construído e o ambiente natural.</p>
+                <a href="#contato" class="btn btn-primary" style="margin-top: var(--space-sm);">Fale Conosco</a>
+            </div>
+            <div class="sobre-image">
+                <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1200&q=80" alt="Interior ou Vista">
+            </div>
+        </div>
+    </section>
+
+    <!-- INFRAESTRUTURA -->
+    <section class="section-infra">
+        <div class="container infra-wrapper">
+            <div class="infra-title">
+                <h2>Infraestrutura de Alto Padrão</h2>
+            </div>
+            <div class="infra-items">
+                <div class="infra-item">
+                    <div class="infra-icon">📍</div>
+                    <div class="infra-text">
+                        <h3>Privacidade</h3>
+                        <p>& Espaço</p>
+                    </div>
+                </div>
+                <div class="infra-item">
+                    <div class="infra-icon">🍃</div>
+                    <div class="infra-text">
+                        <h3>Sustentabilidade</h3>
+                        <p>Natural</p>
+                    </div>
+                </div>
+                <div class="infra-item">
+                    <div class="infra-icon">⭐</div>
+                    <div class="infra-text">
+                        <h3>Serviços</h3>
+                        <p>Premium</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALERIA (Abuse de Imagens) -->
+    <section id="galeria" class="section-galeria">
+        <div class="container">
+            <h2 class="section-title" style="color: #ffffff;">Galeria Visual</h2>
+            <p class="section-subtitle">Sinta a atmosfera do Borgo Lume através das lentes.</p>
+
+            <div class="galeria-grid">
+                <div class="galeria-item wide">
+                    <img src="https://images.unsplash.com/photo-1510798831971-661eb04b3739?auto=format&fit=crop&w=1200&q=80" alt="Vista do Campo">
+                </div>
+                <div class="galeria-item">
+                    <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=800&q=80" alt="Lago">
+                </div>
+                <div class="galeria-item tall">
+                    <img src="https://images.unsplash.com/photo-1444312645910-ffa973656ebe?auto=format&fit=crop&w=800&q=80" alt="Detalhe da Arquitetura">
+                </div>
+                <div class="galeria-item">
+                    <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=800&q=80" alt="Pôr do Sol">
+                </div>
+                <div class="galeria-item wide">
+                    <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1200&q=80" alt="Trilha">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-logo">Borgo Lume</div>
+            <p>&copy; 2026 Borgo Lume. Todos os direitos reservados.</p>
+            <p style="margin-top: 10px; font-size: 0.8rem;">As imagens são meramente ilustrativas e representam o conceito do projeto.</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

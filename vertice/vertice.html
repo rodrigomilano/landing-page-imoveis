@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VÉRTICE SÃO PAULO | O Abismo do Conforto, a Chama do Estilo</title>
+
+    <!-- Tipografia Abyss & Flare -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Italiana&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Abyss & Flare Design Tokens */
+            --color-bg-deep: #050b14;
+            --color-bg-surface: #0b172a;
+            --color-bg-elevated: #112240;
+            --color-primary: #ff6b35;
+            --color-primary-glow: rgba(255, 107, 53, 0.4);
+            --color-primary-dim: #cc5022;
+            --color-accent: #f9a03f;
+            --color-metal: #233554;
+            --color-text-title: #e6f1ff;
+            --color-text-body: #a8b2d1;
+            --color-text-muted: #8892b0;
+
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 16px;
+            --radius-pill: 50px;
+
+            --border-panel: 1px solid rgba(255, 255, 255, 0.05);
+            --shadow-subtle: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
+            --shadow-heavy: 0 20px 40px rgba(0, 0, 0, 0.6);
+
+            --font-display: 'Italiana', serif;
+            --font-body: 'Inter', sans-serif;
+
+            --transition-snappy: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--color-bg-deep);
+            background-image: linear-gradient(180deg, #0a192f 0%, #020c1b 100%);
+            background-attachment: fixed;
+            color: var(--color-text-body);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Subtle Noise para textura "abissal" */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-display);
+            color: var(--color-text-title);
+            letter-spacing: -1px;
+            font-weight: 800;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navbar */
+        nav {
+            padding: 40px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 1.4rem;
+            color: var(--color-text-title);
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: var(--color-primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-links a {
+            color: var(--color-text-muted);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            text-decoration: none;
+            transition: var(--transition-snappy);
+            font-weight: 600;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-primary);
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            padding: 80px 0 140px 0;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            background-image: 
+                linear-gradient(to right, var(--color-bg-deep) 35%, rgba(5, 11, 20, 0.1) 100%),
+                url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1000');
+            background-size: cover;
+            background-position: right center;
+            background-repeat: no-repeat;
+        }
+
+        .hero-content {
+            max-width: 650px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(255, 107, 53, 0.1);
+            color: var(--color-primary);
+            padding: 6px 14px;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255, 107, 53, 0.2);
+        }
+
+        .hero-title {
+            font-size: clamp(3.5rem, 6vw, 5rem);
+            line-height: 1;
+            margin-bottom: 32px;
+            letter-spacing: 2px;
+            background: linear-gradient(to bottom, #e6f1ff 80%, #84b8ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        .hero-title em {
+            font-style: normal;
+            background: linear-gradient(to bottom, #ff6b35 80%, #f9d976 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--color-text-body);
+            margin-bottom: 48px;
+            max-width: 540px;
+            font-weight: 300;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 20px 40px;
+            border-radius: var(--radius-md);
+            font-family: var(--font-display);
+            font-weight: 700;
+            text-decoration: none;
+            transition: var(--transition-snappy);
+            cursor: pointer;
+            border: 1px solid transparent;
+            font-size: 1rem;
+            color: var(--color-text-title);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ff8c42 0%, #ff6b35 100%);
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 40px rgba(255, 107, 53, 0.5);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--color-metal);
+            color: var(--color-text-title);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+            background: rgba(255, 107, 53, 0.05);
+        }
+
+        /* Galeria */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 350px);
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: var(--border-panel);
+            cursor: pointer;
+            background: var(--color-bg-elevated);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-snappy);
+            filter: grayscale(0.4) contrast(1.1);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+            filter: grayscale(0) contrast(1);
+        }
+
+        .gallery-item.large {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        .gallery-item.tall {
+            grid-row: span 2;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(5, 11, 20, 0.9) 0%, transparent 50%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 30px;
+            opacity: 0;
+            transition: var(--transition-snappy);
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-overlay h4 {
+            color: var(--color-text-title);
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+
+        .gallery-overlay span {
+            color: var(--color-primary);
+            font-weight: 700;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Plantas Section */
+        .floorplan-container {
+            margin-top: 60px;
+        }
+
+        .floorplan-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--color-metal);
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--color-text-muted);
+            padding: 15px 30px;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition-snappy);
+            position: relative;
+        }
+
+        .tab-btn.active {
+            color: var(--color-primary);
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--color-primary);
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .pane-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .pane-image {
+            background: var(--color-bg-surface);
+            border: var(--border-panel);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            box-shadow: var(--shadow-subtle);
+            text-align: center;
+        }
+
+        .pane-image img {
+            width: 100%;
+            max-width: 600px;
+            filter: brightness(0.8) contrast(1.2) invert(0.05);
+            transition: var(--transition-snappy);
+        }
+
+        .pane-info h3 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .spec-list {
+            list-style: none;
+            margin-top: 30px;
+        }
+
+        .spec-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.9rem;
+        }
+
+        .spec-list li span:first-child {
+            color: var(--color-text-muted);
+        }
+
+        .spec-list li span:last-child {
+            color: var(--color-text-title);
+            font-weight: 700;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 992px) {
+            .pane-grid {
+                grid-template-columns: 1fr;
+            }
+            .floorplan-tabs {
+                overflow-x: auto;
+                padding-bottom: 10px;
+            }
+            .tab-btn {
+                padding: 10px 20px;
+                white-space: nowrap;
+            }
+        }
+
+        /* Visual Box */
+        .hero-visual {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .visual-frame {
+            background: var(--color-bg-surface);
+            border: var(--border-panel);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-heavy);
+            transform: rotate(2deg);
+            transition: var(--transition-snappy);
+        }
+
+        .visual-frame:hover {
+            transform: rotate(0deg) scale(1.02);
+        }
+
+        .visual-frame img {
+            width: 100%;
+            display: block;
+            opacity: 0.7;
+            filter: grayscale(0.3) contrast(1.1);
+        }
+
+        /* Sections */
+        .section-padding {
+            padding: 120px 0;
+        }
+
+        .glass-panel {
+            background-color: var(--color-bg-surface);
+            border: var(--border-panel);
+            border-radius: var(--radius-lg);
+            padding: 60px;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .section-header {
+            margin-bottom: 80px;
+        }
+
+        .section-tag {
+            color: var(--color-primary);
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .section-title {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            letter-spacing: 2px;
+            background: linear-gradient(to bottom, #e6f1ff 80%, #84b8ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        /* Grid de Conceito */
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .concept-item {
+            padding: 40px;
+            background: var(--color-bg-deep);
+            border: var(--border-panel);
+            border-radius: var(--radius-md);
+            transition: var(--transition-snappy);
+        }
+
+        .concept-item:hover {
+            border-color: var(--color-primary);
+            transform: translateY(-8px);
+        }
+
+        .concept-number {
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 3rem;
+            color: var(--color-bg-elevated);
+            line-height: 1;
+            margin-bottom: 24px;
+        }
+
+        .concept-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+        }
+
+        .concept-item p {
+            color: var(--color-text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Amenities Laranja (Flare) */
+        .flare-section {
+            background: linear-gradient(135deg, #ff8c42 0%, #cc5022 100%);
+            color: #fff;
+            border-radius: var(--radius-lg);
+            padding: 80px;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .flare-section h2 {
+            color: #fff;
+            font-size: 3.5rem;
+            margin-bottom: 24px;
+        }
+
+        .amenity-list {
+            list-style: none;
+        }
+
+        .amenity-list li {
+            font-size: 1.4rem;
+            font-family: var(--font-display);
+            font-weight: 700;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Form */
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 100px;
+            align-items: start;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            color: var(--color-text-muted);
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
+        .form-input {
+            width: 100%;
+            background: var(--color-bg-deep);
+            border: 1px solid var(--color-metal);
+            border-radius: var(--radius-sm);
+            padding: 18px;
+            color: #fff;
+            outline: none;
+            transition: var(--transition-snappy);
+        }
+
+        .form-input:focus {
+            border-color: var(--color-primary);
+        }
+
+        footer {
+            padding: 100px 0 60px 0;
+            text-align: center;
+            border-top: var(--border-panel);
+            margin-top: 100px;
+        }
+
+        .footer-logo {
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--color-text-title);
+            margin-bottom: 24px;
+        }
+
+        .copyright {
+            color: var(--color-text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero, .contact-layout, .flare-section, .dna-grid {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+            .concept-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-visual {
+                padding-left: 0;
+            }
+        }
+
+        #localizacao {
+            position: relative;
+        }
+
+        #localizacao::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 12px;
+            background: 
+                radial-gradient(ellipse at 25% 100%, rgba(255, 107, 53, 0.2) 0%, transparent 70%),
+                radial-gradient(ellipse at 50% 100%, rgba(255, 107, 53, 0.25) 0%, transparent 70%),
+                radial-gradient(ellipse at 75% 100%, rgba(255, 107, 53, 0.2) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Linha base para os spots */
+        #localizacao::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 10%;
+            right: 10%;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(255, 107, 53, 0.3), transparent);
+            z-index: 2;
+        }
+
+        /* Location Section Refactored */
+        .location-layout {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: 80px;
+            align-items: end;
+        }
+
+        .lifestyle-grid {
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .lifestyle-card {
+            padding: 30px 0;
+            border-bottom: 1px solid var(--color-metal);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition-snappy);
+            text-decoration: none;
+        }
+
+        .lifestyle-card:last-child {
+            border-bottom: none;
+        }
+
+        .lifestyle-card:hover {
+            padding-left: 15px;
+        }
+
+        .lifestyle-card:hover .lifestyle-title {
+            color: var(--color-primary);
+        }
+
+        .lifestyle-card:hover .lifestyle-arrow {
+            opacity: 1;
+            color: var(--color-primary);
+            transform: translateX(5px);
+        }
+
+        .lifestyle-content {
+            flex: 1;
+        }
+
+        .lifestyle-title {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--color-text-title);
+            display: block;
+            margin-bottom: 6px;
+            transition: var(--transition-snappy);
+            letter-spacing: 2px;
+        }
+
+        .lifestyle-desc {
+            font-size: 0.95rem;
+            color: var(--color-text-muted);
+            opacity: 0.7;
+            display: block;
+        }
+
+        .lifestyle-arrow {
+            font-size: 1.4rem;
+            font-weight: 300;
+            opacity: 0.4;
+            transition: var(--transition-snappy);
+            margin-left: 30px;
+        }
+
+        .map-frame {
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: var(--border-panel);
+            box-shadow: var(--shadow-heavy);
+            position: relative;
+            cursor: pointer;
+            transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1); /* Easing Quintic mais lento e elegante */
+            z-index: 5;
+        }
+
+        .map-frame.is-expanded {
+            position: fixed;
+            top: 5vh;
+            left: 5vw;
+            width: 90vw;
+            height: 90vh;
+            z-index: 1000;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 100px rgba(0,0,0,0.9), 0 0 30px var(--color-primary-glow);
+        }
+
+        .map-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: saturate(0.5) contrast(1.1) brightness(0.8);
+            transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .map-frame.is-expanded img {
+            filter: saturate(0.8) contrast(1.2) brightness(1);
+        }
+
+        /* HUD Elements */
+        .hud-overlay {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 1s ease 0.8s; /* Fade in mais lento e com mais delay */
+            border: 20px solid transparent;
+        }
+
+        .map-frame.is-expanded .hud-overlay {
+            opacity: 1;
+        }
+
+        .hud-corner {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--color-primary);
+        }
+
+        .corner-tl { top: 20px; left: 20px; border-right: none; border-bottom: none; }
+        .corner-tr { top: 20px; right: 20px; border-left: none; border-bottom: none; }
+        .corner-bl { bottom: 20px; left: 20px; border-right: none; border-top: none; }
+        .corner-br { bottom: 20px; right: 20px; border-left: none; border-top: none; }
+
+        .hud-scanner {
+            position: absolute;
+            top: 45%;
+            left: 55%;
+            width: 200px;
+            height: 200px;
+            border: 1px dashed var(--color-primary);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: rotate 10s linear infinite;
+        }
+
+        .hud-scanner::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            background: var(--color-primary);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--color-primary);
+        }
+
+        .hud-data {
+            position: absolute;
+            bottom: 40px;
+            left: 40px;
+            font-family: monospace;
+            color: var(--color-primary);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            line-height: 2;
+        }
+
+        @keyframes rotate {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .map-badge {
+            position: absolute;
+            top: 45%;
+            left: 55%;
+            background: var(--color-bg-deep);
+            border: 1px solid var(--color-primary);
+            padding: 12px 18px;
+            border-radius: var(--radius-sm);
+            box-shadow: 0 0 25px var(--color-primary-glow);
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .map-badge span {
+            display: block;
+            color: var(--color-primary);
+            font-weight: 800;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .map-badge p {
+            color: var(--color-text-title);
+            font-size: 0.75rem;
+            margin-top: 4px;
+            font-weight: 600;
+        }
+
+        /* DNA / Engineering Section */
+        .dna-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+        }
+
+        .dna-item {
+            padding: 48px;
+            background: var(--color-bg-deep);
+            border: var(--border-panel);
+            border-radius: var(--radius-md);
+            transition: var(--transition-snappy);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dna-item:hover {
+            border-color: var(--color-primary);
+            transform: translateY(-8px);
+            background: var(--color-bg-surface);
+        }
+
+        .dna-num {
+            display: block;
+            font-family: var(--font-display);
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--color-primary);
+            opacity: 0.05;
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            transition: var(--transition-snappy);
+            pointer-events: none;
+        }
+
+        .dna-item:hover .dna-num {
+            opacity: 0.15;
+            transform: scale(1.1);
+        }
+
+        .dna-item h3 {
+            color: var(--color-text-title);
+            font-size: 1.4rem;
+            margin-bottom: 16px;
+            font-family: var(--font-display);
+            letter-spacing: 2px;
+        }
+
+        .dna-item p {
+            color: var(--color-text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            max-width: 90%;
+        }
+
+        /* Collaborator Section */
+        .collaborator-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 60px;
+            margin-top: 60px;
+        }
+
+        .collaborator-card {
+            text-align: center;
+        }
+
+        .collaborator-image {
+            width: 280px;
+            height: 350px;
+            margin: 0 auto 32px;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            filter: grayscale(1) contrast(1.1);
+            transition: var(--transition-snappy);
+            border: var(--border-panel);
+            background: var(--color-bg-surface);
+        }
+
+        .collaborator-card:hover .collaborator-image {
+            filter: grayscale(0) contrast(1);
+            border-color: var(--color-primary);
+            transform: scale(1.02);
+        }
+
+        .collaborator-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .collaborator-role {
+            color: var(--color-primary);
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .collaborator-name {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            color: var(--color-text-title);
+            margin-bottom: 16px;
+            letter-spacing: 2px;
+        }
+
+        .collaborator-quote {
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+            font-style: italic;
+            line-height: 1.6;
+            max-width: 260px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 992px) {
+            .location-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+        <!-- Navigation -->
+        <nav>
+            <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                <div class="logo">VÉRTICE<span>.</span>SP</div>
+                <div class="nav-links">
+                    <a href="#manifesto">Manifesto</a>
+                    <a href="#galeria">Galeria</a>
+                    <a href="#plantas">Plantas</a>
+                    <a href="#localizacao">Localização</a>
+                    <a href="#dna">Engenharia</a>
+                    <a href="#assinatura">Assinatura</a>
+                    <a href="#lazer">Experiências</a>
+                    <a href="#reservar">Reservar</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <header class="hero">
+            <div class="container" style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; align-items: center;">
+                <div class="hero-content">
+                    <span class="badge">Lançamento Exclusivo • Pinheiros</span>
+                    <h1 class="hero-title">Onde o <em>Abismo</em><br>encontra a <em>Chama</em>.</h1>
+                    <p class="hero-subtitle">Vértice é o encontro entre o silêncio profundo e a energia vibrante de São Paulo. Um projeto para quem entende que o luxo mora no contraste.</p>
+                    <div style="display: flex; gap: 20px;">
+                        <a href="#reservar" class="btn btn-primary">Garantir Unidade</a>
+                        <a href="#manifesto" class="btn btn-outline">Ver Book</a>
+                    </div>
+                </div>
+                <!-- Espaço vazio para manter o alinhamento à esquerda -->
+                <div class="hero-spacer"></div>
+            </div>
+        </header>
+
+        <!-- Concept Section -->
+        <section id="manifesto" class="section-padding">
+            <div class="container">
+                <div class="glass-panel">
+                <div class="section-header">
+                    <span class="section-tag">01. Manifesto</span>
+                    <h2 class="section-title">A Geometria do Prestígio</h2>
+                </div>
+                <div class="concept-grid">
+                    <div class="concept-item">
+                        <div class="concept-number">01</div>
+                        <h3>Deep Isolation</h3>
+                        <p>Infraestrutura abissal com atenuação acústica de alta performance. O mundo lá fora emudece para sua paz florescer.</p>
+                    </div>
+                    <div class="concept-item">
+                        <div class="concept-number">02</div>
+                        <h3>Vibrant Flare</h3>
+                        <p>Janelas floor-to-ceiling que capturam a luz de São Paulo, transformando cada amanhecer em uma fagulha de inspiração.</p>
+                    </div>
+                    <div class="concept-item">
+                        <div class="concept-number">03</div>
+                        <h3>Snappy Life</h3>
+                        <p>Automação residencial completa que responde ao seu ritmo. Tecnologia fluida integrada à arquitetura orgânica.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="galeria" class="section-padding">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">02. Galeria</span>
+                    <h2 class="section-title">O Olhar do Vértice</h2>
+                </div>
+            <div class="gallery-grid">
+                <div class="gallery-item large">
+                    <img src="assets/vertice_facade_night_1778181079837.png" alt="Arquitetura Abissal">
+                    <div class="gallery-overlay">
+                        <span>Exterior</span>
+                        <h4>Arquitetura Abissal</h4>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/vertice_living_room_1778181094401.png" alt="Living do Abismo">
+                    <div class="gallery-overlay">
+                        <span>Interior</span>
+                        <h4>O Santuário da Serenidade</h4>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/vertice_rooftop_pool_1778181110741.png" alt="Lazer de Altura">
+                    <div class="gallery-overlay">
+                        <span>Lazer</span>
+                        <h4>A Chama Vibrante</h4>
+                    </div>
+                </div>
+                <div class="gallery-item tall">
+                    <img src="assets/vertice_detail_finish_1778181134158.png" alt="Detalhes">
+                    <div class="gallery-overlay">
+                        <span>Acabamento</span>
+                        <h4>DNA de Prestígio</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Floorplans Section -->
+        <section id="plantas" class="section-padding">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">03. Plantas</span>
+                    <h2 class="section-title">Arquitetura da Alma</h2>
+                    <p style="margin-top: 20px; max-width: 600px; color: var(--color-text-muted);">Flexibilidade e amplitude em layouts que respeitam sua privacidade e elevam seu estilo de vida no coração de Pinheiros.</p>
+                </div>
+
+                <div class="floorplan-container">
+                    <div class="floorplan-tabs">
+                        <button class="tab-btn active" data-tab="tipo">Apartamento Tipo</button>
+                        <button class="tab-btn" data-tab="penthouse">Penthouse Duplex</button>
+                        <button class="tab-btn" data-tab="garden">Garden House</button>
+                    </div>
+
+                    <div class="floorplan-content">
+                        <!-- Aba Tipo -->
+                        <div class="tab-pane active" id="tipo">
+                            <div class="pane-grid">
+                                <div class="pane-image">
+                                    <img src="assets/vertice_floorplan_tipo_1778181929255.png" alt="Planta Tipo Vértice">
+                                </div>
+                                <div class="pane-info">
+                                    <h3>Espaço & Fluidez</h3>
+                                    <p style="color: var(--color-text-muted);">Unidades de 180m² com circulação inteligente e integração total entre living e varanda.</p>
+                                    <ul class="spec-list">
+                                        <li><span>Suítes Master</span> <span>03</span></li>
+                                        <li><span>Vagas de Garagem</span> <span>04</span></li>
+                                        <li><span>Living Integrado</span> <span>Sim</span></li>
+                                        <li><span>Varanda Gourmet</span> <span>Flare Grill Incluído</span></li>
+                                    </ul>
+                                    <a href="#reservar" class="btn btn-primary" style="margin-top: 30px; width: 100%; justify-content: center;">Solicitar PDF Detalhado</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Aba Penthouse -->
+                        <div class="tab-pane" id="penthouse">
+                            <div class="pane-grid">
+                                <div class="pane-image">
+                                    <img src="assets/vertice_floorplan_penthouse_1778182284572.png" alt="Planta Penthouse Vértice">
+                                </div>
+                                <div class="pane-info">
+                                    <h3>O Topo do Vértice</h3>
+                                    <p style="color: var(--color-text-muted);">Unidades Duplex de 320m² com piscina privativa e vista abissal de São Paulo.</p>
+                                    <ul class="spec-list">
+                                        <li><span>Suítes Master</span> <span>04</span></li>
+                                        <li><span>Vagas de Garagem</span> <span>06</span></li>
+                                        <li><span>Piscina Privativa</span> <span>Sim</span></li>
+                                        <li><span>Pé Direito</span> <span>Duplo</span></li>
+                                    </ul>
+                                    <a href="#reservar" class="btn btn-primary" style="margin-top: 30px; width: 100%; justify-content: center;">Ver Detalhes Duplex</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Aba Garden -->
+                        <div class="tab-pane" id="garden">
+                            <div class="pane-grid">
+                                <div class="pane-image">
+                                    <img src="assets/vertice_floorplan_garden_1778182299229.png" alt="Planta Garden Vértice">
+                                </div>
+                                <div class="pane-info">
+                                    <h3>Refúgio Urbano</h3>
+                                    <p style="color: var(--color-text-muted);">Unidades com amplo jardim privativo, unindo o conforto de uma casa à segurança de um prédio.</p>
+                                    <ul class="spec-list">
+                                        <li><span>Suítes Master</span> <span>03</span></li>
+                                        <li><span>Área Externa</span> <span>80m²</span></li>
+                                        <li><span>Living Integrado</span> <span>Sim</span></li>
+                                        <li><span>Privacidade</span> <span>Máxima</span></li>
+                                    </ul>
+                                    <a href="#reservar" class="btn btn-primary" style="margin-top: 30px; width: 100%; justify-content: center;">Conhecer Garden</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Location Section -->
+        <section id="localizacao" class="section-padding">
+            <div class="container">
+                <div class="location-layout">
+                    <div class="location-info">
+                        <span class="section-tag">04. Localização</span>
+                        <h2 class="section-title">O Epicentro do Estilo</h2>
+                        <p style="margin-top: 24px; color: var(--color-text-body); max-width: 480px;">Pinheiros não é apenas um bairro, é o pulso criativo de São Paulo. Aqui, a sofisticação encontra a conveniência em cada esquina.</p>
+                        
+                        <div class="lifestyle-grid">
+                            <div class="lifestyle-card">
+                                <div class="lifestyle-content">
+                                    <span class="lifestyle-title">Gastronomia de Autor</span>
+                                    <span class="lifestyle-desc">Rua dos Pinheiros e o polo gastronômico à sua porta.</span>
+                                </div>
+                                <span class="lifestyle-arrow">→</span>
+                            </div>
+
+                            <div class="lifestyle-card">
+                                <div class="lifestyle-content">
+                                    <span class="lifestyle-title">Arte & Cultura</span>
+                                    <span class="lifestyle-desc">Galerias e o Instituto Tomie Ohtake a poucos minutos.</span>
+                                </div>
+                                <span class="lifestyle-arrow">→</span>
+                            </div>
+
+                            <div class="lifestyle-card">
+                                <div class="lifestyle-content">
+                                    <span class="lifestyle-title">Parque Villa-Lobos</span>
+                                    <span class="lifestyle-desc">O equilíbrio perfeito entre vida urbana e natureza.</span>
+                                </div>
+                                <span class="lifestyle-arrow">→</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="location-visual">
+                        <div class="map-frame" id="interactiveMap">
+                            <img src="assets/vertice_map_pinheiros_1778182377638.png" alt="Mapa Pinheiros Vértice">
+                            
+                            <div class="hud-overlay">
+                                <div class="hud-corner corner-tl"></div>
+                                <div class="hud-corner corner-tr"></div>
+                                <div class="hud-corner corner-bl"></div>
+                                <div class="hud-corner corner-br"></div>
+                                <div class="hud-scanner"></div>
+                                <div class="hud-data">
+                                    [ SCANNING AREA... ]<br>
+                                    LAT: -23.5617<br>
+                                    LONG: -46.6865<br>
+                                    STATUS: EXCLUSIVE ACCESS
+                                </div>
+                                <div style="position: absolute; top: 40px; right: 40px; color: var(--color-primary); font-family: monospace; font-size: 0.8rem;">ESC TO CLOSE</div>
+                            </div>
+
+                            <div class="map-badge">
+                                <span>Vértice Pinheiros</span>
+                                <p>Rua das Flores, 800</p>
+                            </div>
+                        </div>
+                        <div id="mapBackdrop" style="position: fixed; inset: 0; background: rgba(5,11,20,0.9); z-index: 999; opacity: 0; pointer-events: none; transition: opacity 1.2s ease;"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DNA Section -->
+        <section id="dna" class="section-padding" style="background: var(--color-bg-elevated);">
+            <div class="container">
+                <span class="section-tag">05. Engenharia</span>
+                <h2 class="section-title">DNA de Exclusividade</h2>
+                <p style="margin-top: 24px; color: var(--color-text-body); max-width: 600px; margin-bottom: 60px;">O Vértice foi concebido para superar padrões. Cada detalhe técnico é uma prova do nosso compromisso com a perfeição construtiva e o conforto absoluto.</p>
+                
+                <div class="dna-grid">
+                    <div class="dna-item">
+                        <span class="dna-num">01</span>
+                        <h3>Conforto Acústico</h3>
+                        <p>Lajes com tratamento especial e esquadrias de alta performance para um silêncio absoluto no coração de Pinheiros.</p>
+                    </div>
+                    <div class="dna-item">
+                        <span class="dna-num">02</span>
+                        <h3>Smart Living</h3>
+                        <p>Infraestrutura completa para automação total de iluminação, climatização e som, controlados por voz ou smartphone.</p>
+                    </div>
+                    <div class="dna-item">
+                        <span class="dna-num">03</span>
+                        <h3>Mobilidade Verde</h3>
+                        <p>Vagas preparadas com pontos de carregamento individual para veículos elétricos, antecipando o futuro.</p>
+                    </div>
+                    <div class="dna-item">
+                        <span class="dna-num">04</span>
+                        <h3>Acabamentos Prime</h3>
+                        <p>Seleção rigorosa de mármores e madeiras certificadas, elevando a experiência tátil e visual de cada ambiente.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Signature Section -->
+        <section id="assinatura" class="section-padding">
+            <div class="container">
+                <div style="text-align: center; margin-bottom: 80px;">
+                    <span class="section-tag">06. Assinatura</span>
+                    <h2 class="section-title">Visões em Convergência</h2>
+                    <p style="margin-top: 24px; color: var(--color-text-body); max-width: 700px; margin-left: auto; margin-right: auto;">O Vértice não é apenas um prédio, é um manifesto assinado por mentes que acreditam na arquitetura como uma forma de arte viva.</p>
+                </div>
+                
+                <div class="collaborator-grid">
+                    <div class="collaborator-card">
+                        <div class="collaborator-image">
+                            <img src="assets/vertice_architect_portrait_1778183133447.png" alt="Arquiteto Vértice">
+                        </div>
+                        <span class="collaborator-role">Arquitetura</span>
+                        <h3 class="collaborator-name">Studio Milano</h3>
+                        <p class="collaborator-quote">"Desenhamos o Vértice para ser o ponto de encontro entre a brutalidade do concreto e a leveza do céu."</p>
+                    </div>
+
+                    <div class="collaborator-card">
+                        <div class="collaborator-image">
+                            <img src="assets/vertice_landscaper_portrait_1778183146678.png" alt="Paisagista Vértice">
+                        </div>
+                        <span class="collaborator-role">Paisagismo</span>
+                        <h3 class="collaborator-name">Flare Landscape</h3>
+                        <p class="collaborator-quote">"Trouxemos o abismo verde para dentro da moradia, criando um ecossistema de silêncio e frescor."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Flare Section (Amenities) -->
+        <section id="lazer" class="section-padding">
+            <div class="container">
+                <div class="flare-section">
+                    <div>
+                        <span class="section-tag" style="color: rgba(255,255,255,0.7);">07. Experiências</span>
+                        <h2>A Chama que<br>nos Conecta.</h2>
+                        <p style="font-size: 1.1rem; opacity: 0.9; margin-top: 24px;">Espaços de lazer projetados para serem extensões da sua sala. Onde a vibração da cidade encontra o refúgio do lar.</p>
+                    </div>
+                    
+                    <ul class="amenity-list">
+                        <li><span>Sky Flare Lounge</span> <span>→</span></li>
+                        <li><span>Abyss Spa & Wellness</span> <span>→</span></li>
+                        <li><span>Infinity Blue Pool</span> <span>→</span></li>
+                        <li><span>Gourmet Atelier</span> <span>→</span></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="reservar" class="section-padding">
+            <div class="container">
+                <div class="contact-layout">
+                    <div>
+                        <span class="section-tag">08. Contato</span>
+                        <h2 class="section-title" style="margin-bottom: 24px;">Faça Parte<br>do Vértice.</h2>
+                        <p style="color: var(--color-text-muted); margin-bottom: 40px;">Apenas 18 unidades exclusivas. Deixe seus dados e um de nossos especialistas em alto padrão entrará em contato.</p>
+                        
+                        <div style="background: var(--color-bg-surface); padding: 30px; border-radius: var(--radius-md); border-left: 4px solid var(--color-primary);">
+                            <p style="color: var(--color-text-title); font-weight: 700; margin-bottom: 10px;">Plantas Tipo</p>
+                            <p style="font-size: 0.9rem;">180m² a 320m² • 3 ou 4 Suítes • 4 Vagas</p>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-panel" style="padding: 50px;">
+                        <form>
+                            <div class="form-group">
+                                <label class="form-label">Nome Completo</label>
+                                <input type="text" class="form-input" placeholder="Como devemos te chamar?">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">E-mail Corporativo</label>
+                                <input type="email" class="form-input" placeholder="seu@email.com">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Telefone / WhatsApp</label>
+                                <input type="tel" class="form-input" placeholder="(11) 99999-0000">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Interesse Principal</label>
+                                <select class="form-input" style="appearance: none;">
+                                    <option>Apartamento Tipo</option>
+                                    <option>Penthouse</option>
+                                    <option>Garden House</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; margin-top: 20px;">Solicitar Book Digital</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="section-padding" style="border-top: var(--border-panel); text-align: center;">
+            <div class="container">
+                <div class="footer-logo">VÉRTICE<span>.</span>SP</div>
+                <p class="copyright">© 2026 Incorporadora Flare & Abyss S/A. Pinheiros, São Paulo.</p>
+                <p class="copyright" style="margin-top: 10px; opacity: 0.5;">As imagens são meramente ilustrativas. O projeto pode sofrer alterações.</p>
+            </div>
+        </footer>
+
+    <script>
+        // Mapa Interativo
+        const map = document.getElementById('interactiveMap');
+        const backdrop = document.getElementById('mapBackdrop');
+
+        map.addEventListener('click', () => {
+            map.classList.toggle('is-expanded');
+            backdrop.style.opacity = map.classList.contains('is-expanded') ? '1' : '0';
+            backdrop.style.pointerEvents = map.classList.contains('is-expanded') ? 'all' : 'none';
+        });
+
+        backdrop.addEventListener('click', () => {
+            map.classList.remove('is-expanded');
+            backdrop.style.opacity = '0';
+            backdrop.style.pointerEvents = 'none';
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                map.classList.remove('is-expanded');
+                backdrop.style.opacity = '0';
+                backdrop.style.pointerEvents = 'none';
+            }
+        });
+
+        // Smooth scroll para links internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Lógica de Abas para Plantas
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabPanes = document.querySelectorAll('.tab-pane');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remover active de todos
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabPanes.forEach(p => p.classList.remove('active'));
+
+                // Adicionar no clicado
+                btn.classList.add('active');
+                const tabId = btn.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+    </script>
+</body>
+
+</html>

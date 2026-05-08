@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMURZA UI - Dark Elegance Architecture</title>
+
+    <!-- Tipografia de Alto Padrão: 
+         Playfair Display para Títulos (Elegância intemporal)
+         Montserrat para Corpo/Dados (Geométrica, limpa, moderna) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ==========================================================================
+           1. DESIGN TOKENS (Variáveis CSS) - Carvão Quente e Cobre
+           ========================================================================== */
+        :root {
+            /* Paleta de Cores: Fundo Matte Quente e Acentos Acobreados */
+            --color-bg-deep: #121110;
+            /* Preto acastanhado profundo */
+            --color-bg-surface: #1a1816;
+            /* Painéis matte escuros */
+            --color-bg-elevated: #24221f;
+            /* Elevações sutis */
+
+            --color-primary: #b87b51;
+            /* Cobre / Bronze Vibrante */
+            --color-primary-dim: #8c5b3a;
+            /* Cobre Escurecido */
+            --color-primary-light: #d6986c;
+            /* Cobre Iluminado */
+
+            --color-accent: #c48b5d;
+            /* Tom complementar (Ouro velho) */
+            --color-accent-glow: rgba(196, 139, 93, 0.2);
+
+            --color-metal: #383531;
+            /* Cinza quente escuro */
+            --color-metal-dark: #0a0909;
+            /* Sombra arquitetónica */
+            --color-metal-light: #c4bfb8;
+            /* Cinza claro proeminente (Novo detalhe) */
+
+            --color-text-title: #ece8e1;
+            /* Branco sujo/bege claro (Elegância) */
+            --color-text-body: #a39f9a;
+            /* Cinza quente (Leitura) */
+            --color-text-muted: #6b6762;
+            /* Texto secundário */
+
+            /* Curvaturas: Rigor elegante (Quase reto, leve suavidade) */
+            --radius-sm: 2px;
+            --radius-md: 4px;
+            --radius-lg: 4px;
+            /* Mais reto que as versões anteriores */
+            --radius-pill: 50px;
+
+            /* Bordas ultra finas e discretas */
+            --border-panel: 1px solid rgba(236, 232, 225, 0.04);
+            --border-highlight: 1px solid rgba(184, 123, 81, 0.2);
+
+            /* Efeitos de Profundidade (Sombras densas e difusas, sem brilho excessivo) */
+            --shadow-subtle: 0 10px 30px rgba(0, 0, 0, 0.5);
+            --shadow-heavy: 0 20px 50px rgba(0, 0, 0, 0.8), 0 5px 15px rgba(0, 0, 0, 0.6);
+
+            /* Tipografia */
+            --font-display: 'Playfair Display', serif;
+            --font-body: 'Montserrat', sans-serif;
+            --font-mono: 'Montserrat', sans-serif;
+
+            /* Espaçamentos */
+            --space-xs: 8px;
+            --space-sm: 16px;
+            --space-md: 24px;
+            --space-lg: 48px;
+            --space-xl: 80px;
+
+            /* Transições refinadas */
+            --transition-snappy: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --transition-btn: all 0.5s ease-out;
+
+            /* Textura Global: Granulado fotográfico matte */
+            --texture-matte: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+        }
+
+        /* ==========================================================================
+           2. BASE, RESET & BACKGROUND (A Essência AMURZA)
+           ========================================================================== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--color-bg-deep);
+            color: var(--color-text-body);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 300;
+            line-height: 1.7;
+            overflow-x: hidden;
+
+            /* Fundo sólido e quente, com leve gradiente para não parecer liso */
+            background-image: linear-gradient(to bottom, #121110 0%, #0a0909 100%);
+            background-attachment: fixed;
+        }
+
+        /* Ruído texturizado para simular a impressão fotográfica premium */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: var(--texture-matte);
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: var(--font-display);
+            color: var(--color-text-title);
+            font-weight: 500;
+            letter-spacing: 0.2px;
+        }
+
+        a {
+            color: var(--color-accent);
+            text-decoration: none;
+            transition: var(--transition-snappy);
+        }
+
+        a:hover {
+            color: var(--color-text-title);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-xl) var(--space-md);
+        }
+
+        /* --------------------------------------------------------------------------
+           MIXIN: PAINEL MATTE (Substitui o Glass)
+           -------------------------------------------------------------------------- */
+        .glass-panel {
+            position: relative;
+            background-color: var(--color-bg-surface);
+            border: var(--border-panel);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-subtle);
+            padding: var(--space-lg);
+            z-index: 1;
+            transition: var(--transition-snappy);
+            background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, transparent 100%);
+        }
+
+        .ds-panel {
+            margin-bottom: var(--space-xl);
+        }
+
+        .ds-section-title {
+            font-size: 2rem;
+            margin-bottom: var(--space-md);
+            position: relative;
+            display: inline-block;
+            color: var(--color-text-title);
+            font-weight: 500;
+        }
+
+        .ds-section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--color-primary);
+        }
+
+        /* ==========================================================================
+           3. HERO SECTION (Cinematográfico e Focado)
+           ========================================================================== */
+        .hero {
+            padding: var(--space-xl) 5%;
+            margin-bottom: var(--space-lg);
+            position: relative;
+            background-color: #121110;
+            /* Background fotográfico simulando a mansão noturna com luzes quentes */
+            background-image:
+                linear-gradient(to right, #121110 30%, transparent 80%),
+                linear-gradient(to top, #121110 0%, transparent 40%),
+                url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2000&q=80');
+            background-size: cover;
+            background-position: center 30%;
+            border-radius: var(--radius-lg);
+            border: var(--border-panel);
+            box-shadow: var(--shadow-heavy);
+            padding-top: 150px;
+            padding-bottom: 120px;
+            overflow: hidden;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 6vw, 4.5rem);
+            line-height: 1.1;
+            color: var(--color-text-title);
+            margin-bottom: var(--space-md);
+            position: relative;
+            z-index: 1;
+            font-weight: 500;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            font-weight: 300;
+            color: var(--color-text-body);
+            max-width: 500px;
+            margin-bottom: var(--space-lg);
+            position: relative;
+            z-index: 1;
+            font-family: var(--font-body);
+            line-height: 1.8;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+        }
+
+        /* ==========================================================================
+           4. TIPOGRAFIA
+           ========================================================================== */
+        .type-specimen {
+            margin-bottom: var(--space-md);
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .type-specimen label {
+            display: block;
+            color: var(--color-primary-light);
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .type-h1 {
+            font-family: var(--font-display);
+            font-size: 2.8rem;
+            font-weight: 500;
+            color: var(--color-text-title);
+        }
+
+        .type-h2 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 500;
+            color: var(--color-text-title);
+            font-style: italic;
+        }
+
+        .type-body {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            color: var(--color-text-body);
+            font-weight: 300;
+        }
+
+        .type-marker {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            color: var(--color-primary);
+            font-weight: 400;
+            font-style: italic;
+        }
+
+        /* ==========================================================================
+           5. PALETA DE CORES (Matte Dark e Bronze)
+           ========================================================================== */
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: var(--space-md);
+        }
+
+        .color-swatch {
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-xs);
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: var(--color-text-title);
+            text-align: center;
+            border-radius: var(--radius-md);
+            border: var(--border-panel);
+            position: relative;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .bg-deep {
+            background: var(--color-bg-deep);
+        }
+
+        .bg-glass {
+            background: var(--color-bg-surface);
+        }
+
+        .bg-primary {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dim));
+            color: #fff;
+            border: none;
+        }
+
+        .bg-metal {
+            background: var(--color-metal);
+            color: #fff;
+        }
+
+        .bg-eco {
+            background: var(--color-accent);
+            color: #000;
+            font-weight: 500;
+        }
+
+        /* ==========================================================================
+           6. BOTÕES E ESTADOS - Gradiente Acobreado
+           ========================================================================== */
+        .btn-grid {
+            display: flex;
+            gap: var(--space-md);
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .btn {
+            background-color: var(--color-metal);
+            color: var(--color-text-title);
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 14px 32px;
+            cursor: pointer;
+            transition: var(--transition-btn);
+            outline: none;
+            border: none;
+            border-radius: var(--radius-sm);
+            letter-spacing: 0.5px;
+        }
+
+        .btn:hover {
+            background-color: #4a4742;
+            color: #fff;
+        }
+
+        .btn-primary,
+        .btn-hero {
+            /* O gradiente de cobre elegante da referência */
+            background: linear-gradient(to right, #b87b51, #d6986c);
+            color: #121110;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(184, 123, 81, 0.2);
+        }
+
+        .btn-primary:hover,
+        .btn-hero:hover {
+            background: linear-gradient(to right, #c48b5d, #e3a67b);
+            box-shadow: 0 8px 25px rgba(184, 123, 81, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-arrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background-color: transparent;
+            border: none;
+            border-bottom: 1px solid var(--color-primary-dim);
+            border-radius: 0;
+            padding: 8px 0;
+            color: var(--color-primary-light);
+            box-shadow: none;
+        }
+
+        .btn-arrow::after {
+            content: '→';
+            font-size: 1.2rem;
+            transition: var(--transition-snappy);
+            font-weight: 300;
+        }
+
+        .btn-arrow:hover {
+            background-color: transparent;
+            color: #fff;
+            border-color: var(--color-primary-light);
+        }
+
+        .btn-arrow:hover::after {
+            transform: translateX(6px);
+        }
+
+        .btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            background: var(--color-metal);
+            color: var(--color-text-muted);
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* ==========================================================================
+           7. ELEMENTOS DE INTERAÇÃO
+           ========================================================================== */
+
+        /* 7.1 Abas (Spotlight Acobreado) */
+        .tabs-nav {
+            display: inline-flex;
+            background-color: transparent;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            margin-bottom: var(--space-md);
+            width: 100%;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--color-text-muted);
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            font-weight: 400;
+            cursor: pointer;
+            transition: var(--transition-btn);
+            padding: 16px 32px;
+            border-radius: var(--radius-md) var(--radius-md) 0 0;
+            border-bottom: 1px solid transparent;
+            margin-bottom: -1px;
+            letter-spacing: 0.5px;
+        }
+
+        .tab-btn:hover {
+            color: var(--color-text-title);
+            background: radial-gradient(ellipse at top, rgba(236, 232, 225, 0.03) 0%, transparent 70%);
+        }
+
+        .tab-btn.active {
+            color: var(--color-text-title);
+            border-bottom-color: transparent;
+            background: radial-gradient(ellipse at top, rgba(236, 232, 225, 0.12) 0%, transparent 70%);
+        }
+
+        .tab-content {
+            display: none;
+            padding: var(--space-md) 0;
+            animation: fadeSlideUp 0.6s ease-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeSlideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 7.2 Accordion (Linhas elegantes) */
+        .accordion-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            background-color: transparent;
+            overflow: hidden;
+            transition: var(--transition-snappy);
+        }
+
+        .accordion-header {
+            width: 100%;
+            text-align: left;
+            background: transparent;
+            border: none;
+            color: var(--color-text-title);
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 400;
+            padding: 24px 0;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition-snappy);
+        }
+
+        .accordion-header:hover {
+            background: radial-gradient(ellipse at top, rgba(236, 232, 225, 0.02) 0%, transparent 70%);
+        }
+
+        .accordion-header span {
+            color: var(--color-primary);
+            transition: transform 0.4s ease-out;
+            font-family: var(--font-body);
+            font-weight: 300;
+        }
+
+        .accordion-header.active {
+            color: var(--color-primary-light);
+            background: radial-gradient(ellipse at top, rgba(184, 123, 81, 0.1) 0%, transparent 70%);
+        }
+
+        .accordion-header.active span {
+            transform: rotate(180deg);
+        }
+
+        .accordion-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            color: var(--color-text-body);
+        }
+
+        .accordion-body p {
+            padding: 0 0 32px 0;
+            font-weight: 300;
+        }
+
+        /* 7.3 Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(18, 17, 16, 0.9);
+            backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition-snappy);
+            z-index: 1000;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-box {
+            width: 90%;
+            max-width: 500px;
+            transform: scale(0.98) translateY(20px);
+            opacity: 0;
+            transition: var(--transition-btn);
+            background-color: var(--color-bg-surface);
+            border: var(--border-panel);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-heavy);
+            padding: var(--space-xl);
+            background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, transparent 100%);
+        }
+
+        .modal-overlay.active .modal-box {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            background: transparent;
+            border: none;
+            color: var(--color-text-muted);
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 10;
+            transition: var(--transition-snappy);
+            font-family: var(--font-body);
+        }
+
+        .modal-close:hover {
+            color: var(--color-text-title);
+            transform: rotate(90deg);
+        }
+
+        /* 7.4 Formulário */
+        .form-group {
+            margin-bottom: var(--space-md);
+        }
+
+        .form-label {
+            display: block;
+            font-family: var(--font-body);
+            font-weight: 400;
+            color: var(--color-text-body);
+            margin-bottom: 10px;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        .form-input,
+        .form-select {
+            width: 100%;
+            background-color: var(--color-bg-deep);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius-sm);
+            color: var(--color-text-title);
+            padding: 16px 20px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 300;
+            transition: var(--transition-snappy);
+            outline: none;
+        }
+
+        .form-input:focus,
+        .form-select:focus {
+            border-color: var(--color-primary);
+            background-color: rgba(184, 123, 81, 0.02);
+            box-shadow: 0 0 0 1px var(--color-primary);
+        }
+
+        .form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23a39f9a' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 16px;
+            padding-right: 40px;
+            cursor: pointer;
+        }
+
+        .form-select option {
+            background-color: var(--color-bg-surface);
+            color: var(--color-text-title);
+        }
+
+        .form-check-group {
+            display: flex;
+            gap: var(--space-md);
+            margin-top: var(--space-xs);
+        }
+
+        .form-check {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            color: var(--color-text-body);
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            font-weight: 300;
+            user-select: none;
+        }
+
+        .form-check input {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background-color: transparent;
+            transition: var(--transition-snappy);
+            display: grid;
+            place-content: center;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .form-check input[type="radio"] {
+            border-radius: 50%;
+        }
+
+        .form-check input[type="checkbox"] {
+            border-radius: 2px;
+        }
+
+        .form-check input:focus {
+            border-color: var(--color-primary);
+        }
+
+        .form-check input:checked {
+            border-color: var(--color-primary);
+            background-color: transparent;
+        }
+
+        .form-check input::before {
+            content: "";
+            transform: scale(0);
+            transition: var(--transition-snappy);
+        }
+
+        .form-check input[type="radio"]::before {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--color-primary);
+        }
+
+        .form-check input[type="checkbox"]::before {
+            width: 10px;
+            height: 10px;
+            background-color: var(--color-primary);
+            clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+        }
+
+        .form-check input:checked::before {
+            transform: scale(1);
+        }
+
+        /* 7.5 Elementos de Mapa / Inventário (Cards Fotográficos AMURZA) */
+        .inventory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+
+        .inventory-item {
+            /* Transforma os painéis em cartões de imagem */
+            background-color: var(--color-bg-surface);
+            background-size: cover;
+            background-position: center;
+            border-radius: var(--radius-md);
+            padding: var(--space-xl) var(--space-lg);
+            min-height: 380px;
+            cursor: pointer;
+            transition: var(--transition-btn);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            /* Empurra o texto para baixo */
+            color: #ffffff;
+            position: relative;
+            box-shadow: var(--shadow-subtle);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-bottom: 4px solid var(--color-metal-light);
+            /* Novo detalhe cinza claro na base */
+            overflow: hidden;
+        }
+
+        /* Adicionando imagens de fundo específicas aos 3 cartões */
+        .inventory-item:nth-child(1) {
+            background-image: url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=80');
+        }
+
+        .inventory-item:nth-child(2) {
+            background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80');
+        }
+
+        .inventory-item:nth-child(3) {
+            background-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80');
+        }
+
+        /* Gradiente escuro para garantir leitura do texto */
+        .inventory-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(18, 17, 16, 0.95) 0%, rgba(18, 17, 16, 0.6) 40%, transparent 100%);
+            z-index: 1;
+            transition: var(--transition-snappy);
+        }
+
+        .inventory-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
+            border-color: rgba(184, 123, 81, 0.3);
+        }
+
+        .inventory-item:hover::before {
+            background: linear-gradient(to top, rgba(18, 17, 16, 0.95) 0%, rgba(18, 17, 16, 0.4) 50%, transparent 100%);
+        }
+
+        /* Textos elevados acima do gradiente */
+        .inventory-item span,
+        .inventory-item p,
+        .inventory-item .card-btn {
+            position: relative;
+            z-index: 2;
+        }
+
+        .inventory-item span {
+            font-family: var(--font-display);
+            font-weight: 400;
+            font-size: 1.6rem;
+            margin-bottom: 12px;
+            color: var(--color-text-title);
+        }
+
+        .inventory-item p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--color-text-body);
+            font-weight: 300;
+            margin-bottom: 24px;
+        }
+
+        /* Botão interno do card */
+        .inventory-item .card-btn {
+            align-self: flex-start;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--color-text-title);
+            padding: 8px 20px;
+            border-radius: var(--radius-sm);
+            font-weight: 400;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            transition: var(--transition-snappy);
+            letter-spacing: 0.5px;
+        }
+
+        .inventory-item:hover .card-btn {
+            background: linear-gradient(to right, #b87b51, #d6986c);
+            border-color: transparent;
+            color: #121110;
+            font-weight: 500;
+        }
+
+        /* 7.6 Carrossel de Imagens Arquitetónico */
+        .carousel-wrapper {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: var(--radius-md);
+            background-color: var(--color-bg-surface);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            width: 100%;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+            display: block;
+            filter: brightness(0.8) contrast(1.05);
+        }
+
+        .carousel-controls {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .carousel-btn {
+            background-color: rgba(18, 17, 16, 0.8);
+            backdrop-filter: blur(5px);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 44px;
+            height: 44px;
+            font-family: var(--font-body);
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: var(--transition-btn);
+            border-radius: 50%;
+        }
+
+        .carousel-btn:hover {
+            background-color: var(--color-primary);
+            color: #121110;
+            border-color: var(--color-primary);
+        }
+
+        /* 7.7 Galeria em Ladrilho (Masonry) - Despertar da Luz Rasante */
+        .masonry-gallery {
+            column-count: 3;
+            column-gap: 24px;
+        }
+
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 24px;
+            position: relative;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-bottom: 4px solid var(--color-metal-light);
+            /* Novo detalhe cinza claro na base */
+            box-shadow: var(--shadow-subtle);
+            cursor: pointer;
+            background-color: var(--color-bg-surface);
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.6s ease;
+        }
+
+        .masonry-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.8s ease;
+            filter: brightness(0.65) contrast(1.1) grayscale(20%);
+        }
+
+        /* 1. Feixe de luz rasante */
+        .masonry-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(214, 152, 108, 0.2), transparent);
+            transform: skewX(-25deg);
+            transition: none;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* 2. Sombra base + Fio de Ouro Interno */
+        .masonry-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(18, 17, 16, 0.9) 0%, transparent 50%);
+            box-shadow: inset 0 0 0 0 transparent;
+            opacity: 0.8;
+            transition: var(--transition-btn);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .masonry-item:hover {
+            border-color: transparent;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8), 0 10px 20px rgba(184, 123, 81, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .masonry-item:hover::before {
+            left: 200%;
+            transition: left 1s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .masonry-item:hover img {
+            transform: scale(1.06);
+            filter: brightness(1.05) contrast(1.1) grayscale(0%);
+        }
+
+        .masonry-item:hover::after {
+            opacity: 1;
+            background: linear-gradient(to top, rgba(18, 17, 16, 0.6) 0%, transparent 30%);
+            /* O Fio de Ouro atualizado para AMURZA */
+            box-shadow: inset 0 0 0 1px rgba(184, 123, 81, 0.4);
+        }
+
+        /* Responsividade para a galeria */
+        @media (max-width: 900px) {
+            .masonry-gallery {
+                column-count: 2;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .masonry-gallery {
+                column-count: 1;
+            }
+        }
+
+        /* 7.8 Badges / Tags */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--color-text-body);
+            font-family: var(--font-body);
+            font-weight: 400;
+            font-size: 0.8rem;
+            padding: 6px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-sm);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .badge.eco {
+            background: rgba(184, 123, 81, 0.1);
+            border-color: rgba(184, 123, 81, 0.3);
+            color: var(--color-primary-light);
+        }
+
+        /* ==========================================================================
+           8. DECORAÇÕES E LINHAS
+           ========================================================================== */
+        .line-thick {
+            border-top: 1px solid var(--color-primary-dim);
+            width: 100%;
+            opacity: 0.8;
+        }
+
+        .line-dashed {
+            border-top: 1px dashed rgba(255, 255, 255, 0.05);
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 1. Hero Section -->
+    <header class="hero" style="margin: var(--space-lg) auto; max-width: 1200px;">
+        <h1 class="hero-title">Casas de Luxo<br><span style="font-style: italic; color: rgba(236, 232, 225, 0.8);">em
+                São Paulo</span></h1>
+        <p class="hero-subtitle">Onde a arquitetura moderna cruza a sofisticação urbana noturna. Descubra residências
+            que refletem o futuro do design de elite.</p>
+        <div style="display:flex; gap:15px; margin-top: 24px;">
+            <button class="btn btn-hero"
+                onclick="document.getElementById('docs').scrollIntoView({behavior:'smooth'})">Conheça os
+                projetos</button>
+        </div>
+    </header>
+
+    <div class="container" id="docs">
+
+        <!-- Documentação Intro -->
+        <div class="ds-panel glass-panel">
+            <h2 class="ds-section-title">Design AMURZA</h2>
+            <p>O <strong>AMURZA UI</strong> evoca a sensação de um passeio por uma propriedade de luxo à noite. A base
+                de carvão profundo estabelece um silêncio elegante, enquanto os acentos em cobre vibrante dão vida e
+                calor à interface. Sem fronteiras duras, apenas fotografia viva, tipografia distinta e luzes pontuais
+                guiando a experiência.</p>
+        </div>
+
+        <!-- 2. Tipografia -->
+        <section class="ds-panel glass-panel">
+            <h2 class="ds-section-title">01. Tipografia Editorial</h2>
+            <div class="type-specimen">
+                <label>Display / Playfair Display - Regular</label>
+                <div class="type-h1">Estrutura Abissal</div>
+            </div>
+            <div class="type-specimen">
+                <label>Display / Playfair Display - Italic</label>
+                <div class="type-h2">Menu Secundário</div>
+            </div>
+            <div class="type-specimen">
+                <label>Interface / Montserrat - Light</label>
+                <div class="type-body">A família Montserrat equilibra a tradição das serifas com proporções geométricas
+                    modernas, garantindo uma leitura limpa, arejada e altamente sofisticada.</div>
+            </div>
+        </section>
+
+        <!-- 3. Paleta de Cores -->
+        <section class="ds-panel glass-panel">
+            <h2 class="ds-section-title">02. Sombras e Luzes</h2>
+            <div class="color-grid">
+                <div class="color-swatch bg-deep">Matte Noir<br>#121110</div>
+                <div class="color-swatch bg-glass">Carbon Panel<br>#1A1816</div>
+                <div class="color-swatch bg-metal">Deep Slate<br>#383531</div>
+                <div class="color-swatch bg-primary">Pure Copper<br>#B87B51</div>
+                <div class="color-swatch bg-eco">Aged Gold<br>#C48B5D</div>
+            </div>
+        </section>
+
+        <!-- 4. Botões e Estados -->
+        <section class="ds-panel glass-panel">
+            <h2 class="ds-section-title">03. Interações Elegantes</h2>
+            <div class="btn-grid">
+                <button class="btn">Secundário</button>
+                <button class="btn btn-primary">Ver Detalhes</button>
+                <button class="btn btn-arrow">Descobrir</button>
+                <button class="btn" disabled>Reservado</button>
+            </div>
+        </section>
+
+        <!-- 5. Elementos de Interação -->
+        <section class="ds-panel glass-panel">
+            <h2 class="ds-section-title">04. Componentes Estruturais</h2>
+
+            <!-- Tags & Listas -->
+            <div style="margin-bottom: var(--space-lg); display: flex; gap: 15px; flex-wrap: wrap;">
+                <span class="badge">Lançamento Exclusivo</span>
+                <span class="badge eco">Design Assinado</span>
+            </div>
+
+            <!-- Abas (Header NavBar) -->
+            <div style="margin-bottom: var(--space-lg);">
+                <div class="tabs-nav">
+                    <button class="tab-btn active" data-target="tab1">Conceito</button>
+                    <button class="tab-btn" data-target="tab2">Residências</button>
+                    <button class="tab-btn" data-target="tab3">Visão</button>
+                    <button class="tab-btn" data-target="tab4">Contacto</button>
+                </div>
+                <div class="tab-content active" id="tab1">
+                    <h3 class="type-h2" style="font-size: 1.8rem; margin-bottom: 15px;">Filosofia de Espaço</h3>
+                    <p>Cada ambiente é pensado para ser um refúgio da cidade vibrante. Minimalismo acolhedor onde a
+                        forma obedece ao bem-estar e ao requinte.</p>
+                </div>
+                <div class="tab-content" id="tab2">
+                    <p>Plantas abertas, pé-direito duplo e materiais nobres selecionados à mão nos quatro cantos do
+                        mundo.</p>
+                </div>
+                <div class="tab-content" id="tab3">
+                    <p>Acreditamos que a verdadeira arquitetura não apenas abriga o corpo, mas eleva o espírito de quem
+                        a habita.</p>
+                </div>
+                <div class="tab-content" id="tab4">
+                    <p>Visitas apenas por agendamento prévio. Contacte o nosso concierge dedicado.</p>
+                </div>
+            </div>
+
+            <!-- Accordion -->
+            <div style="margin-bottom: var(--space-lg);">
+                <div class="accordion-item">
+                    <button class="accordion-header">Sustentabilidade e Design <span>▼</span></button>
+                    <div class="accordion-body">
+                        <p>Integração total com a natureza envolvente, utilizando sistemas de energia passiva e painéis
+                            inteligentes invisíveis na fachada.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header">Agendar Visita Privada <span>▼</span></button>
+                    <div class="accordion-body">
+                        <p>O nosso showroom está aberto para clientes selecionados. Pretende iniciar o processo de
+                            aprovação?</p>
+                        <button class="btn btn-primary" style="margin-top: 20px;" onclick="openModal()">Solicitar
+                            Contacto</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formulário -->
+            <div style="margin-bottom: var(--space-lg); max-width: 450px;">
+                <div class="form-group">
+                    <label class="form-label">Endereço de E-mail</label>
+                    <input type="email" class="form-input" placeholder="exemplo@estudio.com">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Área de Interesse</label>
+                    <select class="form-select">
+                        <option value="" disabled selected>Selecione uma localização</option>
+                        <option value="1">Alto de Pinheiros</option>
+                        <option value="2">Jardins</option>
+                        <option value="3">Vila Nova Conceição</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Perfil do Investidor</label>
+                    <div class="form-check-group">
+                        <label class="form-check">
+                            <input type="radio" name="perfil" value="particular" checked>
+                            <span>Particular</span>
+                        </label>
+                        <label class="form-check">
+                            <input type="radio" name="perfil" value="fundo">
+                            <span>Fundo / Empresa</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-top: 32px;">
+                    <label class="form-check">
+                        <input type="checkbox" name="termos">
+                        <span>Aceito a política de privacidade e partilha de dados sensíveis.</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Inventário / Galeria (Cards Fotográficos do Layout AMURZA) -->
+            <div style="margin-bottom: var(--space-xl);">
+                <h3 class="ds-section-title" style="font-size: 1.5rem; border-bottom: none;">_Portfólio Seletivo</h3>
+                <div class="inventory-grid">
+                    <div class="inventory-item">
+                        <span>Alto de Pinheiros</span>
+                        <p>Descubra as residências que refletem o futuro da arquitetura de elite.</p>
+                        <button class="card-btn">Ver Detalhes</button>
+                    </div>
+                    <div class="inventory-item">
+                        <span>Morumbi</span>
+                        <p>Uma joia geométrica escondida no coração pulsante e verde de São Paulo.</p>
+                        <button class="card-btn">Ver Detalhes</button>
+                    </div>
+                    <div class="inventory-item">
+                        <span>Vila Madalena</span>
+                        <p>Vidros amplos e um terraço privativo que redefine o refúgio urbano moderno.</p>
+                        <button class="card-btn">Ver Detalhes</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Carrossel de Imagens -->
+            <div style="margin-bottom: var(--space-lg);">
+                <h3 class="ds-section-title" style="font-size: 1.5rem; border-bottom: none;">_Galeria de Interiores</h3>
+                <div class="carousel-wrapper">
+                    <div class="carousel-track" id="carouselTrack">
+                        <!-- Imagem 1 -->
+                        <div class="carousel-slide">
+                            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80"
+                                alt="Sala de Estar Luxuosa">
+                        </div>
+                        <!-- Imagem 2 -->
+                        <div class="carousel-slide">
+                            <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1200&q=80"
+                                alt="Varanda Noturna">
+                        </div>
+                        <!-- Imagem 3 -->
+                        <div class="carousel-slide">
+                            <img src="https://images.unsplash.com/photo-1600607687644-c7171b42498f?auto=format&fit=crop&w=1200&q=80"
+                                alt="Fachada Iluminada">
+                        </div>
+                    </div>
+                    <div class="carousel-controls">
+                        <button class="carousel-btn" onclick="moveCarousel(-1)">&#8592;</button>
+                        <button class="carousel-btn" onclick="moveCarousel(1)">&#8594;</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Galeria em Ladrilho (Masonry) -->
+            <div style="margin-bottom: var(--space-lg);">
+                <h3 class="ds-section-title" style="font-size: 1.5rem; border-bottom: none;">_Mosaico Arquitetónico</h3>
+                <div class="masonry-gallery">
+                    <div class="masonry-item">
+                        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=600&q=80"
+                            alt="Mansão Noturna 1">
+                    </div>
+                    <div class="masonry-item">
+                        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=600&h=800&q=80"
+                            alt="Interior Luxuoso">
+                    </div>
+                    <div class="masonry-item">
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&h=900&q=80"
+                            alt="Piscina Noturna">
+                    </div>
+                    <div class="masonry-item">
+                        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&h=700&q=80"
+                            alt="Detalhe Arquitetónico">
+                    </div>
+                    <div class="masonry-item">
+                        <img src="https://images.unsplash.com/photo-1600607687644-c7171b42498f?auto=format&fit=crop&w=600&q=80"
+                            alt="Fachada Moderna">
+                    </div>
+                    <div class="masonry-item">
+                        <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=600&h=500&q=80"
+                            alt="Varanda Iluminada">
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- 6. Texturas e Padrões -->
+        <section class="ds-panel glass-panel">
+            <h2 class="ds-section-title">05. Elementos de Separação</h2>
+            <div style="display:flex; flex-direction:column; gap:30px; margin-top:20px;">
+                <div>
+                    <label class="form-label">Traço Fino (Cobre Sólido)</label>
+                    <div class="line-thick"></div>
+                </div>
+                <div>
+                    <label class="form-label">Traço Pontilhado (Sutil)</label>
+                    <div class="line-dashed"></div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="myModal">
+        <div class="glass-panel modal-box">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <h3 class="type-h2" style="margin-bottom: 15px; color: var(--color-primary); font-size:1.8rem;">Contacto
+                Exclusivo</h3>
+            <p style="font-size: 1.05rem; color: var(--color-text-body); font-weight:300;">Agradecemos o seu interesse
+                no nosso portfólio. Um dos nossos consultores arquitetónicos entrará em contacto para uma reunião
+                privada.</p>
+            <div style="margin-top: 35px; display:flex; gap:15px;">
+                <button class="btn btn-primary" onclick="closeModal()">Confirmar Pedido</button>
+                <button class="btn" onclick="closeModal()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript para Interações -->
+    <script>
+        // 1. TABS
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetId = btn.dataset.target;
+                const targetElement = document.getElementById(targetId);
+
+                if (targetElement) {
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+
+                    btn.classList.add('active');
+                    targetElement.classList.add('active');
+                }
+            });
+        });
+
+        // 2. ACCORDION
+        const accHeaders = document.querySelectorAll('.accordion-header');
+        accHeaders.forEach(header => {
+            header.addEventListener('click', () => {
+                header.classList.toggle('active');
+                const body = header.nextElementSibling;
+
+                if (body) {
+                    if (header.classList.contains('active')) {
+                        body.style.maxHeight = body.scrollHeight + "px";
+                    } else {
+                        body.style.maxHeight = 0;
+                    }
+                }
+            });
+        });
+
+        // 3. MODAL
+        const modal = document.getElementById('myModal');
+        function openModal() {
+            if (modal) modal.classList.add('active');
+        }
+        function closeModal() {
+            if (modal) modal.classList.remove('active');
+        }
+
+        if (modal) {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal();
+            });
+        }
+
+        // 4. CARROSSEL DE IMAGENS
+        let currentCarouselIndex = 0;
+        const carouselTrack = document.getElementById('carouselTrack');
+        const carouselSlides = document.querySelectorAll('.carousel-slide');
+
+        function moveCarousel(direction) {
+            if (!carouselTrack || carouselSlides.length === 0) return;
+
+            currentCarouselIndex += direction;
+
+            // Lógica para loop
+            if (currentCarouselIndex < 0) {
+                currentCarouselIndex = carouselSlides.length - 1;
+            } else if (currentCarouselIndex >= carouselSlides.length) {
+                currentCarouselIndex = 0;
+            }
+
+            carouselTrack.style.transform = `translateX(-${currentCarouselIndex * 100}%)`;
+        }
+    </script>
+</body>
+
+</html>
