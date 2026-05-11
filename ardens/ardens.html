@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dragon Fire - Design System</title>
+    <title>Ardens</title>
 
     <!-- Tipografia do Google Fonts: 
          Syncopate para títulos (pontiaguda, expansiva, futurista/utópica)
@@ -183,11 +183,12 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: var(--font-display); /* Syncopate */
+            font-family: var(--font-display);
+            /* Syncopate */
             font-size: 1.2rem;
             font-weight: 700;
             color: var(--color-primary);
-            box-shadow: 0 0 15px var(--color-primary-glow), inset 0 0 10px rgba(0,0,0,0.8);
+            box-shadow: 0 0 15px var(--color-primary-glow), inset 0 0 10px rgba(0, 0, 0, 0.8);
             z-index: 10;
             cursor: pointer;
             transition: var(--transition-fast);
@@ -195,7 +196,7 @@
 
         .hero-seal:hover {
             transform: translate(-50%, -50%) scale(1.1);
-            box-shadow: 0 0 25px var(--color-primary-glow), inset 0 0 5px rgba(0,0,0,0.5);
+            box-shadow: 0 0 25px var(--color-primary-glow), inset 0 0 5px rgba(0, 0, 0, 0.5);
             color: #fff0df;
         }
 
@@ -943,8 +944,10 @@
     <header class="hero">
         <div class="hero-bg-lines"></div>
         <h1 class="hero-title">Ardens<br><span>Residence</span></h1>
-        <p class="hero-subtitle">A energia do fogo esculpida em arquitetura brutalista. Um manifesto de luxo e poder no coração da cidade.</p>
-        <button class="btn btn-primary" onclick="document.getElementById('conteudo').scrollIntoView({behavior:'smooth'})"
+        <p class="hero-subtitle">A energia do fogo esculpida em arquitetura brutalista. Um manifesto de luxo e poder no
+            coração da cidade.</p>
+        <button class="btn btn-primary"
+            onclick="document.getElementById('conteudo').scrollIntoView({behavior:'smooth'})"
             style="margin-left: var(--space-sm);">Descubra o Poder</button>
     </header>
 
@@ -954,13 +957,16 @@
         <!-- O Manifesto -->
         <div class="ds-panel" id="conceito">
             <h2 class="ds-section-title">01_ O Manifesto</h2>
-            <p class="type-body" style="font-size: 1.2rem; line-height: 1.8;">O Ardens nasce da fusão entre a força bruta do concreto e a energia vital do fogo. Um empreendimento concebido para mentes que não aceitam o comum. Aqui, cada espaço é uma obra de arte forjada para oferecer o máximo em exclusividade e sofisticação.</p>
+            <p class="type-body" style="font-size: 1.2rem; line-height: 1.8;">O Ardens nasce da fusão entre a força
+                bruta do concreto e a energia vital do fogo. Um empreendimento concebido para mentes que não aceitam o
+                comum. Aqui, cada espaço é uma obra de arte forjada para oferecer o máximo em exclusividade e
+                sofisticação.</p>
         </div>
 
         <!-- 2. As Plantas (Tabs) -->
         <section class="ds-panel" id="plantas">
             <h2 class="ds-section-title">02_ As Plantas</h2>
-            
+
             <div style="margin-bottom: var(--space-lg);">
                 <div class="tabs-nav">
                     <button class="tab-btn active" data-target="tab1">RESIDÊNCIA IGNIS</button>
@@ -968,50 +974,74 @@
                     <button class="tab-btn" data-target="tab3">VILLA VULCAN</button>
                 </div>
                 <div class="tab-content active" id="tab1">
-                    <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: var(--space-lg); align-items: center;">
+                    <div
+                        style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: var(--space-lg); align-items: center;">
                         <div>
-                            <h3 class="type-h2" style="color: var(--color-primary); margin-bottom: var(--space-sm);">240m² de Sofisticação</h3>
-                            <p class="type-body">Living com pé-direito duplo, lareira central e uma vista panorâmica que captura a luz pulsante da cidade.</p>
+                            <h3 class="type-h2" style="color: var(--color-primary); margin-bottom: var(--space-sm);">
+                                240m² de Sofisticação</h3>
+                            <p class="type-body">Living com pé-direito duplo, lareira central e uma vista panorâmica que
+                                captura a luz pulsante da cidade.</p>
                             <ul style="margin-top: var(--space-md); list-style: none;">
-                                <li style="margin-bottom: var(--space-xs); font-family: var(--font-mono);">[ 03 SUÍTES ]</li>
-                                <li style="margin-bottom: var(--space-xs); font-family: var(--font-mono);">[ 04 VAGAS ]</li>
-                                <li style="margin-bottom: var(--space-xs); font-family: var(--font-mono);">[ LAREIRA CENTRAL ]</li>
+                                <li style="margin-bottom: var(--space-xs); font-family: var(--font-mono);">[ 03 SUÍTES ]
+                                </li>
+                                <li style="margin-bottom: var(--space-xs); font-family: var(--font-mono);">[ 04 VAGAS ]
+                                </li>
+                                <li style="margin-bottom: var(--space-xs); font-family: var(--font-mono);">[ LAREIRA
+                                    CENTRAL ]</li>
                             </ul>
                         </div>
-                        <div style="border: var(--border-worn); border-radius: 8px; overflow: hidden; height: 250px; background: #111; display: flex; align-items: center; justify-content: center; cursor: pointer; width: fit-content; justify-self: end;" onclick="openLightbox('./assets/planta_ignis_1778231107231.png')">
-                            <img src="./assets/planta_ignis_1778231107231.png" alt="Planta Residência Ignis" style="height: 100%; width: auto;">
+                        <div style="border: var(--border-worn); border-radius: 8px; overflow: hidden; height: 250px; background: #111; display: flex; align-items: center; justify-content: center; cursor: pointer; width: fit-content; justify-self: end;"
+                            onclick="openLightbox('./assets/planta_ignis_1778231107231.png')">
+                            <img src="./assets/planta_ignis_1778231107231.png" alt="Planta Residência Ignis"
+                                style="height: 100%; width: auto;">
                         </div>
                     </div>
                 </div>
                 <div class="tab-content" id="tab2">
-                    <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: var(--space-lg); align-items: center;">
+                    <div
+                        style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: var(--space-lg); align-items: center;">
                         <div>
-                            <h3 class="type-h2" style="color: var(--color-primary); margin-bottom: var(--space-sm);">480m² no Topo do Mundo</h3>
-                            <p class="type-body">Piscina privativa com borda infinita, área gourmet integrada e acabamentos em metal escovado.</p>
+                            <h3 class="type-h2" style="color: var(--color-primary); margin-bottom: var(--space-sm);">
+                                480m² no Topo do Mundo</h3>
+                            <p class="type-body">Piscina privativa com borda infinita, área gourmet integrada e
+                                acabamentos em metal escovado.</p>
                             <ul style="margin-top: var(--space-md); list-style: none;">
-                                <li style="margin-bottom: var(--space-xs); font-family: var(--font-mono);">[ 04 SUÍTES ]</li>
-                                <li style="margin-bottom: var(--space-xs); font-family: var(--font-mono);">[ 06 VAGAS ]</li>
-                                <li style="margin-bottom: var(--space-xs); font-family: var(--font-mono);">[ PISCINA PRIVATIVA ]</li>
+                                <li style="margin-bottom: var(--space-xs); font-family: var(--font-mono);">[ 04 SUÍTES ]
+                                </li>
+                                <li style="margin-bottom: var(--space-xs); font-family: var(--font-mono);">[ 06 VAGAS ]
+                                </li>
+                                <li style="margin-bottom: var(--space-xs); font-family: var(--font-mono);">[ PISCINA
+                                    PRIVATIVA ]</li>
                             </ul>
                         </div>
-                        <div style="border: var(--border-worn); border-radius: 8px; overflow: hidden; height: 250px; background: #111; display: flex; align-items: center; justify-content: center; cursor: pointer; width: fit-content; justify-self: end;" onclick="openLightbox('./assets/planta_brasa_1778231128130.png')">
-                            <img src="./assets/planta_brasa_1778231128130.png" alt="Planta Cobertura Brasa" style="height: 100%; width: auto;">
+                        <div style="border: var(--border-worn); border-radius: 8px; overflow: hidden; height: 250px; background: #111; display: flex; align-items: center; justify-content: center; cursor: pointer; width: fit-content; justify-self: end;"
+                            onclick="openLightbox('./assets/planta_brasa_1778231128130.png')">
+                            <img src="./assets/planta_brasa_1778231128130.png" alt="Planta Cobertura Brasa"
+                                style="height: 100%; width: auto;">
                         </div>
                     </div>
                 </div>
                 <div class="tab-content" id="tab3">
-                    <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: var(--space-lg); align-items: center;">
+                    <div
+                        style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: var(--space-lg); align-items: center;">
                         <div>
-                            <h3 class="type-h2" style="color: var(--color-primary); margin-bottom: var(--space-sm);">350m² com Jardim Privativo</h3>
-                            <p class="type-body">A sensação de morar em uma casa com a segurança de um edifício de luxo. Jardim privativo e spa externo.</p>
+                            <h3 class="type-h2" style="color: var(--color-primary); margin-bottom: var(--space-sm);">
+                                350m² com Jardim Privativo</h3>
+                            <p class="type-body">A sensação de morar em uma casa com a segurança de um edifício de luxo.
+                                Jardim privativo e spa externo.</p>
                             <ul style="margin-top: var(--space-md); list-style: none;">
-                                <li style="margin-bottom: var(--space-xs); font-family: var(--font-mono);">[ 03 SUÍTES ]</li>
-                                <li style="margin-bottom: var(--space-xs); font-family: var(--font-mono);">[ 04 VAGAS ]</li>
-                                <li style="margin-bottom: var(--space-xs); font-family: var(--font-mono);">[ JARDIM PRIVATIVO ]</li>
+                                <li style="margin-bottom: var(--space-xs); font-family: var(--font-mono);">[ 03 SUÍTES ]
+                                </li>
+                                <li style="margin-bottom: var(--space-xs); font-family: var(--font-mono);">[ 04 VAGAS ]
+                                </li>
+                                <li style="margin-bottom: var(--space-xs); font-family: var(--font-mono);">[ JARDIM
+                                    PRIVATIVO ]</li>
                             </ul>
                         </div>
-                        <div style="border: var(--border-worn); border-radius: 8px; overflow: hidden; height: 250px; background: #111; display: flex; align-items: center; justify-content: center; cursor: pointer; width: fit-content; justify-self: end;" onclick="openLightbox('./assets/planta_vulcan_1778231147913.png')">
-                            <img src="./assets/planta_vulcan_1778231147913.png" alt="Planta Villa Vulcan" style="height: 100%; width: auto;">
+                        <div style="border: var(--border-worn); border-radius: 8px; overflow: hidden; height: 250px; background: #111; display: flex; align-items: center; justify-content: center; cursor: pointer; width: fit-content; justify-self: end;"
+                            onclick="openLightbox('./assets/planta_vulcan_1778231147913.png')">
+                            <img src="./assets/planta_vulcan_1778231147913.png" alt="Planta Villa Vulcan"
+                                style="height: 100%; width: auto;">
                         </div>
                     </div>
                 </div>
@@ -1021,33 +1051,39 @@
         <!-- 3. Diferenciais (Accordions) -->
         <section class="ds-panel" id="diferenciais">
             <h2 class="ds-section-title">03_ Diferenciais</h2>
-            
+
             <div style="margin-bottom: var(--space-lg);">
                 <div class="accordion-item">
                     <button class="accordion-header">Estrutura & Segurança <span>▼</span></button>
                     <div class="accordion-body">
-                        <p class="type-body">Blindagem perimetral, controle de acesso biométrico de última geração e segurança armada 24h. O seu refúgio está protegido pelas tecnologias mais avançadas do mercado.</p>
+                        <p class="type-body">Blindagem perimetral, controle de acesso biométrico de última geração e
+                            segurança armada 24h. O seu refúgio está protegido pelas tecnologias mais avançadas do
+                            mercado.</p>
                     </div>
                 </div>
                 <div class="accordion-item">
                     <button class="accordion-header">Automação Avançada <span>▼</span></button>
                     <div class="accordion-body">
-                        <p class="type-body">Controle de iluminação, climatização, áudio e vídeo por comando de voz ou smartphone. Sistema inteligente que aprende a sua rotina e adapta o ambiente para o seu conforto.</p>
+                        <p class="type-body">Controle de iluminação, climatização, áudio e vídeo por comando de voz ou
+                            smartphone. Sistema inteligente que aprende a sua rotina e adapta o ambiente para o seu
+                            conforto.</p>
                     </div>
                 </div>
                 <div class="accordion-item">
                     <button class="accordion-header">Sustentabilidade Urbana <span>▼</span></button>
                     <div class="accordion-body">
-                        <p class="type-body">Reuso de águas pluviais, energia solar para áreas comuns e pontos de recarga para veículos elétricos em todas as vagas.</p>
+                        <p class="type-body">Reuso de águas pluviais, energia solar para áreas comuns e pontos de
+                            recarga para veículos elétricos em todas as vagas.</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- 4. Galeria de Espaços (Slider) -->
-        <section id="galeria" style="background: none; border: none; box-shadow: none; padding-left: 0; padding-right: 0; margin-bottom: var(--space-xl);">
+        <section id="galeria"
+            style="background: none; border: none; box-shadow: none; padding-left: 0; padding-right: 0; margin-bottom: var(--space-xl);">
             <h2 class="ds-section-title">04_ Os Espaços</h2>
-            
+
             <div style="margin-bottom: var(--space-lg);">
                 <div class="slider-controls" style="margin-top: 0; margin-bottom: var(--space-md);">
                     <button class="btn" onclick="moveSlider(-1)">←</button>
@@ -1057,23 +1093,30 @@
                     <div class="slider-track" id="sliderTrack">
                         <div class="slide-item">
                             <h3 class="type-h2" style="color:var(--color-primary)">Lounge Ardens</h3>
-                            <p class="type-body">O ponto de encontro da sofisticação. Design minimalista com toques de metal forjado.</p>
-                            <div style="margin-top: var(--space-md); border-radius: 6px; overflow: hidden; border: 1px solid var(--color-border-worn);">
-                                <img src="./assets/lounge_ardens_16_9_1778233205766.png" alt="Lounge Ardens" style="width: 100%; height: auto; display: block;">
+                            <p class="type-body">O ponto de encontro da sofisticação. Design minimalista com toques de
+                                metal forjado.</p>
+                            <div
+                                style="margin-top: var(--space-md); border-radius: 6px; overflow: hidden; border: 1px solid var(--color-border-worn);">
+                                <img src="./assets/lounge_ardens_16_9_1778233205766.png" alt="Lounge Ardens"
+                                    style="width: 100%; height: auto; display: block;">
                             </div>
                         </div>
                         <div class="slide-item">
                             <h3 class="type-h2" style="color:var(--color-primary)">Spa Vulcan</h3>
                             <p class="type-body">Águas aquecidas e terapias que renovam a energia vital.</p>
-                            <div style="margin-top: var(--space-md); border-radius: 6px; overflow: hidden; border: 1px solid var(--color-border-worn);">
-                                <img src="./assets/spa_vulcan_16_9_1778233224155.png" alt="Spa Vulcan" style="width: 100%; height: auto; display: block;">
+                            <div
+                                style="margin-top: var(--space-md); border-radius: 6px; overflow: hidden; border: 1px solid var(--color-border-worn);">
+                                <img src="./assets/spa_vulcan_16_9_1778233224155.png" alt="Spa Vulcan"
+                                    style="width: 100%; height: auto; display: block;">
                             </div>
                         </div>
                         <div class="slide-item">
                             <h3 class="type-h2" style="color:var(--color-primary)">Academia Ignis</h3>
                             <p class="type-body">Equipamentos de alta performance para manter a sua força no topo.</p>
-                            <div style="margin-top: var(--space-md); border-radius: 6px; overflow: hidden; border: 1px solid var(--color-border-worn);">
-                                <img src="./assets/academia_ignis_16_9_1778233241926.png" alt="Academia Ignis" style="width: 100%; height: auto; display: block;">
+                            <div
+                                style="margin-top: var(--space-md); border-radius: 6px; overflow: hidden; border: 1px solid var(--color-border-worn);">
+                                <img src="./assets/academia_ignis_16_9_1778233241926.png" alt="Academia Ignis"
+                                    style="width: 100%; height: auto; display: block;">
                             </div>
                         </div>
                     </div>
@@ -1084,8 +1127,9 @@
         <!-- 5. Solicitar Acesso (Form) -->
         <section class="ds-panel" id="contato">
             <h2 class="ds-section-title">05_ Firmar Aliança</h2>
-            <p class="type-body" style="margin-bottom: var(--space-lg);">Deixe os seus dados e um especialista entrará em contato para agendar uma apresentação exclusiva.</p>
-            
+            <p class="type-body" style="margin-bottom: var(--space-lg);">Deixe os seus dados e um especialista entrará
+                em contato para agendar uma apresentação exclusiva.</p>
+
             <div style="margin-bottom: var(--space-lg); max-width: 400px;">
                 <div class="form-group">
                     <label class="form-label">NOME COMPLETO</label>
@@ -1099,7 +1143,8 @@
                     <label class="form-label">TELEFONE</label>
                     <input type="tel" class="form-input" placeholder="(11) 99999-0000">
                 </div>
-                <button class="btn btn-primary" style="width: 100%; margin-top: var(--space-md);" onclick="openModal()">Solicitar Apresentação</button>
+                <button class="btn btn-primary" style="width: 100%; margin-top: var(--space-md);"
+                    onclick="openModal()">Solicitar Apresentação</button>
             </div>
         </section>
 
