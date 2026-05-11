@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design System - Conto Invernal</title>
+    <style>
+        /* ==========================================================================
+           1. TOKENS DE DESIGN (Variáveis)
+           ========================================================================== */
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Lora:ital,wght@0,400;0,600;1,400&display=swap');
+
+        :root {
+            /* Cores - Folclore Invernal */
+            --velvet-dark: #3a0001;
+            /* Sombra do veludo */
+            --velvet-main: #8a0305;
+            /* Vermelho Carmesim / Sangue */
+            --velvet-light: #b50b0e;
+            /* Brilho do veludo */
+            --porcelain: #FDFBF7;
+            /* Branco Neve / Linha do bordado */
+            --blush: #FF9B9B;
+            /* Rosado das bochechas */
+            --ink-dark: #2a0001;
+            /* Texto escuro sobre fundos claros */
+
+            /* Tipografia */
+            --font-title: 'Cinzel Decorative', serif;
+            /* Rebuscada, conto de fadas */
+            --font-body: 'Lora', serif;
+            /* Clássica e legível */
+
+            /* Espaçamentos */
+            --space-xs: 4px;
+            --space-sm: 12px;
+            --space-md: 24px;
+            --space-lg: 40px;
+            --space-xl: 64px;
+            --space-xxl: 100px;
+
+            /* Alto Relevo e Costuras (Bordados) */
+            --radius-soft: 12px;
+            --radius-pill: 50px;
+            --stitch-border: 2px dashed rgba(42, 0, 1, 0.2);
+            /* Linha de costura escura */
+            --stitch-border-light: 2px dashed rgba(253, 251, 247, 0.4);
+            /* Costura clara */
+
+            /* Sombras Proeminentes (Efeito Tátil 3D) */
+            --shadow-embroidery:
+                0px 8px 15px rgba(0, 0, 0, 0.4),
+                inset 2px 2px 4px rgba(255, 255, 255, 1),
+                inset -2px -2px 6px rgba(0, 0, 0, 0.05);
+            --shadow-float: 0px 15px 30px rgba(0, 0, 0, 0.6);
+
+            /* Textura de Veludo Amassado (Ruído SVG gerado via data URI) */
+            --texture-velvet: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.15' style='mix-blend-mode: multiply;'/%3E%3C/svg%3E");
+        }
+
+        /* ==========================================================================
+           2. BASE E FUNDO DE VELUDO
+           ========================================================================== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--velvet-main);
+            color: var(--porcelain);
+            line-height: 1.6;
+            overflow-x: hidden;
+
+            /* Simulação do Veludo Amassado */
+            background-image:
+                var(--texture-velvet),
+                radial-gradient(circle at 20% 30%, var(--velvet-light) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, var(--velvet-dark) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, var(--velvet-main) 0%, var(--velvet-dark) 100%);
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: var(--space-xl) var(--space-md);
+        }
+
+        /* Padrão Floral Decorativo de Fundo */
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(var(--porcelain) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.05;
+            z-index: -1;
+        }
+
+        /* Envoltório de Bordado (Cards Base) */
+        .embroidered-surface {
+            background-color: var(--porcelain);
+            color: var(--ink-dark);
+            border-radius: var(--radius-soft);
+            box-shadow: var(--shadow-embroidery);
+            padding: var(--space-lg);
+            position: relative;
+            /* O outline interno cria a sensação de bordado/costura */
+            outline: var(--stitch-border);
+            outline-offset: -10px;
+        }
+
+        /* ==========================================================================
+           3. TIPOGRAFIA (CONTO DE FADAS)
+           ========================================================================== */
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: var(--font-title);
+            font-weight: 700;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 4rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: var(--space-md);
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: var(--space-lg);
+            position: relative;
+            display: inline-block;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: var(--space-sm);
+        }
+
+        p {
+            margin-bottom: var(--space-md);
+        }
+
+        /* Decoração ao redor dos Títulos (Flóculos/Renda) */
+        .title-ornate {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: var(--space-xl);
+        }
+
+        .title-ornate::before,
+        .title-ornate::after {
+            content: '❄';
+            /* Símbolo de floco de neve / renda */
+            font-size: 1.5rem;
+            color: var(--porcelain);
+            opacity: 0.8;
+            filter: drop-shadow(1px 2px 2px rgba(0, 0, 0, 0.5));
+        }
+
+        /* ==========================================================================
+           4. PALETA DE CORES
+           ========================================================================== */
+        .color-palette {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-md);
+            justify-content: center;
+        }
+
+        .color-swatch {
+            width: 130px;
+            height: 130px;
+            border-radius: 50% 50% 0 0;
+            /* Forma de arco/janela */
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding: var(--space-md);
+            font-family: var(--font-title);
+            font-size: 0.9rem;
+            font-weight: bold;
+            box-shadow: var(--shadow-embroidery);
+            outline: var(--stitch-border-light);
+            outline-offset: -8px;
+        }
+
+        .bg-velvet {
+            background-color: var(--velvet-main);
+            color: var(--porcelain);
+            outline-color: var(--stitch-border-light);
+        }
+
+        .bg-porcelain {
+            background-color: var(--porcelain);
+            color: var(--velvet-main);
+            outline-color: var(--stitch-border);
+        }
+
+        .bg-blush {
+            background-color: var(--blush);
+            color: var(--velvet-dark);
+            outline-color: var(--stitch-border);
+        }
+
+        .bg-ink {
+            background-color: var(--ink-dark);
+            color: var(--porcelain);
+            outline-color: var(--stitch-border-light);
+        }
+
+        /* ==========================================================================
+           5. BOTÕES E COMPONENTES DE AÇÃO
+           ========================================================================== */
+        .btn {
+            font-family: var(--font-title);
+            font-size: 1.1rem;
+            padding: 12px 32px;
+            border: none;
+            border-radius: var(--radius-pill);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            background-color: var(--porcelain);
+            color: var(--velvet-main);
+            box-shadow: var(--shadow-embroidery);
+            outline: var(--stitch-border);
+            outline-offset: -6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-float);
+            background-color: #fff;
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+            box-shadow: var(--shadow-embroidery);
+        }
+
+        .btn-blush {
+            background-color: var(--blush);
+            color: var(--velvet-dark);
+            outline-color: rgba(90, 0, 2, 0.3);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--porcelain);
+            outline: 2px solid var(--porcelain);
+            outline-offset: 0;
+            box-shadow: none;
+        }
+
+        .btn-outline:hover {
+            background-color: var(--porcelain);
+            color: var(--velvet-main);
+            outline: var(--stitch-border);
+            outline-offset: -6px;
+        }
+
+        /* Badges */
+        .badge {
+            background-color: var(--blush);
+            color: var(--velvet-dark);
+            padding: 4px 16px;
+            border-radius: var(--radius-pill);
+            font-size: 0.8rem;
+            font-weight: bold;
+            box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.2);
+            outline: 1px dashed var(--velvet-dark);
+            outline-offset: -3px;
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            cursor: help;
+            border-bottom: 1px dotted var(--porcelain);
+        }
+
+        .tooltip::after {
+            content: attr(data-tip);
+            position: absolute;
+            bottom: 130%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--porcelain);
+            color: var(--velvet-dark);
+            padding: 8px 16px;
+            border-radius: var(--radius-soft);
+            font-size: 0.9rem;
+            box-shadow: var(--shadow-embroidery);
+            opacity: 0;
+            transition: 0.3s;
+            pointer-events: none;
+            white-space: nowrap;
+            font-family: var(--font-body);
+        }
+
+        .tooltip:hover::after {
+            opacity: 1;
+            bottom: 100%;
+        }
+
+        /* ==========================================================================
+           6. ELEMENTOS DE INTERAÇÃO (Formulário, Accordion, Slider)
+           ========================================================================== */
+
+        /* Divisor Decorativo (Ponto Cruz) */
+        .divider {
+            text-align: center;
+            margin: var(--space-xl) 0;
+            color: var(--porcelain);
+            opacity: 0.6;
+        }
+
+        .divider::before {
+            content: 'x x x x x x x x x';
+            letter-spacing: 4px;
+            font-size: 1.2rem;
+        }
+
+        /* Formulários */
+        .form-group {
+            margin-bottom: var(--space-md);
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-family: var(--font-title);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: var(--radius-soft);
+            border: none;
+            background: rgba(253, 251, 247, 0.9);
+            box-shadow: inset 2px 2px 6px rgba(0, 0, 0, 0.1);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            color: var(--ink-dark);
+            outline: 2px solid transparent;
+            transition: 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: 2px dashed var(--velvet-main);
+            outline-offset: -4px;
+        }
+
+        /* Accordion (Livro de Histórias) */
+        .accordion {
+            border-radius: var(--radius-soft);
+            overflow: hidden;
+            box-shadow: var(--shadow-embroidery);
+        }
+
+        .acc-item {
+            background-color: var(--porcelain);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .acc-item:last-child {
+            border-bottom: none;
+        }
+
+        .acc-btn {
+            width: 100%;
+            text-align: left;
+            padding: 20px;
+            background: transparent;
+            border: none;
+            font-family: var(--font-title);
+            font-size: 1.2rem;
+            color: var(--velvet-main);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .acc-btn span {
+            font-size: 1.5rem;
+            transition: 0.3s;
+        }
+
+        .acc-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            color: var(--ink-dark);
+        }
+
+        .acc-content p {
+            padding: 0 20px 20px 20px;
+            margin: 0;
+        }
+
+        .acc-item.active .acc-content {
+            max-height: 200px;
+        }
+
+        .acc-item.active .acc-btn span {
+            transform: rotate(45deg);
+        }
+
+        /* 'x' cross stitch */
+
+        /* Abas (Lace Tabs) */
+        .tabs-header {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: var(--space-md);
+        }
+
+        .tab-link {
+            background: transparent;
+            border: none;
+            color: var(--porcelain);
+            font-family: var(--font-title);
+            font-size: 1.1rem;
+            padding: 8px 16px;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: 0.3s;
+            border-bottom: 2px dashed transparent;
+        }
+
+        .tab-link.active,
+        .tab-link:hover {
+            opacity: 1;
+            border-bottom-color: var(--porcelain);
+        }
+
+        .tab-body {
+            display: none;
+            animation: fade 0.5s;
+        }
+
+        .tab-body.active {
+            display: block;
+        }
+
+        @keyframes fade {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Galeria e Ícones Ilustrados */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-lg);
+        }
+
+        .card-icon {
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .card-icon:hover {
+            transform: translateY(-5px);
+        }
+
+        .svg-icon {
+            width: 60px;
+            height: 60px;
+            fill: var(--velvet-main);
+            margin-bottom: 16px;
+            filter: drop-shadow(1px 2px 2px rgba(0, 0, 0, 0.2));
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(42, 0, 1, 0.8);
+            backdrop-filter: blur(4px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            transform: scale(0.9);
+            transition: 0.3s;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: var(--velvet-main);
+            color: var(--porcelain);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-family: var(--font-title);
+            font-size: 1.2rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="bg-pattern"></div>
+
+    <div class="container">
+
+        <!-- 1. HERO SECTION -->
+        <header style="text-align: center; padding: var(--space-xxl) 0;">
+            <div class="title-ornate">
+                <h1 style="margin: 0;">Conto Invernal</h1>
+            </div>
+            <p style="font-size: 1.25rem; max-width: 600px; margin: 0 auto var(--space-lg); font-style: italic;">
+                Um sistema de design inspirado no folclore eslavo, combinando o calor do veludo carmesim com a pureza
+                dos bordados em alto relevo.
+            </p>
+            <div style="display: flex; gap: 16px; justify-content: center;">
+                <button class="btn">Abrir o Livro</button>
+                <button class="btn btn-outline">Ver Padrões</button>
+            </div>
+        </header>
+
+        <div class="divider"></div>
+
+        <!-- 2. TIPOGRAFIA -->
+        <section>
+            <div class="title-ornate">
+                <h2>Tipografia & Letras</h2>
+            </div>
+            <div class="embroidered-surface">
+                <h1>H1. Majestade & Contos</h1>
+                <h2>H2. Títulos de Capítulos</h2>
+                <h3>H3. Pequenos Detalhes Floreados</h3>
+                <p>O corpo do texto utiliza a fonte <strong>Lora</strong>. Ela possui serifs sutis que facilitam a
+                    leitura contínua, mantendo a atmosfera de um <span class="tooltip"
+                        data-tip="Um conto transmitido através das gerações.">livro clássico</span> e elegante.</p>
+                <span class="badge">Leitura Encantada</span>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- 3. CORES -->
+        <section>
+            <div class="title-ornate">
+                <h2>Fios & Tecidos (Cores)</h2>
+            </div>
+            <div class="color-palette">
+                <div class="color-swatch bg-velvet">Carmesim<br>#8A0305</div>
+                <div class="color-swatch bg-porcelain">Porcelana<br>#FDFBF7</div>
+                <div class="color-swatch bg-blush">Pêssego<br>#FF9B9B</div>
+                <div class="color-swatch bg-ink">Tinta Escura<br>#2A0001</div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- 4. BOTÕES E COMPONENTES -->
+        <section>
+            <div class="title-ornate">
+                <h2>Botões Bordados</h2>
+            </div>
+            <div style="display: flex; gap: var(--space-md); justify-content: center; flex-wrap: wrap;">
+                <button class="btn">Primário</button>
+                <button class="btn btn-blush">Destaque Suave</button>
+                <button class="btn btn-outline">Contorno Mágico</button>
+            </div>
+            <p style="text-align: center; margin-top: var(--space-md);">Cada botão possui uma sombra proeminente e um
+                contorno tracejado simulando uma costura tátil sobre o fundo de veludo.</p>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- 5. INTERAÇÕES: ABAS & ACORDEÃO -->
+        <section>
+            <div class="title-ornate">
+                <h2>Elementos Interativos</h2>
+            </div>
+
+            <!-- Tabs -->
+            <div class="tabs-header">
+                <button class="tab-link active" onclick="openTab(event, 'tab1')">Os Padrões</button>
+                <button class="tab-link" onclick="openTab(event, 'tab2')">A Textura</button>
+            </div>
+            <div class="embroidered-surface" style="margin-bottom: var(--space-xl);">
+                <div id="tab1" class="tab-body active">
+                    <h3>Simetria Botânica</h3>
+                    <p>O uso de flores e flocos de neve padronizados traz o rigor e a beleza dos trajes folclóricos
+                        (como o Sarafan russo). A simetria organiza a interface.</p>
+                </div>
+                <div id="tab2" class="tab-body">
+                    <h3>Veludo & Renda</h3>
+                    <p>Os contrastes visuais dependem puramente das texturas: o vermelho é profundo e absorve luz,
+                        enquanto o branco simula o alto relevo tátil do tecido bordado.</p>
+                </div>
+            </div>
+
+            <!-- Accordion -->
+            <div class="accordion">
+                <div class="acc-item">
+                    <button class="acc-btn" onclick="toggleAccordion(this)">
+                        A Tradição do Bordado <span>+</span>
+                    </button>
+                    <div class="acc-content">
+                        <p>No design digital, traduzimos o bordado usando `outline: dashed` com um offset negativo,
+                            criando a borda costurada perfeitamente alinhada.</p>
+                    </div>
+                </div>
+                <div class="acc-item">
+                    <button class="acc-btn" onclick="toggleAccordion(this)">
+                        As Sombras Proeminentes <span>+</span>
+                    </button>
+                    <div class="acc-content">
+                        <p>Usamos múltiplas camadas de `box-shadow` (uma escura para a queda e uma clara interna) para
+                            criar um botão que parece físico e macio.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- 6. ÍCONES ILUSTRADOS (SVGs simulando bordado floral/neve) -->
+        <section>
+            <div class="title-ornate">
+                <h2>Símbolos da Neve</h2>
+            </div>
+            <div class="gallery">
+                <div class="embroidered-surface card-icon" onclick="showModal()">
+                    <!-- Ícone Floco/Flor Mágica em SVG -->
+                    <svg class="svg-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M50 10 L50 90 M10 50 L90 50 M22 22 L78 78 M22 78 L78 22" stroke="var(--velvet-main)"
+                            stroke-width="4" stroke-linecap="round" />
+                        <circle cx="50" cy="50" r="15" fill="none" stroke="var(--velvet-main)" stroke-width="4"
+                            stroke-dasharray="4 4" />
+                        <circle cx="50" cy="10" r="4" />
+                        <circle cx="50" cy="90" r="4" />
+                        <circle cx="10" cy="50" r="4" />
+                        <circle cx="90" cy="50" r="4" />
+                    </svg>
+                    <h3>Inverno</h3>
+                    <p style="font-size: 0.9rem; margin-top: 8px;">Detalhe do floco.</p>
+                </div>
+                <div class="embroidered-surface card-icon" onclick="showModal()">
+                    <!-- Ícone Folhagem/Coração -->
+                    <svg class="svg-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M50 90 C 20 60, 10 30, 30 15 C 40 5, 50 20, 50 20 C 50 20, 60 5, 70 15 C 90 30, 80 60, 50 90 Z"
+                            fill="none" stroke="var(--velvet-main)" stroke-width="4" stroke-linejoin="round" />
+                        <path d="M50 20 L50 85 M35 45 L65 45" stroke="var(--velvet-main)" stroke-width="2"
+                            stroke-dasharray="2 4" />
+                    </svg>
+                    <h3>Folclore</h3>
+                    <p style="font-size: 0.9rem; margin-top: 8px;">A vida no bosque.</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- 7. FORMULÁRIO -->
+        <section>
+            <div class="embroidered-surface" style="max-width: 600px; margin: 0 auto;">
+                <h2 style="text-align: center; margin-bottom: 8px;">Assinar o Pergaminho</h2>
+                <p style="text-align: center; margin-bottom: var(--space-lg);">Deixe sua marca na história.</p>
+
+                <form onsubmit="event.preventDefault();">
+                    <div class="form-group">
+                        <label>Nome do Viajante</label>
+                        <input type="text" placeholder="Seu nome...">
+                    </div>
+                    <div class="form-group">
+                        <label>A Mensagem</label>
+                        <textarea rows="4" placeholder="Escreva o seu conto aqui..."></textarea>
+                    </div>
+                    <button class="btn btn-blush" style="width: 100%; justify-content: center;">Enviar Carta</button>
+                </form>
+            </div>
+        </section>
+
+        <div style="text-align: center; padding: var(--space-xl) 0; opacity: 0.7;">
+            <p>❄ ❄ ❄</p>
+            <p style="font-family: var(--font-title);">Conto Invernal © 2026</p>
+        </div>
+
+    </div>
+
+    <!-- MODAL -->
+    <div class="modal-overlay" id="modalFolklore">
+        <div class="modal-content embroidered-surface">
+            <button class="modal-close" onclick="hideModal()">X</button>
+            <h2 style="margin-bottom: 16px;">Detalhe do Bordado</h2>
+            <p>Este modal simula um "patch" ou aplique de tecido em alto relevo, que salta fisicamente da tela devido à
+                sombra dupla (externa escura e interna clara).</p>
+            <div style="text-align: center; margin-top: var(--space-md);">
+                <button class="btn" onclick="hideModal()">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         JAVASCRIPT
+         ========================================================================== -->
+    <script>
+        // Lógica de Abas
+        function openTab(evt, tabName) {
+            document.querySelectorAll('.tab-body').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-link').forEach(link => link.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+            evt.currentTarget.classList.add('active');
+        }
+
+        // Lógica de Accordion
+        function toggleAccordion(btn) {
+            const item = btn.parentElement;
+            const content = btn.nextElementSibling;
+            const isActive = item.classList.contains('active');
+
+            document.querySelectorAll('.acc-item').forEach(i => {
+                i.classList.remove('active');
+            });
+
+            if (!isActive) {
+                item.classList.add('active');
+            }
+        }
+
+        // Lógica do Modal
+        function showModal() {
+            document.getElementById('modalFolklore').classList.add('active');
+        }
+        function hideModal() {
+            document.getElementById('modalFolklore').classList.remove('active');
+        }
+        document.getElementById('modalFolklore').addEventListener('click', function (e) {
+            if (e.target === this) hideModal();
+        });
+    </script>
+</body>
+
+</html>

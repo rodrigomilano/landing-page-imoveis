@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vila Serena - Casas para criar memórias</title>
+    
+    <!-- Tipografia -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+        /* ==========================================================================
+           VILA SERENA - Design System CSS REFINADO
+           
+           Philosophy: Editorial Elegance
+           - Paleta orgânica: areia (#F4F1EC), madeira (#261E18), ouro (#C28B5A)
+           - Tipografia serifada Lora como protagonista
+           - Micro-interações sofisticadas
+           - Ritmo visual harmônico
+           - Animações elegantes e responsivas
+           ========================================================================== */
+
+        /* ==========================================================================
+           1. FUNDAÇÃO (Variáveis e Resets)
+           ========================================================================== */
+        :root {
+            /* Paleta Orgânica */
+            --bg-sand: #F4F1EC;
+            --bg-wood: #261E18;
+            --bg-wood-light: #3A2F26;
+            
+            --text-dark: #1F1915;
+            --text-light: #F4F1EC;
+            --text-muted: #6B625A;
+            
+            --accent-gold: #C28B5A;
+            --accent-terracotta: #A65D3D;
+            --accent-olive: #6B705C;
+
+            /* Tipografia */
+            --font-editorial: 'Lora', serif;
+            --font-ui: 'Montserrat', sans-serif;
+
+            /* Espaçamento Editorial (Respiro) */
+            --space-xs: 1rem;
+            --space-sm: 2.5rem;
+            --space-md: 5rem;
+            --space-lg: 10rem;
+            --space-xl: 15rem;
+
+            /* Sombras Sutis */
+            --shadow-sm: 0 1px 3px rgba(31, 25, 21, 0.08);
+            --shadow-md: 0 4px 12px rgba(31, 25, 21, 0.12);
+            --shadow-lg: 0 12px 32px rgba(31, 25, 21, 0.15);
+
+            /* Transições */
+            --transition-fast: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --transition-base: 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --transition-slow: 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-sand);
+            color: var(--text-dark);
+            font-family: var(--font-editorial);
+            font-size: 1.15rem;
+            line-height: 1.8;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Scroll suave para toda a página */
+        html { scroll-behavior: smooth; }
+
+        /* ==========================================================================
+           2. TIPOGRAFIA EDITORIAL
+           ========================================================================== */
+        h1, h2, h3 {
+            font-weight: 400;
+            line-height: 1.2;
+            color: var(--text-dark);
+        }
+
+        .title-huge {
+            font-size: clamp(3.5rem, 8vw, 7rem);
+            letter-spacing: -0.02em;
+        }
+
+        .title-section {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            margin-bottom: var(--space-sm);
+        }
+
+        .text-lead {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .text-italic {
+            font-style: italic;
+            font-weight: 400;
+        }
+
+        .ui-label {
+            font-family: var(--font-ui);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--accent-gold);
+            display: block;
+            margin-bottom: 1.5rem;
+        }
+
+        /* ==========================================================================
+           3. BOTÕES E UI (Minimalismo com Micro-interações)
+           ========================================================================== */
+        .btn {
+            display: inline-block;
+            font-family: var(--font-ui);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-decoration: none;
+            padding: 1.2rem 3rem;
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            background: transparent;
+            transition: all var(--transition-base);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--accent-gold);
+            transition: left var(--transition-base);
+            z-index: -1;
+        }
+
+        .btn:hover {
+            color: var(--bg-wood);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn:hover::before {
+            left: 0;
+        }
+
+        .btn-solid {
+            background: var(--bg-wood);
+            color: var(--bg-sand);
+            border-color: var(--bg-wood);
+        }
+        .btn-solid:hover {
+            background: var(--accent-gold);
+            border-color: var(--accent-gold);
+            color: var(--bg-wood);
+        }
+
+        /* ==========================================================================
+           4. ESTRUTURA GERAL (Layout)
+           ========================================================================== */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        .section-padding {
+            padding: var(--space-xl) 0;
+        }
+
+        /* Imagens Editoriais */
+        .img-editorial {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            transition: transform var(--transition-base);
+        }
+
+        .img-editorial:hover {
+            transform: scale(1.02);
+        }
+
+        /* Assimetria e Layouts */
+        .split-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8vw;
+            align-items: center;
+        }
+
+        .staggered-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 2rem;
+        }
+
+        /* ==========================================================================
+           5. SECÇÕES ESPECÍFICAS
+           ========================================================================== */
+        
+        /* HEADER (Hero) */
+        .hero {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            background-color: var(--bg-wood);
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=2000&q=80');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.85;
+            background-attachment: fixed; 
+            z-index: 0;
+        }
+
+        .hero-gradient {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to right, rgba(38, 30, 24, 0.9) 0%, rgba(38, 30, 24, 0.4) 55%, transparent 100%),
+                        linear-gradient(to top, rgba(38, 30, 24, 0.3) 0%, transparent 40%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: var(--text-light);
+            max-width: 900px;
+            padding-top: 5vh;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-family: var(--font-editorial);
+            font-style: italic;
+            color: var(--accent-gold);
+            margin-bottom: 2.5rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        .hero-lead {
+            font-size: clamp(1.2rem, 2vw, 1.5rem);
+            line-height: 2;
+            color: var(--bg-sand);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .hero-highlight {
+            font-size: clamp(1.3rem, 2.2vw, 1.7rem);
+            font-style: italic;
+            font-weight: 500;
+            color: #fff;
+            margin-top: 1rem;
+            margin-bottom: 3.5rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* MANIFESTO */
+        .manifesto {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .poetic-stack {
+            margin: var(--space-md) 0;
+        }
+        .poetic-stack p {
+            font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            transition: color var(--transition-fast), transform var(--transition-fast);
+        }
+        .poetic-stack p:hover {
+            color: var(--text-dark);
+            transform: translateX(4px);
+        }
+        .poetic-stack .text-italic {
+            color: var(--text-dark);
+            font-size: clamp(1.4rem, 3vw, 2rem);
+        }
+
+        /* O RITMO DA VILA (Imagem Esquerda / Texto Direita) */
+        .ritmo-img-wrapper {
+            position: relative;
+            height: 120vh;
+        }
+        
+        /* LONGE DO EXCESSO (Dark Mode Inverted) */
+        .dark-section {
+            background-color: var(--bg-wood);
+            color: var(--text-light);
+        }
+        .dark-section .title-section { color: var(--bg-sand); }
+        .dark-section .text-lead { color: #A89F96; }
+        .dark-section .ui-label { color: var(--accent-gold); }
+
+        /* ARQUITETURA (Grid Assimetrico) */
+        .arq-img-1 { grid-column: 1 / 8; height: 70vh; }
+        .arq-img-2 { grid-column: 9 / 13; height: 50vh; margin-top: 20vh; }
+        .arq-text { grid-column: 3 / 11; margin-top: -10vh; background: var(--bg-sand); padding: var(--space-sm); position: relative; z-index: 2; text-align: center; box-shadow: var(--shadow-lg); }
+
+        /* PEQUENOS ENCONTROS (Bleed Out Image) */
+        .bleed-image {
+            width: 100vw;
+            height: 80vh;
+            margin-left: 50%;
+            transform: translateX(-50%);
+            background-image: url('https://images.unsplash.com/photo-1510798831971-661eb04b3739?auto=format&fit=crop&w=2000&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+        }
+
+        /* ==========================================================================
+           6. ANIMAÇÕES EDITORIAIS (Scroll Reveal)
+           ========================================================================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all var(--transition-slow);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Delays para criar coreografia em grupos de elementos */
+        .delay-1 { transition-delay: 0.2s; }
+        .delay-2 { transition-delay: 0.4s; }
+        .delay-3 { transition-delay: 0.6s; }
+
+        /* ==========================================================================
+           7. RESPONSIVIDADE
+           ========================================================================== */
+        @media (max-width: 900px) {
+            .split-layout { grid-template-columns: 1fr; gap: var(--space-sm); }
+            .ritmo-img-wrapper { height: 60vh; margin-bottom: var(--space-sm); }
+            .staggered-grid { display: flex; flex-direction: column; }
+            .arq-img-1, .arq-img-2 { height: 50vh; margin-top: 0; }
+            .arq-text { margin-top: -5vh; padding: var(--space-xs); }
+            .bleed-image { height: 50vh; }
+        }
+
+        @media (max-width: 640px) {
+            .hero { height: auto; min-height: 100vh; }
+            .hero-content { padding: 2rem 1rem; }
+            .title-section { font-size: 2rem; }
+            .ui-label { font-size: 0.65rem; letter-spacing: 2px; }
+            .btn { padding: 1rem 2rem; font-size: 0.75rem; }
+            .section-padding { padding: var(--space-md) 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HERO SECTION -->
+    <header class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-gradient"></div>
+        <div class="container hero-content">
+            <h1 class="hero-title reveal delay-1">Casas para criar memórias.</h1>
+            
+            <p class="hero-lead reveal delay-2">
+                Uma vila escondida a poucos minutos de São Paulo.
+            </p>
+            
+            <p class="hero-lead reveal delay-3">
+                Existe um momento do dia em que o barulho da cidade finalmente fica para trás. E tudo o que sobra é o som do vento entre as árvores, a luz morna atravessando a janela e a sensação rara de estar exatamente onde se deveria estar.
+            </p>
+            
+            <p class="hero-highlight reveal delay-3">
+                Vila Serena nasce desse desejo silencioso de viver com mais calma, mais presença e mais verdade.
+            </p>
+            
+            <a href="#manifesto" class="btn reveal delay-3">Descubra a Vila</a>
+        </div>
+    </header>
+
+    <!-- MANIFESTO -->
+    <section id="manifesto" class="section-padding container">
+        <div class="manifesto">
+            <span class="ui-label reveal">Manifesto</span>
+            <h2 class="title-section text-italic reveal">A vida desacelerou aqui.</h2>
+            
+            <p class="text-lead reveal">Durante muito tempo, aprendemos a acreditar que viver melhor significava correr mais rápido.</p>
+            
+            <div class="poetic-stack reveal">
+                <p>Mais trânsito.</p>
+                <p>Mais compromissos.</p>
+                <p>Mais pressa.</p>
+                <p>Mais distância de tudo aquilo que realmente importa.</p>
+            </div>
+
+            <h3 class="title-section reveal" style="font-size: clamp(2rem, 4vw, 3rem);">Mas existe <span class="text-italic">outra forma</span> de viver.</h3>
+
+            <div class="poetic-stack reveal">
+                <p class="text-italic">Uma forma onde as manhãs começam devagar.</p>
+                <p class="text-italic">Onde as crianças ainda brincam na rua.</p>
+                <p class="text-italic">Onde as casas têm luz acesa no fim da tarde e as conversas atravessam a noite sem urgência.</p>
+            </div>
+
+            <p class="text-lead reveal" style="margin-top: var(--space-md);">
+                Vila Serena não foi pensada apenas para morar.<br>
+                <span class="text-italic" style="color: var(--text-dark);">Foi pensada para devolver presença ao cotidiano.</span>
+            </p>
+        </div>
+    </section>
+
+    <!-- O RITMO DA VILA (Split Layout) -->
+    <section class="section-padding container split-layout">
+        <div class="ritmo-img-wrapper reveal">
+            <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&w=1000&q=80" alt="Café da manhã com luz suave" class="img-editorial">
+        </div>
+        <div class="ritmo-text reveal delay-1">
+            <span class="ui-label">Ritmo</span>
+            <h2 class="title-section">Aqui, o tempo parece acontecer <span class="text-italic">de outro jeito.</span></h2>
+            <p class="text-lead" style="margin-bottom: 2rem;">
+                As árvores filtram a luz da manhã.<br>
+                Os caminhos convidam a caminhar sem destino.<br>
+                As varandas voltam a ser usadas no fim do dia.<br>
+                E pequenas cenas cotidianas, quase esquecidas pela cidade, reaparecem naturalmente.
+            </p>
+            
+            <div class="poetic-stack" style="text-align: left; margin: 3rem 0;">
+                <p>O cheiro de café passando cedo.</p>
+                <p>Um cachorro dormindo ao sol.</p>
+                <p>Folhas secas atravessando a rua depois da chuva.</p>
+                <p>O silêncio confortável de uma noite comum.</p>
+            </div>
+
+            <h3 class="text-italic" style="font-size: 2rem; color: var(--text-dark);">
+                Não é sobre escapar do mundo.<br>É sobre voltar a sentir parte dele.
+            </h3>
+        </div>
+    </section>
+
+    <!-- PERTO DA CIDADE. LONGE DO EXCESSO (Dark Section) -->
+    <section class="section-padding dark-section">
+        <div class="container manifesto">
+            <span class="ui-label reveal">Localização</span>
+            <h2 class="title-section reveal">Perto da cidade.<br><span class="text-italic" style="color: var(--accent-gold);">Longe do excesso.</span></h2>
+            
+            <p class="text-lead reveal" style="max-width: 800px; margin: 0 auto 3rem auto;">
+                A poucos minutos de São Paulo, Vila Serena foi desenhada para existir em outro ritmo.
+            </p>
+
+            <div class="poetic-stack reveal">
+                <p style="color: #A89F96;">Perto o suficiente para manter a vida conectada à cidade.</p>
+                <p class="text-italic" style="color: var(--bg-sand);">Longe o bastante para que ela deixe de ocupar seus pensamentos o tempo todo.</p>
+            </div>
+
+            <p class="text-lead reveal" style="margin-top: 4rem;">
+                Aqui, a pressa perde importância. O ruído diminui.<br>
+                <span class="text-italic" style="color: var(--bg-sand);">E a sensação de abrigo começa antes mesmo de chegar em casa.</span>
+            </p>
+        </div>
+    </section>
+
+    <!-- ARQUITETURA PARA A VIDA REAL -->
+    <section class="section-padding container">
+        <span class="ui-label text-center reveal" style="text-align: center;">Essência Arquitetónica</span>
+        <h2 class="title-section text-center reveal" style="text-align: center;">Em Vila Serena, a arquitetura não busca impressionar.<br><span class="text-italic">Ela busca acolher.</span></h2>
+        
+        <div class="staggered-grid" style="margin-top: var(--space-md);">
+            <div class="arq-img-1 reveal">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80" alt="Arquitetura de Madeira" class="img-editorial">
+            </div>
+            <div class="arq-img-2 reveal delay-2">
+                <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=800&q=80" alt="Luz natural na sala" class="img-editorial">
+            </div>
+            <div class="arq-text reveal delay-1">
+                <p class="text-lead">
+                    Materiais naturais, luz quente, caminhos arborizados e uma escala mais humana criam espaços que parecem familiares desde o primeiro instante.
+                </p>
+                <p style="margin-top: 1.5rem; color: var(--text-muted); font-size: 1.1rem;">
+                    As casas respiram luz natural. As áreas comuns convidam ao encontro. E cada detalhe foi pensado para que a vida cotidiana aconteça de forma mais leve, simples e verdadeira.
+                </p>
+                <h3 class="text-italic" style="margin-top: 2rem; font-size: 1.8rem; color: var(--text-dark);">
+                    Porque o verdadeiro conforto não está no excesso.<br>Está na sensação de pertencimento.
+                </h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- CASAS PARA CRIAR MEMÓRIAS -->
+    <section class="section-padding container split-layout">
+        <div class="reveal">
+            <span class="ui-label">As Residências</span>
+            <h2 class="title-section">Casas para criar <span class="text-italic">memórias</span></h2>
+            <p class="text-lead" style="margin-bottom: 3rem;">
+                As casas de Vila Serena foram pensadas para acompanhar o tempo da vida.
+            </p>
+            
+            <div class="poetic-stack" style="text-align: left;">
+                <p class="text-italic" style="color: var(--text-dark);">Os cafés demorados de domingo.</p>
+                <p class="text-italic" style="color: var(--text-dark);">Os aniversários na varanda.</p>
+                <p class="text-italic" style="color: var(--text-dark);">As noites frias de inverno.</p>
+                <p class="text-italic" style="color: var(--text-dark);">As marcas de crescimento na parede de um quarto infantil.</p>
+            </div>
+
+            <p class="text-lead">
+                Mais do que plantas ou acabamentos, cada casa foi desenhada para receber histórias.<br>
+                <span style="font-size: 1.2rem; color: var(--text-muted); display: block; margin-top: 1rem;">Algumas das lembranças mais importantes da vida começam em cenas simples.</span>
+            </p>
+        </div>
+        <div class="ritmo-img-wrapper reveal delay-1" style="height: 90vh;">
+            <img src="https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&w=1000&q=80" alt="Quarto aconchegante" class="img-editorial">
+        </div>
+    </section>
+
+    <!-- PEQUENOS ENCONTROS E MEMÓRIAS -->
+    <section class="section-padding" style="overflow: hidden;">
+        <div class="container manifesto reveal">
+            <h2 class="title-section">Pequenos encontros <span class="text-italic">cotidianos</span></h2>
+            <p class="text-lead">Vila Serena não foi desenhada para multidões. Foi desenhada para proximidade.</p>
+            
+            <div class="poetic-stack">
+                <p>Para os encontros espontâneos no fim da tarde.</p>
+                <p>Para as conversas demoradas depois de um passeio.</p>
+                <p>Para o aceno silencioso entre vizinhos que já se conhecem pelo nome.</p>
+            </div>
+            
+            <p class="text-lead text-italic" style="color: var(--text-dark);">
+                Existe uma diferença entre morar perto de pessoas e sentir que pertence a um lugar.<br>Essa diferença muda tudo.
+            </p>
+        </div>
+
+        <div class="bleed-image reveal delay-1" style="margin-top: var(--space-md); margin-bottom: var(--space-md);"></div>
+
+        <div class="container manifesto reveal">
+            <span class="ui-label">O Futuro</span>
+            <h2 class="title-section">Memórias que <span class="text-italic">ainda não aconteceram</span></h2>
+            <p class="text-lead" style="margin-bottom: 2rem;">Talvez, no fundo, seja isso que procuramos quando buscamos uma nova casa. Um lugar onde a vida possa acontecer com mais delicadeza.</p>
+            
+            <div class="poetic-stack text-italic" style="color: var(--text-dark);">
+                <p>Onde existam manhãs lentas.</p>
+                <p>Domingos sem pressa.</p>
+                <p>Jantares longos.</p>
+                <p>Crianças crescendo ao ar livre.</p>
+                <p>Luzes acesas no fim da tarde.</p>
+                <p>Histórias que ainda serão contadas daqui muitos anos.</p>
+            </div>
+
+            <p class="text-lead text-italic" style="color: var(--accent-gold); font-size: 2rem;">
+                Vila Serena nasce para receber tudo aquilo que ainda está por vir.
+            </p>
+        </div>
+    </section>
+
+    <!-- O CUIDADO EM CADA DETALHE & CTA FINAL -->
+    <footer class="dark-section" style="padding-top: var(--space-xl);">
+        <div class="container manifesto reveal">
+            <span class="ui-label">Legado</span>
+            <h2 class="title-section">O cuidado em <span class="text-italic">cada detalhe</span></h2>
+            <p class="text-lead" style="color: var(--bg-sand);">Cada escolha da Vila Serena nasceu da mesma intenção: Criar um lugar que permanecesse humano mesmo com o passar do tempo.</p>
+            
+            <div class="poetic-stack" style="color: #A89F96;">
+                <p>Da implantação das ruas à escolha dos materiais.</p>
+                <p>Da iluminação ao paisagismo.</p>
+                <p>Das áreas comuns ao silêncio preservado entre as casas.</p>
+            </div>
+
+            <p class="text-lead text-italic" style="color: var(--bg-sand); margin-bottom: var(--space-xl);">
+                Tudo foi pensado para que a experiência de viver aqui continue fazendo sentido muitos anos depois da entrega das chaves.
+            </p>
+        </div>
+
+        <div class="container manifesto reveal delay-1" style="text-align: center; padding-bottom: var(--space-xl);">
+            <h2 class="title-section text-italic" style="font-size: clamp(3rem, 6vw, 5rem); color: var(--accent-gold);">Descubra Vila Serena</h2>
+            <p class="text-lead" style="color: #A89F96; max-width: 600px; margin: 0 auto 3rem auto;">
+                Alguns lugares impressionam imediatamente. Outros permanecem.<br>Vila Serena foi criada para ser descoberta aos poucos:
+            </p>
+            
+            <div class="poetic-stack text-italic" style="color: var(--bg-sand); margin-bottom: 4rem;">
+                <p>na luz do fim da tarde,</p>
+                <p>nos caminhos silenciosos,</p>
+                <p>nas rotinas simples que voltam a ter valor.</p>
+            </div>
+
+            <div style="margin-bottom: 4rem; font-family: var(--font-ui); letter-spacing: 2px; color: var(--accent-gold); font-size: 0.85rem; text-transform: uppercase;">
+                Uma vila escondida. &nbsp;|&nbsp; Perto de São Paulo. &nbsp;|&nbsp; Distante do excesso.
+            </div>
+
+            <span class="text-italic" style="font-size: 2rem; color: var(--bg-sand); display: block; margin-bottom: 3rem;">Vila Serena.<br>Casas para criar memórias.</span>
+            
+            <a href="#" class="btn btn-solid">Agende uma visita</a>
+        </div>
+        
+        <div style="border-top: 1px solid rgba(255,255,255,0.05); padding: 2rem 0; text-align: center; font-family: var(--font-ui); font-size: 0.7rem; letter-spacing: 1px; color: #666; margin-top: 4rem;">
+            VILA SERENA CASAS DE CAMPO — TODOS OS DIREITOS RESERVADOS.
+        </div>
+    </footer>
+
+    <!-- SCRIPT DE ANIMAÇÃO EDITORIAL (Scroll Reveal) -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Função para verificar se o elemento está visível na tela
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15 // Dispara quando 15% do elemento estiver visível
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, observerOptions);
+
+            // Seleciona todos os elementos com a classe 'reveal'
+            const revealElements = document.querySelectorAll('.reveal');
+            revealElements.forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>

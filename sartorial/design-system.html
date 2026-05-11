@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design System - Aquarela & Moda</title>
+    <style>
+        /* ==========================================================================
+           1. TOKENS DE DESIGN (Variáveis)
+           ========================================================================== */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap');
+
+        :root {
+            /* Cores extraídas da ilustração */
+            --primary: #2B3A67;
+            /* Azul Índigo/Marinho */
+            --secondary: #5B6B45;
+            /* Verde Musgo/Oliva */
+            --ink: #1A1A1A;
+            /* Preto Nanquim */
+            --paper: #FDFBF7;
+            /* Fundo Branco/Papel */
+            --wash-blue: rgba(43, 58, 103, 0.1);
+            /* Mancha aquarela azul */
+            --wash-green: rgba(91, 107, 69, 0.1);
+            /* Mancha aquarela verde */
+
+            /* Tipografia */
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Lato', sans-serif;
+
+            /* Espaçamentos */
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 48px;
+            --space-xxl: 80px;
+
+            /* Bordas Orgânicas (Traço desenhado) */
+            --border-organic-1: 255px 15px 225px 15px/15px 225px 15px 255px;
+            --border-organic-2: 15px 225px 15px 255px/255px 15px 225px 15px;
+            --border-thin: 1px solid var(--ink);
+
+            /* Sombras / Texturas */
+            --shadow-ink: 2px 4px 10px rgba(0, 0, 0, 0.08);
+            --texture-paper: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+        }
+
+        /* ==========================================================================
+           2. BASE & TEXTURAS
+           ========================================================================== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--paper);
+            color: var(--ink);
+            line-height: 1.6;
+            background-image: var(--texture-paper);
+            /* Ruído de papel */
+            position: relative;
+        }
+
+        /* Manchas de aquarela no fundo */
+        body::before,
+        body::after {
+            content: '';
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(60px);
+            z-index: -1;
+            mix-blend-mode: multiply;
+        }
+
+        body::before {
+            width: 400px;
+            height: 400px;
+            background: var(--wash-blue);
+            top: -100px;
+            left: -100px;
+        }
+
+        body::after {
+            width: 500px;
+            height: 500px;
+            background: var(--wash-green);
+            bottom: -150px;
+            right: -100px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: var(--space-xl) var(--space-md);
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            margin-bottom: var(--space-lg);
+            border-bottom: var(--border-thin);
+            padding-bottom: var(--space-sm);
+        }
+
+        .sub-section {
+            margin-bottom: var(--space-xxl);
+        }
+
+        /* ==========================================================================
+           3. TIPOGRAFIA
+           ========================================================================== */
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        p {
+            margin-bottom: var(--space-md);
+        }
+
+        .type-showcase {
+            border: var(--border-thin);
+            padding: var(--space-lg);
+            border-radius: var(--border-organic-1);
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .type-h1 {
+            font-size: 3.5rem;
+        }
+
+        .type-h2 {
+            font-size: 2.5rem;
+        }
+
+        .type-h3 {
+            font-size: 1.75rem;
+        }
+
+        .type-body {
+            font-size: 1rem;
+        }
+
+        .type-caption {
+            font-size: 0.85rem;
+            font-style: italic;
+            color: var(--secondary);
+        }
+
+        /* ==========================================================================
+           4. PALETA DE CORES (Amostras)
+           ========================================================================== */
+        .color-grid {
+            display: flex;
+            gap: var(--space-md);
+            flex-wrap: wrap;
+        }
+
+        .color-swatch {
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: flex-end;
+            padding: var(--space-sm);
+            border: var(--border-thin);
+            border-radius: var(--border-organic-2);
+            font-family: var(--font-heading);
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .bg-primary {
+            background-color: var(--primary);
+            color: var(--paper);
+        }
+
+        .bg-secondary {
+            background-color: var(--secondary);
+            color: var(--paper);
+        }
+
+        .bg-ink {
+            background-color: var(--ink);
+            color: var(--paper);
+        }
+
+        .bg-paper {
+            background-color: var(--paper);
+            color: var(--ink);
+        }
+
+        /* ==========================================================================
+           5. BOTÕES E ESTADOS
+           ========================================================================== */
+        .btn {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            padding: var(--space-sm) var(--space-lg);
+            cursor: pointer;
+            background: transparent;
+            border: 2px solid var(--ink);
+            color: var(--ink);
+            border-radius: var(--border-organic-1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
+            z-index: -1;
+            transition: all 0.4s ease;
+            mix-blend-mode: multiply;
+        }
+
+        .btn:hover {
+            color: var(--paper);
+            border-color: var(--primary);
+        }
+
+        .btn:hover::after {
+            left: 0;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            border-style: dashed;
+        }
+
+        .btn.loading {
+            color: transparent;
+        }
+
+        .btn.loading::before {
+            content: '...';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--ink);
+        }
+
+        /* ==========================================================================
+           6. ELEMENTOS DE INTERAÇÃO
+           ========================================================================== */
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 2px 12px;
+            font-size: 0.8rem;
+            border-radius: var(--border-organic-2);
+            border: 1px solid var(--ink);
+            background: var(--wash-green);
+            font-style: italic;
+        }
+
+        /* Tooltip */
+        .tooltip-wrapper {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dashed var(--primary);
+            cursor: help;
+        }
+
+        .tooltip-wrapper::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--ink);
+            color: var(--paper);
+            padding: 4px 8px;
+            font-size: 0.8rem;
+            border-radius: var(--border-organic-1);
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.3s;
+            white-space: nowrap;
+        }
+
+        .tooltip-wrapper:hover::after {
+            opacity: 1;
+            bottom: 150%;
+        }
+
+        /* Tabs */
+        .tabs {
+            border-bottom: var(--border-thin);
+            display: flex;
+            gap: var(--space-md);
+            margin-bottom: var(--space-md);
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding-bottom: var(--space-xs);
+            color: var(--secondary);
+            opacity: 0.6;
+            transition: 0.3s;
+        }
+
+        .tab-btn.active {
+            opacity: 1;
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+            padding: var(--space-md) 0;
+            animation: fade 0.5s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fade {
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Accordion */
+        .accordion {
+            border-top: var(--border-thin);
+        }
+
+        .accordion-item {
+            border-bottom: var(--border-thin);
+        }
+
+        .accordion-header {
+            width: 100%;
+            text-align: left;
+            background: none;
+            border: none;
+            padding: var(--space-md) 0;
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: var(--ink);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            background: var(--wash-blue);
+            border-radius: var(--border-organic-2);
+            margin-bottom: 8px;
+        }
+
+        .accordion-content p {
+            padding: var(--space-md);
+            margin: 0;
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 200px;
+        }
+
+        /* Formulário */
+        .form-group {
+            margin-bottom: var(--space-md);
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-family: var(--font-heading);
+            font-style: italic;
+            margin-bottom: var(--space-xs);
+        }
+
+        input,
+        textarea {
+            background: transparent;
+            border: none;
+            border-bottom: var(--border-thin);
+            padding: var(--space-sm);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            color: var(--ink);
+            transition: 0.3s;
+            outline: none;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-bottom-color: var(--primary);
+            background: var(--wash-blue);
+            border-radius: var(--border-organic-1);
+        }
+
+        /* Slider / Carrossel */
+        .slider-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border: var(--border-thin);
+            border-radius: var(--border-organic-1);
+            padding: var(--space-lg);
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .slider-wrapper {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .slide {
+            min-width: 100%;
+            text-align: center;
+        }
+
+        .slider-controls {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        /* Galeria & Modal */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--space-md);
+        }
+
+        .gallery-item {
+            height: 200px;
+            background: var(--wash-green);
+            border: var(--border-thin);
+            border-radius: var(--border-organic-2);
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-style: italic;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            background: var(--wash-blue);
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 26, 26, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--paper);
+            padding: var(--space-xl);
+            border-radius: var(--border-organic-1);
+            border: 2px solid var(--ink);
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            background-image: var(--texture-paper);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 16px;
+            right: 24px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary);
+        }
+
+        /* ==========================================================================
+           7. PADRÕES DE LINHAS E GRAFISMOS
+           ========================================================================== */
+        .line-pattern-1 {
+            height: 1px;
+            width: 100%;
+            background: linear-gradient(to right, transparent, var(--ink), transparent);
+            margin: var(--space-lg) 0;
+        }
+
+        .line-pattern-2 {
+            border-top: 2px dashed var(--secondary);
+            margin: var(--space-lg) 0;
+            opacity: 0.5;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: var(--space-xxl) 0;
+            position: relative;
+            border: var(--border-thin);
+            border-radius: var(--border-organic-2);
+            margin-bottom: var(--space-xl);
+            background: linear-gradient(135deg, var(--wash-blue), transparent);
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: var(--space-md);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto var(--space-lg);
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- 1. HERO SECTION -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Ateliê <i>Aquarela</i></h1>
+                <p>Um design system orgânico, focado na fluidez da tinta, nos traços leves de nanquim e na elegância
+                    atemporal da moda.</p>
+                <button class="btn">Explorar Coleção <span>&#8594;</span></button>
+            </div>
+        </section>
+
+        <!-- 2. TIPOGRAFIA -->
+        <section class="sub-section">
+            <h2 class="section-title">Tipografia</h2>
+            <div class="type-showcase">
+                <div class="type-h1">Heading 1 - Elegância</div>
+                <div class="type-h2">Heading 2 - Estrutura Média</div>
+                <div class="type-h3">Heading 3 - Destaque Menor</div>
+                <p class="type-body">Body Text: A tipografia do corpo usa uma fonte sem serifa clara e limpa, garantindo
+                    que o aspecto manuscrito e aquarelado das bordas não comprometa a legibilidade do usuário.</p>
+                <div class="type-caption">Caption: Notas de rodapé e pequenos detalhes possuem estilo itálico para
+                    simular anotações laterais em um sketchbook.</div>
+            </div>
+        </section>
+
+        <!-- 3. PALETA DE CORES -->
+        <section class="sub-section">
+            <h2 class="section-title">Paleta de Cores</h2>
+            <div class="color-grid">
+                <div class="color-swatch bg-primary">Índigo<br>#2B3A67</div>
+                <div class="color-swatch bg-secondary">Musgo<br>#5B6B45</div>
+                <div class="color-swatch bg-ink">Nanquim<br>#1A1A1A</div>
+                <div class="color-swatch bg-paper">Papel<br>#FDFBF7</div>
+            </div>
+            <div class="line-pattern-1"></div>
+            <p><strong>Tokens de Lavagem (Wash):</strong> Fundo da tela usa <code>rgba()</code> para simular a mancha
+                d'água invisível sobre o papel texturizado.</p>
+        </section>
+
+        <!-- 4. BOTÕES E ESTADOS -->
+        <section class="sub-section">
+            <h2 class="section-title">Botões, Badges e Tooltips</h2>
+            <div style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap;">
+                <button class="btn">Default</button>
+                <button class="btn"
+                    style="color: var(--paper); border-color: var(--primary); background: var(--primary);">Active/Hover</button>
+                <button class="btn" disabled>Disabled</button>
+                <button class="btn loading">Loading</button>
+            </div>
+            <br>
+            <div style="display: flex; gap: 16px; align-items: center;">
+                <span class="badge">Novo Estilo</span>
+                <span class="badge" style="background: var(--wash-blue);">Edição Limitada</span>
+                <p style="margin:0;">Passe o mouse sobre esta <span class="tooltip-wrapper"
+                        data-tooltip="Pincelada fina e solta">palavra</span> para ver o tooltip.</p>
+            </div>
+        </section>
+
+        <!-- 5. INTERAÇÕES -->
+        <section class="sub-section">
+            <h2 class="section-title">Elementos Interativos</h2>
+
+            <!-- Tabs -->
+            <div class="tabs">
+                <button class="tab-btn active" onclick="openTab(event, 'tab1')">Coleção Outono</button>
+                <button class="tab-btn" onclick="openTab(event, 'tab2')">Esboços</button>
+            </div>
+            <div id="tab1" class="tab-content active">
+                <p>Conteúdo da coleção de outono com paletas verdes e índigo fortes, baseadas em lavagens profundas.</p>
+            </div>
+            <div id="tab2" class="tab-content">
+                <p>Esboços preliminares mostrando o uso de espaço negativo, linha fina e silhuetas incompletas.</p>
+            </div>
+
+            <div class="line-pattern-2"></div>
+
+            <!-- Accordion -->
+            <div class="accordion">
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="toggleAccordion(this)"><span>Técnica de Aquarela</span>
+                        <span>+</span></button>
+                    <div class="accordion-content">
+                        <p>O uso da água dispersa o pigmento no papel, criando fronteiras orgânicas e imperfeitas.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="toggleAccordion(this)"><span>Uso de Linhas (Ink)</span>
+                        <span>+</span></button>
+                    <div class="accordion-content">
+                        <p>Linhas soltas definem o contorno apenas onde é estritamente necessário para a compreensão da
+                            forma.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="line-pattern-2"></div>
+
+            <!-- Form -->
+            <div class="type-showcase" style="max-width: 500px;">
+                <h3>Assine o Sketchbook</h3><br>
+                <div class="form-group">
+                    <label>Nome do Artista</label>
+                    <input type="text" placeholder="Ex: Ellie Rahim">
+                </div>
+                <div class="form-group">
+                    <label>Técnica Favorita</label>
+                    <textarea rows="2" placeholder="Descreva aqui..."></textarea>
+                </div>
+                <button class="btn" style="width: 100%; justify-content: center;">Enviar</button>
+            </div>
+
+            <div class="line-pattern-2"></div>
+
+            <!-- Slider -->
+            <h3>Slider de Moodboard</h3><br>
+            <div class="slider-container">
+                <div class="slider-wrapper" id="slider">
+                    <div class="slide">
+                        <h4>Slide 1: O Traço</h4>
+                        <p>Silhuetas masculinas em nanquim.</p>
+                    </div>
+                    <div class="slide">
+                        <h4>Slide 2: A Mancha</h4>
+                        <p>Azul índigo marcando a textura do tecido.</p>
+                    </div>
+                    <div class="slide">
+                        <h4>Slide 3: O Contraste</h4>
+                        <p>Verde musgo dialogando com o papel em branco.</p>
+                    </div>
+                </div>
+                <div class="slider-controls">
+                    <button class="btn" onclick="moveSlide(-1)">&#8592; Voltar</button>
+                    <button class="btn" onclick="moveSlide(1)">Avançar &#8594;</button>
+                </div>
+            </div>
+
+            <div class="line-pattern-2"></div>
+
+            <!-- Galeria e Modal -->
+            <h3>Galeria de Retalhos (Clique para abrir)</h3><br>
+            <div class="gallery">
+                <div class="gallery-item" onclick="openModal('Tonalidade Azul da Ilustração Original')">Textura Azul
+                </div>
+                <div class="gallery-item" onclick="openModal('Tonalidade Verde Musgo e Sombra')">Textura Verde</div>
+                <div class="gallery-item" onclick="openModal('Estudo de contornos e espaço vazio')">Sketch Linha</div>
+            </div>
+
+        </section>
+
+    </div>
+
+    <!-- Modal Base -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal()">&#10005;</button>
+            <h2 id="modal-title">Detalhe da Obra</h2>
+            <div class="line-pattern-1"></div>
+            <p>Este modal usa o desfoque de fundo (backdrop-filter) para dar foco à caixa central, que simula um pedaço
+                de papel texturizado recortado de forma orgânica.</p>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         8. JAVASCRIPT (Interações puras)
+         ========================================================================== -->
+    <script>
+        // TABS
+        function openTab(evt, tabId) {
+            let i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            document.getElementById(tabId).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        // ACCORDION
+        function toggleAccordion(element) {
+            element.parentElement.classList.toggle("active");
+            let icon = element.querySelector("span:last-child");
+            icon.textContent = element.parentElement.classList.contains("active") ? "-" : "+";
+        }
+
+        // SLIDER
+        let currentSlide = 0;
+        function moveSlide(step) {
+            const wrapper = document.getElementById("slider");
+            const totalSlides = wrapper.children.length;
+            currentSlide = (currentSlide + step + totalSlides) % totalSlides;
+            wrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+
+        // MODAL
+        function openModal(title) {
+            document.getElementById("modal-title").innerText = title;
+            document.getElementById("modal").classList.add("active");
+        }
+        function closeModal() {
+            document.getElementById("modal").classList.remove("active");
+        }
+        // Fechar modal ao clicar fora
+        document.getElementById("modal").addEventListener('click', function (e) {
+            if (e.target === this) closeModal();
+        });
+    </script>
+</body>
+
+</html>

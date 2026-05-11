@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIANNICA — Design System</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        /* ==========================================================================
+           1. DESIGN TOKENS (CSS Variables)
+           ========================================================================== */
+        :root {
+            /* Cores: Concreto, Porcelana e Ouro */
+            --color-concrete: #1E2124;      /* Cinza Chumbo Brutalista */
+            --color-porcelain: #F0ECE1;     /* Off-white Clássico */
+            --color-gold: #D4AF37;          /* Ouro Art Déco */
+            --color-sepia: #8A7961;         /* Papel Oxidado */
+            --color-shadow: rgba(0, 0, 0, 0.4);
+
+            /* Tipografia */
+            --font-display: 'Playfair Display', serif;
+            --font-ui: 'Montserrat', sans-serif;
+
+            /* Espaçamento (Tokens) */
+            --space-xs: 8px;
+            --space-sm: 16px;
+            --space-md: 32px;
+            --space-lg: 64px;
+            --space-xl: 128px;
+
+            /* Animação */
+            --motion-slow: 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            --motion-fast: 0.4s ease;
+
+            /* Textura SVG (Ruído de Concreto) */
+            --texture-noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+        }
+
+        /* ==========================================================================
+           2. BASE & TEXTURAS
+           ========================================================================== */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            background-color: var(--color-porcelain);
+            color: var(--color-concrete);
+            font-family: var(--font-ui);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Camada de Textura Global */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: var(--texture-noise);
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        h1, h2, h3 { font-family: var(--font-display); font-weight: 400; }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 var(--space-md);
+        }
+
+        /* ==========================================================================
+           3. HERO SECTION (O Monólito)
+           ========================================================================== */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            background-color: var(--color-concrete);
+            position: relative;
+            overflow: hidden;
+            color: var(--color-porcelain);
+        }
+
+        /* Imagem desconstruída (Efeito Papel Rasgado) */
+        .hero-image {
+            position: absolute;
+            right: 0;
+            top: 5%;
+            width: 55%;
+            height: 90%;
+            background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
+            clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%, 5% 50%); /* Borda irregular */
+            filter: grayscale(0.4) contrast(1.1);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding-left: 2vw; /* Leve desfasamento da margem do container */
+        }
+
+        .hero-title {
+            font-size: clamp(4rem, 10vw, 9rem); /* Um pouco mais monumental */
+            line-height: 0.95;
+            letter-spacing: -0.03em; /* Tensão nas letras maiúsculas */
+            margin-bottom: var(--space-md);
+        }
+
+        .hero-title span {
+            display: block;
+            font-style: italic;
+            color: var(--color-gold);
+            margin-left: 12vw; /* Deslocamento mais dramático e elegante */
+            letter-spacing: 0; /* Reseta o tracking para o itálico fluir */
+        }
+        
+        .hero-description {
+            max-width: 420px; 
+            margin-bottom: 4rem; /* Mais respiro antes dos botões */
+            color: var(--color-sepia);
+            font-weight: 300;
+            line-height: 2; /* Espaçamento duplo entre linhas (luxo editorial) */
+            font-size: 1.1rem;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 2rem; /* Mais distância entre as ações */
+            align-items: center;
+        }
+
+        /* ==========================================================================
+           4. COMPONENTES (BOTÕES, CARDS, MODAIS)
+           ========================================================================== */
+        
+        /* Botões */
+        .btn {
+            display: inline-flex;
+            padding: var(--space-sm) var(--space-lg);
+            border: 1px solid var(--color-gold);
+            background: transparent;
+            color: var(--color-gold);
+            font-family: var(--font-ui);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: var(--motion-fast);
+            position: relative;
+        }
+
+        .btn:hover {
+            background-color: var(--color-gold);
+            color: var(--color-concrete);
+            transform: translateX(10px);
+        }
+
+        .btn-solid {
+            background-color: var(--color-gold);
+            color: var(--color-concrete);
+        }
+
+        /* Cards Assimétricos */
+        .property-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+            align-items: center;
+        }
+
+        .property-card.inverted { direction: rtl; }
+        .property-card.inverted .card-content { direction: ltr; }
+
+        .card-image {
+            width: 100%;
+            height: 600px;
+            background-color: var(--color-concrete);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%; height: 100%; object-fit: cover;
+            filter: sepia(0.2);
+            transition: var(--motion-slow);
+        }
+
+        .property-card:hover img { transform: scale(1.05); }
+
+        .card-content { padding: var(--space-md); border-left: 1px solid var(--color-gold); }
+
+        .card-tag {
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--color-gold);
+            margin-bottom: var(--space-sm);
+            display: block;
+        }
+
+        /* ==========================================================================
+           5. ELEMENTOS DE INTERAÇÃO
+           ========================================================================== */
+        
+        /* Abas (Tabs) */
+        .tabs { margin-top: var(--space-lg); }
+        .tab-nav { display: flex; gap: var(--space-lg); border-bottom: 1px solid var(--color-sepia); margin-bottom: var(--space-md); }
+        .tab-btn {
+            background: none; border: none; padding: var(--space-sm) 0;
+            font-family: var(--font-ui); font-size: 0.8rem; letter-spacing: 2px;
+            color: var(--color-sepia); cursor: pointer; position: relative;
+        }
+        .tab-btn.active { color: var(--color-gold); }
+        .tab-btn.active::after {
+            content: ""; position: absolute; bottom: -1px; left: 0; width: 100%; height: 2px; background: var(--color-gold);
+        }
+        .tab-panel { display: none; padding: var(--space-md) 0; animation: fadeIn 0.8s ease; }
+        .tab-panel.active { display: block; }
+
+        /* Accordion */
+        .accordion-item { border-bottom: 1px solid var(--color-sepia); }
+        .accordion-header {
+            width: 100%; padding: var(--space-md) 0; background: none; border: none;
+            display: flex; justify-content: space-between; align-items: center;
+            font-family: var(--font-display); font-size: 1.5rem; cursor: pointer;
+        }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; color: var(--color-sepia); }
+
+        /* Popup / Modal */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(30, 33, 36, 0.95); z-index: 200;
+            display: none; justify-content: center; align-items: center;
+        }
+        .modal-box {
+            background: var(--color-porcelain); padding: var(--space-lg);
+            width: 90%; max-width: 600px; border: 1px solid var(--color-gold);
+        }
+
+        /* Formulário */
+        .form-group { margin-bottom: var(--space-md); }
+        .form-label { display: block; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: var(--space-xs); }
+        .form-input {
+            width: 100%; background: transparent; border: none; border-bottom: 1px solid var(--color-sepia);
+            padding: var(--space-sm) 0; font-family: var(--font-display); font-size: 1.2rem; outline: none;
+            transition: border-color 0.3s;
+        }
+        .form-input:focus { border-bottom-color: var(--color-gold); }
+
+        /* Galeria Imersiva (Kintsugi Hover) */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1rem;
+            margin-top: var(--space-xl);
+        }
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            background-color: var(--color-concrete);
+            cursor: pointer;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(0.8) contrast(1.2); /* Aspecto brutalista inicial */
+            transition: filter 1.2s ease, transform 1.5s ease;
+        }
+        .gallery-item:hover img {
+            filter: grayscale(0) sepia(0.3); /* Vida orgânica revelada */
+            transform: scale(1.05);
+        }
+        /* O "Fio de Ouro" revelado no hover */
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border: 1px solid transparent;
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            pointer-events: none;
+        }
+        .gallery-item:hover::after {
+            border-color: var(--color-gold);
+            top: 1.5rem; left: 1.5rem; right: 1.5rem; bottom: 1.5rem;
+        }
+        
+        /* Grelha Assimétrica */
+        .g-item-1 { grid-column: 1 / 8; height: 65vh; }
+        .g-item-2 { grid-column: 8 / 13; height: 65vh; }
+        .g-item-3 { grid-column: 1 / 6; height: 80vh; margin-top: -15vh; z-index: 2; box-shadow: 20px 0 40px rgba(0,0,0,0.3); }
+        .g-item-4 { grid-column: 6 / 13; height: 65vh; margin-top: 1rem; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 1024px) {
+            .grid-12 { grid-template-columns: 1fr; gap: 3rem; }
+            .hero .hero-text-col, .hero .hero-img-col { grid-column: 1 / -1; }
+            .hero-img-sub { display: none; }
+            .hero .hero-img-col { height: 50vh; }
+            .property-card { grid-template-columns: 1fr; }
+            
+            /* Ajustes da Galeria para Mobile */
+            .gallery-grid { display: flex; flex-direction: column; gap: 1rem; margin-top: var(--space-md); }
+            .g-item-1, .g-item-2, .g-item-3, .g-item-4 { height: 50vh; margin-top: 0; width: 100%; box-shadow: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="hero">
+        <div class="hero-image"></div>
+        <div class="container hero-content">
+            <span class="card-tag" style="margin-bottom: 2.5rem; letter-spacing: 5px; font-size: 0.65rem;">Lançamento de Altíssimo Padrão</span>
+            <h1 class="hero-title">
+                VIANNICA
+                <span>Vila Nova</span>
+            </h1>
+            <p class="hero-description">
+                Um refúgio monumental esculpido entre o concreto eterno e a precisão do ouro. Onde o tempo deixa de ser carga para se tornar herança.
+            </p>
+            <div class="hero-actions">
+                <button class="btn btn-solid" onclick="openModal()">Agendar Visita Privada</button>
+                <button class="btn">Explorar o Legado</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container section-padding">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl);">
+            <div>
+                <span class="ui-label">Tipografia Editorial</span>
+                <h2 style="font-size: 3.5rem; margin-bottom: var(--space-md);">O Luxo está no <br><em>Silêncio</em>.</h2>
+                <p style="color: var(--color-sepia);">
+                    Utilizamos a <strong>Playfair Display</strong> para evocar a tradição das estátuas de porcelana e a <strong>Montserrat</strong> para a estrutura moderna e inflexível do concreto paulistano.
+                </p>
+            </div>
+            <div style="display: flex; gap: var(--space-sm);">
+                <div style="flex: 1; height: 200px; background: var(--color-concrete); padding: 10px; color: white; font-size: 10px;">CONCRETO #1E2124</div>
+                <div style="flex: 1; height: 200px; background: var(--color-gold); padding: 10px; font-size: 10px;">OURO #D4AF37</div>
+                <div style="flex: 1; height: 200px; background: var(--color-porcelain); padding: 10px; border: 1px solid #ccc; font-size: 10px;">PORCELANA #F0ECE1</div>
+            </div>
+        </div>
+
+        <section style="margin-top: var(--space-xl);">
+            <div class="property-card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=2070&auto=format&fit=crop" alt="Apartamento">
+                </div>
+                <div class="card-content">
+                    <span class="card-tag">Conceito Loft</span>
+                    <h2 style="font-size: 2.5rem; margin-bottom: var(--space-sm);">Espaços que <br><em>Respiram</em>.</h2>
+                    <p style="color: var(--color-sepia); margin-bottom: var(--space-md);">
+                        Pé-direito duplo e vãos livres que convidam a luz do Ibirapuera a entrar sem pedir licença.
+                    </p>
+                    <button class="btn">Ver Detalhes</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-padding" style="background: white; margin: 0 -5%; padding: var(--space-lg) 5%;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl);">
+                <div>
+                    <span class="ui-label">Diferenciais</span>
+                    <div class="tabs">
+                        <div class="tab-nav">
+                            <button class="tab-btn active" data-tab="servicos">Serviços</button>
+                            <button class="tab-btn" data-tab="lazer">Lazer</button>
+                            <button class="tab-btn" data-tab="seguranca">Segurança</button>
+                        </div>
+                        <div id="servicos" class="tab-panel active">Concierge 24h bilíngue e valet com tecnologia de reconhecimento biométrico.</div>
+                        <div id="lazer" class="tab-panel">Piscina em raia de 25m revestida em mármore nero e spa privativo.</div>
+                        <div id="seguranca" class="tab-panel">Protocolos militares de segurança invisível e blindagem total de acessos.</div>
+                    </div>
+                </div>
+
+                <div>
+                    <span class="ui-label">Frequência</span>
+                    <div class="accordion-item">
+                        <button class="accordion-header" onclick="toggleAccordion(this)">Localização Única <span>+</span></button>
+                        <div class="accordion-content"><p>Situado na Rua Diogo Jácome, a 3 minutos a pé do portão 7 do Parque Ibirapuera.</p></div>
+                    </div>
+                    <div class="accordion-item">
+                        <button class="accordion-header" onclick="toggleAccordion(this)">Sustentabilidade <span>+</span></button>
+                        <div class="accordion-content"><p>Certificação LEED Platinum e reuso total de águas pluviais.</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. GALERIA IMERSIVA (A ARTE DE HABITAR) -->
+        <section class="section-padding" style="margin-top: var(--space-lg);">
+            <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+                <span class="ui-label reveal">Acervo</span>
+                <h2 class="title-section reveal delay-1" style="font-size: 3rem;">A Arte de <br><em>Habitar</em>.</h2>
+                <p class="reveal delay-2" style="color: var(--color-sepia);">
+                    Cada ambiente do Viannica foi concebido como uma galeria viva. A brutalidade do concreto encontra a delicadeza da luz natural e o rigor do design clássico.
+                </p>
+            </div>
+
+            <div class="gallery-grid">
+                <div class="gallery-item g-item-1 reveal delay-1">
+                    <img src="https://images.unsplash.com/photo-1600210491369-e753d80a41f3?q=80&w=2000&auto=format&fit=crop" alt="Living Room de Luxo">
+                </div>
+                <div class="gallery-item g-item-2 reveal delay-2">
+                    <img src="https://images.unsplash.com/photo-1600607688969-a5bfcd64bd15?q=80&w=2000&auto=format&fit=crop" alt="Detalhes em Concreto e Ouro">
+                </div>
+                <div class="gallery-item g-item-3 reveal delay-1">
+                    <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=2000&auto=format&fit=crop" alt="Arquitetura de Interiores">
+                </div>
+                <div class="gallery-item g-item-4 reveal delay-3">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2000&auto=format&fit=crop" alt="Madeira e Concreto Exposto">
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: var(--space-md);" class="reveal">
+                <button class="btn">Explorar Acervo Completo</button>
+            </div>
+        </section>
+
+        <!-- 6. FORMULÁRIO -->
+        <section class="section-padding" style="max-width: 600px; margin: 0 auto;">
+            <span class="ui-label" style="text-align: center;">Manifeste seu Interesse</span>
+            <form>
+                <div class="form-group">
+                    <label class="form-label">Nome Completo</label>
+                    <input type="text" class="form-input" placeholder="Ex: Arthur Vianna">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">E-mail Privado</label>
+                    <input type="email" class="form-input" placeholder="seu@contato.com">
+                </div>
+                <button type="button" class="btn btn-solid" style="width: 100%; margin-top: var(--space-md);" onclick="openModal()">Solicitar Portfólio Digital</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- MODAL -->
+    <div class="modal-overlay" id="contactModal" onclick="closeModal()">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <h2 style="margin-bottom: var(--space-md); font-family: var(--font-display);">Agendar Visita Privada</h2>
+            <p style="color: var(--color-sepia); margin-bottom: var(--space-lg);">Um de nossos curadores entrará em contato para organizar sua experiência exclusiva.</p>
+            <button class="btn btn-solid" onclick="closeModal()">Fechar</button>
+        </div>
+    </div>
+
+    <script>
+        // Lógica de Abas
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById(btn.dataset.tab).classList.add('active');
+            });
+        });
+
+        // Lógica Accordion
+        function toggleAccordion(header) {
+            const content = header.nextElementSibling;
+            const span = header.querySelector('span');
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+                span.innerText = "+";
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+                span.innerText = "-";
+            }
+        }
+
+        // Modal
+        function openModal() { document.getElementById('contactModal').style.display = 'flex'; }
+        function closeModal() { document.getElementById('contactModal').style.display = 'none'; }
+        
+        // Animação de Scroll (Reveal)
+        document.addEventListener("DOMContentLoaded", function() {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15 
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, observerOptions);
+
+            const revealElements = document.querySelectorAll('.reveal');
+            revealElements.forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>

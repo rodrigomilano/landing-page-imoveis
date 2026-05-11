@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vila Serena - Casas para criar memórias</title>
+    
+    <!-- Tipografia -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+        /* ==========================================================================
+           1. FUNDAÇÃO (Variáveis e Resets)
+           ========================================================================== */
+        :root {
+            /* Paleta Orgânica */
+            --bg-sand: #F4F1EC;
+            --bg-wood: #261E18;
+            --bg-wood-light: #3A2F26;
+            
+            --text-dark: #1F1915;
+            --text-light: #F4F1EC;
+            --text-muted: #6B625A;
+            
+            --accent-gold: #C28B5A;
+            --accent-terracotta: #A65D3D;
+            --accent-olive: #6B705C;
+
+            /* Tipografia */
+            --font-editorial: 'Lora', serif;
+            --font-ui: 'Montserrat', sans-serif;
+
+            /* Espaçamento Editorial (Respiro) */
+            --space-xs: 1rem;
+            --space-sm: 2.5rem;
+            --space-md: 5rem;
+            --space-lg:8rem;
+            --space-xl: 12rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-sand);
+            color: var(--text-dark);
+            font-family: var(--font-editorial);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        /* ==========================================================================
+           2. TIPOGRAFIA EDITORIAL
+           ========================================================================== */
+        h1, h2, h3 {
+            font-weight: 400;
+            line-height: 1.2;
+            color: var(--text-dark);
+        }
+
+        .title-huge {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            letter-spacing: -0.02em;
+            margin-bottom: 2rem;
+        }
+
+        .title-section {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            margin-bottom: var(--space-sm);
+        }
+
+        .text-lead {
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .text-italic {
+            font-style: italic;
+            font-weight: 400;
+        }
+
+        .ui-label {
+            font-family: var(--font-ui);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--accent-gold);
+            display: block;
+            margin-bottom: 1.5rem;
+        }
+
+        /* ==========================================================================
+           3. BOTÕES E UI
+           ========================================================================== */
+        .btn {
+            display: inline-block;
+            font-family: var(--font-ui);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-decoration: none;
+            padding: 1.2rem 3rem;
+            border: 1px solid var(--text-dark);
+            color: var(--text-dark);
+            background: transparent;
+            transition: all 0.5s ease;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: var(--text-dark);
+            color: var(--bg-sand);
+        }
+
+        .btn-sm {
+            padding: 0.8rem 2rem;
+            font-size: 0.7rem;
+        }
+
+        /* ==========================================================================
+           4. ESTRUTURA GERAL (Layout Editorial)
+           ========================================================================== */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        .section-padding {
+            padding: var(--space-lg) 0;
+        }
+
+        /* Menu Superior Estilo Referência */
+        .header-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2.5rem 5%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+        }
+
+        .logo {
+            font-family: var(--font-editorial);
+            font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            color: var(--text-light); /* White for dark background */
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            font-family: var(--font-ui);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-light); /* White for dark background */
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-gold);
+        }
+
+        /* HERO FULL BACKGROUND */
+        .hero {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            background-color: var(--bg-wood);
+            color: var(--text-light);
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('assets/02-a-hora-dourada.png');
+            background-size: cover;
+            background-position: center;
+            z-index: 0;
+        }
+
+        .hero-gradient {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            /* Gradiente escuro na esquerda para dar leitura ao texto */
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.2) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 0 5%;
+            max-width: 800px;
+        }
+
+        .hero .title-huge, .hero .text-lead {
+            color: var(--text-light);
+        }
+
+        .hero .btn {
+            border-color: var(--text-light);
+            color: var(--text-light);
+        }
+
+        .hero .btn:hover {
+            background: var(--text-light);
+            color: var(--bg-wood);
+        }
+
+        /* Layout Dividido Assimétrico (Seções Seguintes) */
+        .split-section {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr; /* Imagem maior na esquerda */
+            min-height: 100vh;
+            align-items: center;
+        }
+
+        .text-side {
+            padding: 10% 10% 10% 15%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .image-side {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-side img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        /* ==========================================================================
+           5. ACCORDION (As Residências)
+           ========================================================================== */
+        .accordion-list {
+            margin-top: 3rem;
+            width: 100%;
+        }
+
+        .accordion-item {
+            border-bottom: 1px solid rgba(31, 25, 21, 0.1);
+        }
+
+        .accordion-header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 0;
+            background: none;
+            border: none;
+            text-align: left;
+            cursor: pointer;
+            color: var(--text-dark);
+            font-family: var(--font-ui);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .accordion-header:hover {
+            color: var(--accent-gold);
+            padding-left: 0.5rem;
+        }
+
+        .accordion-header .arrow {
+            font-size: 1.2rem;
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .accordion-header.active .arrow {
+            transform: rotate(90deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .accordion-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 4rem;
+            padding: 2rem 0 4rem 0;
+            align-items: center;
+        }
+
+        .accordion-image {
+            height: 400px;
+            overflow: hidden;
+        }
+
+        .accordion-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .accordion-text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .accordion-text p {
+            font-family: var(--font-editorial);
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .villa-specs {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            font-family: var(--font-ui);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-gold);
+            margin-bottom: 2.5rem;
+        }
+
+        .villa-specs span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .villa-specs span::after {
+            content: "•";
+            color: rgba(31, 25, 21, 0.2);
+            margin-left: 1rem;
+        }
+
+        .villa-specs span:last-child::after {
+            content: "";
+        }
+
+        /* ==========================================================================
+           6. SLIDER (Manifesto) - Linha Branca Minimalista e Brilho Orgânico
+           ========================================================================== */
+        .slider-bg-wrapper {
+            position: relative;
+            max-width: 900px;
+            margin: 4rem auto;
+            padding: 3.5rem;
+            background-color: transparent;
+            overflow: visible;
+        }
+
+        .organic-gradient-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: visible;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(70px);
+            opacity: 0.45;
+            mix-blend-mode: multiply;
+        }
+
+        .blob-1 {
+            width: 80%;
+            height: 80%;
+            background-color: #32402b;
+            top: -15%;
+            left: -15%;
+            animation: float 12s ease-in-out infinite alternate;
+        }
+
+        .blob-2 {
+            width: 75%;
+            height: 75%;
+            background-color: #A65D3D;
+            bottom: -15%;
+            right: -15%;
+            animation: float 10s ease-in-out infinite alternate-reverse;
+        }
+
+        .blob-3 {
+            width: 50%;
+            height: 50%;
+            background-color: #C28B5A;
+            top: 20%;
+            left: 25%;
+            opacity: 0.25;
+            filter: blur(50px);
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(8%, 5%) scale(1.05); }
+        }
+
+        .slider-frame {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0; /* Removido o passepartout branco */
+            background-color: transparent; /* Sem fundo branco */
+            border: 1px solid rgba(255, 255, 255, 0.8); /* Linha branca de 1px */
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            z-index: 2;
+        }
+
+        .slider-container {
+            width: 100%;
+            height: 450px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .slider-track {
+            display: flex;
+            height: 100%;
+            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 100%;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: var(--font-editorial);
+            font-size: 2.5rem;
+            color: var(--text-dark);
+            opacity: 0.5;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            z-index: 5;
+        }
+
+        .slider-arrow:hover {
+            opacity: 1;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .arrow-prev { left: -3.5rem; }
+        .arrow-next { right: -3.5rem; }
+
+        /* Seção Escura (Footer/Fechamento) */
+        .dark-section {
+            background-color: var(--bg-wood);
+            color: var(--text-light);
+            text-align: center;
+            padding: var(--space-xl) 5%;
+        }
+
+        .dark-section .title-section {
+            color: var(--text-light);
+        }
+
+        .dark-section .text-lead {
+            color: rgba(244, 241, 228, 0.7);
+        }
+
+        .dark-section .btn {
+            border-color: var(--text-light);
+            color: var(--text-light);
+        }
+
+        .dark-section .btn:hover {
+            background: var(--text-light);
+            color: var(--bg-wood);
+        }
+
+        /* ==========================================================================
+           7. ANIMAÇÕES (Scroll Reveal)
+           ========================================================================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .delay-1 { transition-delay: 0.2s; }
+
+        /* Responsividade */
+        @media (max-width: 1024px) {
+            .split-section {
+                grid-template-columns: 1fr;
+            }
+            .image-side {
+                height: 60vh;
+            }
+            .text-side {
+                padding: var(--space-md) 5%;
+            }
+            .header-nav {
+                flex-direction: column;
+                gap: 1.5rem;
+                position: relative;
+                padding: 2rem 5%;
+                background-color: var(--bg-wood);
+            }
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1.5rem;
+            }
+            .logo, .nav-links a {
+                color: var(--text-light);
+            }
+            .accordion-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 2rem 0;
+            }
+            .accordion-image {
+                height: 300px;
+            }
+            .arrow-prev { left: 0.5rem; color: white; text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
+            .arrow-next { right: 0.5rem; color: white; text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
+            .slider-bg-wrapper { padding: 1.5rem; margin: 2rem auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVEGAÇÃO -->
+    <nav class="header-nav">
+        <div class="logo">VILA SERENA</div>
+        <ul class="nav-links">
+            <li><a href="#villas">Villas</a></li>
+            <li><a href="#amenities">Amenities</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#story">Story</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="hero" id="villas">
+        <div class="hero-bg"></div>
+        <div class="hero-gradient"></div>
+        <div class="hero-content reveal">
+            <span class="ui-label">Casas de Campo</span>
+            <h1 class="title-huge">Casas para criar memórias.</h1>
+            <p class="text-lead">
+                Existe um momento do dia em que o barulho da cidade finalmente fica para trás. E tudo o que sobra é o som do vento entre as árvores, a luz morna atravessando a janela e a sensação rara de estar exatamente onde se deveria estar.
+            </p>
+            <p class="text-lead text-italic" style="font-weight: 500;">
+                Vila Serena nasce desse desejo silencioso de viver com mais calma, mais presença e mais verdade.
+            </p>
+            <a href="#contact" class="btn">Descubra a Vila</a>
+        </div>
+    </header>
+
+    <!-- SEÇÃO 2: O CONCEITO -->
+    <section class="split-section" id="story">
+        <div class="text-side reveal">
+            <span class="ui-label">O Ritmo</span>
+            <h2 class="title-section">Aqui, o tempo parece acontecer <span class="text-italic">de outro jeito.</span></h2>
+            <p class="text-lead">
+                As árvores filtram a luz da manhã. Os caminhos convidam a caminhar sem destino. As varandas voltam a ser usadas no fim do dia. E pequenas cenas cotidianas, quase esquecidas pela cidade, reaparecem naturalmente.
+            </p>
+            <p class="text-lead">
+                O cheiro de café passando cedo. Um cachorro dormindo ao sol. Folhas secas atravessando a rua depois da chuva. O silêncio confortável de uma noite comum.
+            </p>
+        </div>
+        <div class="image-side reveal delay-1">
+            <!-- Imagem do Bule/Mesa -->
+            <img src="01-hero-inspiracao.png" alt="Mesa posta com bule e pão, luz da manhã">
+        </div>
+    </section>
+
+    <!-- SEÇÃO 3: AS RESIDÊNCIAS -->
+    <section class="section-padding container" id="residences">
+        <div style="max-width: 800px; margin: 0 auto; text-align: center; margin-bottom: 4rem;">
+            <span class="ui-label reveal">As Coleções</span>
+            <h2 class="title-section reveal">Refúgios pensados para <span class="text-italic">cada estilo de vida.</span></h2>
+            <p class="text-lead reveal">
+                Vila Serena oferece diferentes tipologias de residências, todas com o mesmo compromisso: integrar a arquitetura à paisagem e criar espaços onde as memórias possam florescer.
+            </p>
+        </div>
+
+        <div style="max-width: 1000px; margin: 0 auto;">
+            <div class="accordion-list">
+                
+                <!-- Item 1: Villa das Oliveiras -->
+                <div class="accordion-item reveal">
+                    <button class="accordion-header">
+                        <div>
+                            <span style="font-weight: 500; font-size: 1.1rem;">Villa das Oliveiras</span>
+                            <p style="text-transform: none; letter-spacing: normal; color: var(--text-muted); font-size: 0.95rem; font-family: var(--font-editorial); margin-top: 0.5rem; font-weight: normal;">Casas térreas focadas na integração com o jardim e na fluidez dos espaços sociais.</p>
+                        </div>
+                        <span class="arrow">→</span>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="accordion-grid">
+                            <div class="accordion-image">
+                                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" alt="Villa das Oliveiras">
+                            </div>
+                            <div class="accordion-text">
+                                <p>
+                                    Desenhada para celebrar o convívio e a luz. A Villa das Oliveiras é uma residência totalmente térrea que abraça um pátio central. Aqui, os limites entre o dentro e o fora se dissolvem, permitindo que a brisa e o perfume do campo façam parte da decoração. Perfeita para quem busca acessibilidade e uma vida mais integrada à natureza.
+                                </p>
+                                <div class="villa-specs">
+                                    <span>3 Suítes</span>
+                                    <span>Área Gourmet</span>
+                                    <span>Pátio Central</span>
+                                    <span>240m²</span>
+                                </div>
+                                <a href="#contact" class="btn btn-sm">Solicitar Planta</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 2: Villa do Bosque -->
+                <div class="accordion-item reveal delay-1">
+                    <button class="accordion-header">
+                        <div>
+                            <span style="font-weight: 500; font-size: 1.1rem;">Villa do Bosque</span>
+                            <p style="text-transform: none; letter-spacing: normal; color: var(--text-muted); font-size: 0.95rem; font-family: var(--font-editorial); margin-top: 0.5rem; font-weight: normal;">Residências que abraçam a mata nativa, oferecendo máxima privacidade e contato com o verde.</p>
+                        </div>
+                        <span class="arrow">→</span>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="accordion-grid">
+                            <div class="accordion-image">
+                                <img src="https://images.unsplash.com/photo-1542718610-a1d656d1884c?auto=format&fit=crop&w=800&q=80" alt="Villa do Bosque">
+                            </div>
+                            <div class="accordion-text">
+                                <p>
+                                    Onde a arquitetura reverencia a floresta. Escondida entre árvores centenárias, esta villa oferece o máximo refúgio de privacidade. Seus grandes painéis de vidro transformam a mata em uma galeria viva, mudando a cada estação. Um convite para acordar com o canto dos pássaros e viver em perfeita sintonia com a floresta.
+                                </p>
+                                <div class="villa-specs">
+                                    <span>4 Suítes</span>
+                                    <span>Piscina Privativa</span>
+                                    <span>Deck na Mata</span>
+                                    <span>310m²</span>
+                                </div>
+                                <a href="#contact" class="btn btn-sm">Solicitar Planta</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 4: MANIFESTO (Com Slider) -->
+    <section class="section-padding container" id="amenities">
+        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+            <span class="ui-label reveal">Manifesto</span>
+            <h2 class="title-section text-italic reveal">A vida desacelerou aqui.</h2>
+            <p class="text-lead reveal">
+                Durante muito tempo, aprendemos a acreditar que viver melhor significava correr mais rápido. Mais trânsito. Mais compromissos. Mais pressa.
+            </p>
+
+            <!-- WRAPPER COM GRADIENTE ORGANICO -->
+            <div class="slider-bg-wrapper reveal">
+                <div class="organic-gradient-bg">
+                    <div class="blob blob-1"></div>
+                    <div class="blob blob-2"></div>
+                    <div class="blob blob-3"></div>
+                </div>
+                
+                <!-- SLIDER REFINADO (Apenas linha de 1px) -->
+                <div class="slider-frame">
+                    <button class="slider-arrow arrow-prev">←</button>
+                    <button class="slider-arrow arrow-next">→</button>
+                    <div class="slider-container">
+                        <div class="slider-track">
+                            <div class="slide"><img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=800&q=80" alt="Paisagem Serena 1"></div>
+                            <div class="slide"><img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80" alt="Paisagem Serena 2"></div>
+                            <div class="slide"><img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=800&q=80" alt="Paisagem Serena 3"></div>
+                            <div class="slide"><img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=800&q=80" alt="Paisagem Serena 4"></div>
+                            <div class="slide"><img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=800&q=80" alt="Paisagem Serena 5"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="title-section reveal" style="font-size: clamp(1.8rem, 3vw, 2.5rem);">Mas existe <span class="text-italic">outra forma</span> de viver.</h3>
+            <p class="text-lead reveal">
+                Uma forma onde as manhãs começam devagar. Onde as crianças ainda brincam na rua. Onde as casas têm luz acesa no fim da tarde e as conversas atravessam a noite sem urgência.
+            </p>
+        </div>
+    </section>
+
+    <!-- FECHAMENTO / CTA -->
+    <section class="dark-section" id="contact">
+        <span class="ui-label">O Futuro</span>
+        <h2 class="title-section text-italic">Seu novo capítulo começa aqui.</h2>
+        <p class="text-lead" style="max-width: 600px; margin: 0 auto 3rem auto;">
+            Talvez, no fundo, seja isso que procuramos quando buscamos uma nova casa. Um lugar onde a vida possa acontecer com mais delicadeza.
+        </p>
+        
+        <div style="margin-bottom: 4rem; font-family: var(--font-editorial); font-size: clamp(1.5rem, 3vw, 2.2rem);">
+            <p class="text-italic">Onde existam manhãs lentas.</p>
+            <p class="text-italic">Domingos sem pressa.</p>
+            <p class="text-italic">Jantares longos.</p>
+            <p class="text-italic">E histórias que ainda serão contadas.</p>
+        </div>
+
+        <a href="#" class="btn">Falar com um Especialista</a>
+        
+        <div style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 2rem; text-align: center; font-family: var(--font-ui); font-size: 0.7rem; letter-spacing: 1px; color: rgba(244, 241, 228, 0.4); margin-top: 6rem;">
+            VILA SERENA CASAS DE CAMPO — TODOS OS DIREITOS RESERVADOS.
+        </div>
+    </section>
+
+    <!-- SCRIPTS -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // 1. Scroll Reveal
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, observerOptions);
+
+            const revealElements = document.querySelectorAll('.reveal');
+            revealElements.forEach(el => {
+                observer.observe(el);
+            });
+
+            // 2. Accordion Toggle
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+            accordionHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    const item = this.parentNode;
+                    const content = item.querySelector('.accordion-content');
+                    
+                    document.querySelectorAll('.accordion-header').forEach(otherHeader => {
+                        if (otherHeader !== this && otherHeader.classList.contains('active')) {
+                            otherHeader.classList.remove('active');
+                            otherHeader.parentNode.querySelector('.accordion-content').style.maxHeight = null;
+                        }
+                    });
+                    
+                    this.classList.toggle('active');
+                    
+                    if (this.classList.contains('active')) {
+                        content.style.maxHeight = content.scrollHeight + "px";
+                    } else {
+                        content.style.maxHeight = null;
+                    }
+                });
+            });
+
+            // 3. Slider Logic
+            const track = document.querySelector('.slider-track');
+            const slides = document.querySelectorAll('.slide');
+            const nextBtn = document.querySelector('.arrow-next');
+            const prevBtn = document.querySelector('.arrow-prev');
+            let currentIndex = 0;
+
+            if (track && nextBtn && prevBtn) {
+                function updateSlider() {
+                    track.style.transform = `translateX(-${currentIndex * 100}%)`;
+                }
+
+                nextBtn.addEventListener('click', () => {
+                    if (currentIndex < slides.length - 1) {
+                        currentIndex++;
+                    } else {
+                        currentIndex = 0;
+                    }
+                    updateSlider();
+                });
+
+                prevBtn.addEventListener('click', () => {
+                    if (currentIndex > 0) {
+                        currentIndex--;
+                    } else {
+                        currentIndex = slides.length - 1;
+                    }
+                    updateSlider();
+                });
+            }
+        });
+    </script>
+</body>
+</html>
